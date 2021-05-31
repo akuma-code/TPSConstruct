@@ -1,0 +1,17 @@
+@import url('styles/bg.css');
+@import url('styles/selector.css');
+:root {
+    --pos-tps-left: 20px;
+    --pos-tps-top: 20px;
+    --gr-sel-t: topS;
+    --gr-sel-r: rightS;
+    --gr-sel-b: botS;
+    --gr-sel-l: leftS;
+}
+
+.cont_bg {
+    position: relative;
+    background-color: darkgoldenrod;
+    width: 600px;
+    height: 600px;
+}

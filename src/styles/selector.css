@@ -1,0 +1,32 @@
+.selector {
+    display: block;
+    position: relative;
+    width: 98px;
+    height: 28px;
+    background-color: green;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+.selector .sel_list[close] {
+    display: none;
+}
+
+.selector .sel_list[open] {
+    display: block;
+    /* position: absolute; */
+    background-color: aquamarine;
+    padding-left: 0;
+    text-align: center;
+    border-radius: 4px;
+    width: inherit;
+}
+
+.sel_list>ul {
+    appearance: none;
+    list-style: none;
+}
+
+.sel_list>li:hover {
+    background-color: brown;
+}
