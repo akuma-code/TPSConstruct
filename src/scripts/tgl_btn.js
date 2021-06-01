@@ -5,15 +5,15 @@ function toggleFix(elem) {
 
 const tglbtn = document.querySelector('.tgl_thumb');
 tglbtn.addEventListener('click', function(event) {
-    const $fix = document.querySelector('.tgl_box::before');
-    const $stv = document.querySelector('.tgl_box::after');
+    const $box = document.querySelector('.tgl_box');
+    // const $stv = document.querySelector('.tgl_box');
 
     if (event.target.dataset.tglStatus === 'fix') {
-        $fix.classList.add('s_bg');
-        $stv.classList.remove('h_bg');
+        $box.classList.remove('stv_bg');
+        $box.classList.add('fix_bg');
     } else {
-        $stv.classList.add('s_bg');
-        $fix.classList.remove('h_bg');
+        $box.classList.remove('fix_bg');
+        $box.classList.add('stv_bg');
 
     }
 })

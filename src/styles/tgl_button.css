@@ -18,22 +18,40 @@
     width: 20px;
     border: 1px inset grey;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .tgl_box::before {
     content: 'Фикса';
     position: absolute;
     right: 110%;
+    top: 10%;
+    opacity: .3;
 }
 
-.tgl_box::before [data-tgl-status='fix'] {
-    background-color: blueviolet;
+.stv_bg.tgl_box::before {
+    opacity: .3;
+}
+
+.fix_bg.tgl_box::before {
+    opacity: 1;
 }
 
 .tgl_box::after {
     content: 'Створка';
     position: absolute;
     left: 110%;
+    top: 10%;
+    background-blend-mode: hue;
+    border-radius: 5px;
+}
+
+.stv_bg.tgl_box::after {
+    opacity: 1;
+}
+
+.fix_bg.tgl_box::after {
+    opacity: .3;
 }
 
 .tgl_thumb[data-tgl-status='fix'] {
@@ -44,10 +62,10 @@
     left: 20px;
 }
 
-.s_bg {
-    background-color: aliceblue;
+.stv_bg {
+    background-color: darkred;
 }
 
-.h_bg {
-    background-color: black;
+.fix_bg {
+    background-color: darkred;
 }
