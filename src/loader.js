@@ -3,6 +3,7 @@ const Scripts = [
     'src/scripts/model.js',
     'src/scripts/DB/SizeDB.js',
     'src/scripts/DB/zDB.js',
+    'src/scripts/tgl_btn.js',
 ]
 
 Scripts.forEach(item => load(item));

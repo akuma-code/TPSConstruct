@@ -1,5 +1,6 @@
-@import url('styles/bg.css');
+@import url('styles/TPSmain.css');
 @import url('styles/selector.css');
+@import url('styles/tgl_button.css');
 :root {
     --pos-tps-left: 20px;
     --pos-tps-top: 20px;
