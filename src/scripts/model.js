@@ -1,6 +1,19 @@
 console.log('model Loaded');
 
+const IMG = {
+    fix: {
+        src: 'src/assets/rama/f.min.svg',
+        width: '115px',
+        height: '220px',
+    },
 
+    stv: {
+        src: 'src/assets/rama/s1.min.svg',
+        width: '105px',
+        height: '210px',
+    }
+
+}
 const Model = {
     image: {
 
@@ -10,7 +23,7 @@ const Model = {
             height: '220px',
         },
         Sl: {
-            src: 'src/assets/rama/s1.min.svg'
+            src: 'src/assets/rama/s1.min.svg',
         },
         Sr: {
             src: 'src/assets/rama/s3.min.svg'
@@ -30,5 +43,3 @@ function setimg(selector, img) {
     return $el
 
 }
-
-// setimg('.tps_main', Model.image.R)
