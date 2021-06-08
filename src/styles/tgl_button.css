@@ -8,6 +8,7 @@
     border-radius: 4px;
     margin: 0 auto;
     cursor: pointer;
+    transition: all .2s;
 }
 
 .tgl_thumb {
@@ -16,8 +17,8 @@
     transition: all .2s;
     background-color: rgb(30, 174, 210);
     height: 20px;
-    width: 20px;
-    border: 1px inset grey;
+    width: 24px;
+    border: 1px inset #4b4b4b;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -27,11 +28,20 @@
     position: absolute;
     right: 110%;
     top: 10%;
-    opacity: .3;
+    cursor: default;
+    font-weight: bold;
+    border-bottom: 3px solid black;
+    cursor: default;
+    font-weight: bold;
+    background-blend-mode: hue;
+    border-radius: 5px;
 }
 
 .stv_bg.tgl_box::before {
     opacity: .3;
+    cursor: pointer;
+    font-weight: normal;
+    border: none;
 }
 
 .fix_bg.tgl_box::before {
@@ -45,6 +55,9 @@
     top: 10%;
     background-blend-mode: hue;
     border-radius: 5px;
+    cursor: default;
+    font-weight: bold;
+    border-bottom: 3px solid black;
 }
 
 .stv_bg.tgl_box::after {
@@ -53,6 +66,9 @@
 
 .fix_bg.tgl_box::after {
     opacity: .3;
+    cursor: pointer;
+    font-weight: normal;
+    border: none;
 }
 
 .tgl_thumb[data-tgl-status='fix'] {
@@ -60,7 +76,7 @@
 }
 
 .tgl_thumb[data-tgl-status='stv'] {
-    left: 20px;
+    left: 16px;
 }
 
 .stv_bg {

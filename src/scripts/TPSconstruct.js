@@ -2,26 +2,18 @@
 console.log(`TPS constructor Loaded`);
 /**
  * @class  базовый класс
- * @return {Object} Базовый экземпляр
+ * @return  Базовый экземпляр
  */
 class TPSRama {
     /**
      * 
-     * @param {string} prof выбранный профиль
      * @param {number} height высота рамы
      * @param {number} width ширина рамы
      */
-    constructor(prof = '', height = 0, width = 0) {
-        this.p = prof;
-        this.h = height;
-        this.w = width;
+    constructor(height = 0, width = 0) {
+        this.height = height;
+        this.width = width;
     }
 
 
-}
-
-class TPSconstructor extends TPSRama {
-    constructor() {
-        super()
-    }
 }

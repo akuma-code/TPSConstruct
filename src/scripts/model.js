@@ -70,7 +70,7 @@ let testoptions = [
 class TPSSelector {
     constructor(options = [], selector = '') {
         this.selector = selector;
-        this.options = options
+        this.options = options;
 
     }
 
