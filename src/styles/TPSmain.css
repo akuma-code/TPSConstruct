@@ -20,7 +20,38 @@
 
 .tps_sys {
     grid-area: sys;
+    position: relative;
     background-color: aqua;
+    cursor: pointer;
+}
+
+.tps_sys_content {
+    display: none;
+    padding-top: 1rem;
+}
+
+.tps_sys:hover .tps_sys_content {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: max-content;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    background-color: aqua;
+    z-index: 100;
+}
+
+.tps_sys_content article:hover {
+    background-color: cadetblue;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: brown;
 }
 
 .tps_dpt {
