@@ -17,7 +17,7 @@
     /* background-color: blueviolet; */
     opacity: 1;
     z-index: 4;
-    border: 1px solid red;
+    border: 1px solid #5da31b;
     transition: all .2s;
 }
 

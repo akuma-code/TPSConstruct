@@ -1,27 +1,40 @@
 const $img_conteiner = document.querySelector('.tps_img');
 const $img_cont = document.querySelector('div.img_cont');
 const $sys = document.querySelector('div.tps_sys>span');
-const $syscontent = document.querySelector('.tps_sys_content');
+const $sys_content = document.querySelector('.tps_sys_content');
+const $out = document.querySelector('div.tps_output');
+const $sides = document.querySelectorAll('.img_side');
 //!----------<<<-----------повесить обработчик на дивы для создания списка выбора------------->>>-------------//
 
 
 
-$img_conteiner.addEventListener('pointerenter', function(event) {
+$img_cont.addEventListener('click', function(event) {
     let target = event.target;
-    // if (target.tagName !== 'p' || 'div') return;
-    let $out = document.querySelector('div.tps_output');
+
+    if (target.classList.contains('img_cont')) {
+        $out.innerHTML = ''
+        return
+    };
     $out.innerHTML = '';
-    $out.insertAdjacentText('afterbegin', `<${target.tagName}> ${target.textContent || 'none('}`)
+    $out.insertAdjacentText('afterbegin', `${event.target.dataset.side || 'Selected'}: ${target.textContent || 'none('}`);
+
+
+
 
 }, true)
 
-$syscontent.addEventListener('click', function(event) {
+$sys_content.addEventListener('click', function(event) {
     let target = event.target;
+    $out.innerHTML = target.tagName;
     $sys.innerText = '';
-    for (let item of $syscontent.children) {
+    for (let item of $sys_content.children) {
         item.classList.remove('selected')
+        item.style.setProperty('font-size', '1rem')
+        item.style.setProperty('background-color', 'aqua')
     }
-    target.classList.add('selected')
+    target.classList.add('selected');
+    target.style.setProperty('font-size', '1.3rem')
+    target.style.setProperty('background-color', 'brown')
     $sys.insertAdjacentHTML('afterbegin', target.textContent)
         // if (target.classList.has('tps_sys_content')) {    }
 }, true)

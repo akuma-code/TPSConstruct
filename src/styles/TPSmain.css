@@ -23,11 +23,12 @@
     position: relative;
     background-color: aqua;
     cursor: pointer;
+    border: 1px solid black;
 }
 
 .tps_sys_content {
     display: none;
-    padding-top: 1rem;
+    padding-top: 0.8rem;
 }
 
 .tps_sys:hover .tps_sys_content {
@@ -41,13 +42,14 @@
     justify-content: center;
     align-items: stretch;
     flex-wrap: nowrap;
-    background-color: aqua;
+    background-color: #b7ffff;
     z-index: 100;
 }
 
 .tps_sys_content article:hover {
-    background-color: cadetblue;
+    background-color: rgb(136, 136, 136);
     cursor: pointer;
+    z-index: 101;
 }
 
 .selected {
