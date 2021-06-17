@@ -46,14 +46,16 @@
     z-index: 100;
 }
 
-.tps_sys_content article:hover {
-    background-color: rgb(136, 136, 136);
+.tps_sys_content li:hover:not(.selected) {
+    background-color: #e79418;
     cursor: pointer;
     z-index: 101;
+    margin: 3px 0;
 }
 
 .selected {
     background-color: brown;
+    font-size: 1.2rem;
 }
 
 .tps_dpt {

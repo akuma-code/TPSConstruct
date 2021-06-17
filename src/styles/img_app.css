@@ -21,6 +21,13 @@
     transition: all .2s;
 }
 
+ul:is(.side_content,
+.tps_sys_content) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 
 /* .img_side:hover {
     background-color: gray;
@@ -104,7 +111,8 @@
 }
 
 .side_content :is(p,
-article):hover {
+article,
+li):hover {
     opacity: 1;
     background-color: aqua;
 }
