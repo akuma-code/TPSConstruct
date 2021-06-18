@@ -47,10 +47,23 @@ span:is([output^=right],
     transform: rotate(270deg);
 }
 
+.side_content li {
+    border-top: 2px solid rgb(110, 110, 110);
+    border-bottom: 2px solid #000000;
+}
 
-/* .img_side:hover {
-    background-color: gray;
-    z-index: 6;
+.tps_sys_content li {
+    border-top: 2px solid rgb(110, 110, 110);
+    border-bottom: 2px solid #000000;
+}
+
+
+/* ul.tps_sys_content li:last-child {
+    border-bottom: none
+}
+
+ul.tps_sys_content li:first-child {
+    border-top: none
 } */
 
 .img_side[data-side="top"] {
@@ -109,14 +122,15 @@ span:is([output^=right],
     /* bottom: 20px; */
 }
 
-.side_content {
+:is(.side_content) {
     position: absolute;
-    background-color: aliceblue;
+    background-color: rgb(49, 49, 49);
+    color: antiquewhite;
     display: none;
     z-index: 100;
     opacity: 0;
     width: 100%;
-    border: 1px solid black
+    /* border: 1px solid black */
 }
 
 .img_side:hover>.side_content {
@@ -126,7 +140,6 @@ span:is([output^=right],
     align-items: stretch;
     justify-self: center;
     opacity: 1;
-    row-gap: 10px;
 }
 
 .side_content :is(p,

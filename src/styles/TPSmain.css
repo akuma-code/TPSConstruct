@@ -19,30 +19,35 @@
 }
 
 .tps_sys {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-area: sys;
     position: relative;
-    background-color: aqua;
+    background-color: rgb(243, 241, 241);
     cursor: pointer;
-    border: 1px solid black;
+    font-size: larger;
+    font-weight: bolder;
 }
 
 .tps_sys_content {
     display: none;
-    padding-top: 0.8rem;
+    /* padding-top: 0.8rem; */
 }
 
 .tps_sys:hover .tps_sys_content {
     display: flex;
     position: absolute;
-    top: 100%;
-    width: 100%;
-    height: max-content;
     flex-direction: column;
     align-content: center;
     justify-content: center;
     align-items: stretch;
     flex-wrap: nowrap;
-    background-color: #b7ffff;
+    top: 100%;
+    width: 100%;
+    height: max-content;
+    background-color: #3b3b3b;
+    color: aliceblue;
     z-index: 100;
 }
 
@@ -50,11 +55,13 @@
     background-color: #e79418;
     cursor: pointer;
     z-index: 101;
-    margin: 3px 0;
+    /* margin: 3px 0; */
 }
 
 .selected {
-    background-color: brown;
+    background-color: rgb(146, 146, 146);
+    color: black;
+    font-weight: bolder;
     font-size: 1.2rem;
 }
 

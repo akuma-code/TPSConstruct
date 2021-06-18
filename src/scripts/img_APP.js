@@ -46,7 +46,7 @@ $main.addEventListener('click', function(e) {
 
         for (let elem of target.closest('ul').children) {
             // elem.classList.remove('selected')
-            elem.className = ''
+            elem.removeAttribute('class')
         }
 
         target.classList.add('selected');
