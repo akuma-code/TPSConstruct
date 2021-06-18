@@ -11,7 +11,15 @@ const $sys_content = document.querySelector('.tps_sys_content');
 const $out = document.querySelector('div.tps_output');
 const $sides = document.querySelectorAll('.img_side');
 const $main = document.querySelector('div.tps_main');
+const $outputelem = {
+    system: '[output=system]',
+    leftside: '[output=leftside]',
+    topside: '[output=topside]',
+    rightside: '[output=rightside]',
+    botside: '[output=botside]',
+    out: '[output=out]',
 
+}
 
 $img_cont.addEventListener('click', function(event) {
     let target = event.target;
@@ -22,6 +30,31 @@ $img_cont.addEventListener('click', function(event) {
     };
     $out.innerHTML = '';
     $out.insertAdjacentText('afterbegin', `${event.target.dataset.side || 'Selected'}: ${target.textContent || 'none('}`);
+
+}, true)
+
+$main.addEventListener('click', function(e) {
+    let target = e.target;
+    // if (target.matches('ul.side_content>li') || target.matches('ul.tps_sys_content>li')) {
+
+    if (target.matches('li')) {
+
+        document.querySelector(`${$outputelem[target.dataset.outtype]}`).innerText = target.textContent
+
+
+
+
+        for (let elem of target.closest('ul').children) {
+            // elem.classList.remove('selected')
+            elem.className = ''
+        }
+
+        target.classList.add('selected');
+
+    }
+
+    return
+
 
 }, true)
 
@@ -40,20 +73,3 @@ $img_cont.addEventListener('click', function(event) {
 //     $sys.insertAdjacentHTML('afterbegin', target.textContent)
 //         // if (target.classList.has('tps_sys_content')) {    }
 // }, true)
-
-$main.addEventListener('click', function(e) {
-    let target = e.target;
-    // if (target.matches('ul.side_content>li') || target.matches('ul.tps_sys_content>li')) {
-
-    if (target.matches('[data-selector] *')) {
-
-        $out.innerText = `$target is ${target.textContent}`;
-
-        for (let elem of target.closest('ul').children) {
-            elem.classList.remove('selected')
-        }
-
-        target.classList.add('selected');
-    }
-
-}, true)

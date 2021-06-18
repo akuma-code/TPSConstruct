@@ -14,106 +14,63 @@
                 ТехПомощь Style constructor
             </div>
             <div class="tps_sys" data-selector='true'>
-                <span>system</span>
+                <span output='system'>system</span>
                 <ul class="tps_sys_content">
-                    <li>ProLine</li>
-                    <li>SoftLine</li>
-                    <li>WHS</li>
+                    <li data-outtype='system'>ProLine</li>
+                    <li data-outtype='system'>SoftLine</li>
+                    <li data-outtype='system'>WHS</li>
                 </ul>
             </div>
             <div class="tps_dpt">dept</div>
             <div class="tps_det">details</div>
-            <div class="tps_output">output</div>
+            <div class="tps_output" output='out'>output</div>
             <div class="tps_img">
                 <div class="img_cont">
                     <div class="img_side" data-side="top" data-selector='true'>
-                        <span></span>
+                        <span output='topside'></span>
                         <ul class="side_content">
-                            <li>rama</li>
-                            <li>impost</li>
+                            <li data-outtype='topside'>rama</li>
+                            <li data-outtype='topside'>impost</li>
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="right" data-selector='true'>
+                        <span output='rightside'></span>
                         <ul class="side_content">
-                            <li>rama</li>
-                            <li>impost</li>
-                            <li>shtulp</li>
+                            <li data-outtype='rightside'>rama</li>
+                            <li data-outtype='rightside'>impost</li>
+                            <li data-outtype='rightside'>shtulp</li>
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="bot" data-selector='true'>
+                        <span output='botside'></span>
                         <ul class="side_content">
-                            <li>rama</li>
-                            <li>impost</li>
+                            <li data-outtype='botside'>rama</li>
+                            <li data-outtype='botside'>impost</li>
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="left" data-selector='true'>
+                        <span output='leftside'></span>
                         <ul class="side_content">
-                            <li>rama</li>
-                            <li>impost</li>
-                            <li>shtulp</li>
+                            <li data-outtype="leftside">rama</li>
+                            <li data-outtype="leftside">impost</li>
+                            <li data-outtype="leftside">shtulp</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- <div class="leftS">selector left</div> -->
-            <!-- <div class="topS">selector top</div> -->
-            <!-- <div class="rightS">selector right</div> -->
-            <!-- <div class="botS">selector bottom</div> -->
+
             <div class="tps_tgl">
                 <div class="tgl_box stv_bg">
                     <div class="tgl_thumb" data-tgl-status="stv" id="tgl_fix"></div>
                 </div>
             </div>
 
-            <div class="selector hidden topS" id="sel_top">
-                <select name="sel_top" id="tops">
-                <option value="rama">Рама</option>
-                <option value="impost">Импост</option>
-            </select>
-            </div>
 
-            <div class="selector hidden rightS" id="sel_right">
-                <select name="sel_right" id="rights">
-                <option value="rama">Рама</option>
-                <option value="impost">Импост</option>
-                <option value="shtulp">Штульп</option>
-            </select>
-            </div>
-
-            <div class="selector hidden botS" id="sel_bot">
-                <select name="sel_bot" id="bots">
-                <option value="rama">Рама</option>
-                <option value="impost">Импост</option>
-            </select>
-            </div>
-
-            <div class="selector hidden leftS" id="sel_left">
-                <select name="sel_left" id="lefts">
-                <option value="rama">Рама</option>
-                <option value="impost">Импост</option>
-                <option value="shtulp" selected>Штульп</option>
-            </select>
-            </div>
 
         </div>
-
-
-        <div class="selector hidden">
-            <div class="sel_main">Select
-                <ul class="sel_list" close>
-                    <li>option1</li>
-                    <li>option2</li>
-                    <li>option3</li>
-                </ul>
-            </div>
-        </div>
-
-
-
-    </div>
 
 </body>
 

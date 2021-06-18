@@ -12,13 +12,14 @@
 
 .img_side {
     position: absolute;
-    display: block;
+    display: flex;
     cursor: pointer;
     /* background-color: blueviolet; */
     opacity: 1;
     z-index: 4;
     border: 1px solid #5da31b;
     transition: all .2s;
+    justify-content: center;
 }
 
 ul:is(.side_content,
@@ -26,6 +27,24 @@ ul:is(.side_content,
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+span[output$=side] {
+    display: inline-block;
+    font-size: 20px;
+    color: #300b0b;
+    font-weight: bolder;
+    position: inherit;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    background: gray;
+}
+
+span:is([output^=right],
+[output^=left]) {
+    top: 50%;
+    transform: rotate(270deg);
 }
 
 
@@ -114,7 +133,7 @@ ul:is(.side_content,
 article,
 li):hover {
     opacity: 1;
-    background-color: aqua;
+    background-color: #869ff1;
 }
 
 
