@@ -24,7 +24,7 @@
     justify-content: center;
     grid-area: sys;
     position: relative;
-    background-color: rgb(243, 241, 241);
+    background-color: gray;
     cursor: pointer;
     font-size: larger;
     font-weight: bolder;
