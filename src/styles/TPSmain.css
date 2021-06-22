@@ -24,7 +24,7 @@
     justify-content: center;
     grid-area: sys;
     position: relative;
-    background-color: gray;
+    background-color: darkgray;
     cursor: pointer;
     font-size: larger;
     font-weight: bolder;
@@ -35,7 +35,7 @@
     /* padding-top: 0.8rem; */
 }
 
-.tps_sys:hover .tps_sys_content {
+:is(.tps_sys, .tps_dpt):hover :is(.tps_sys_content, [data-side="depth"]) {
     display: flex;
     position: absolute;
     flex-direction: column;
@@ -49,9 +49,10 @@
     background-color: #3b3b3b;
     color: aliceblue;
     z-index: 100;
+    opacity: 1;
 }
 
-.tps_sys_content li:hover:not(.selected) {
+:is(.tps_sys_content, [data-side="depth"]) li:hover:not(.selected) {
     background-color: #e79418;
     cursor: pointer;
     z-index: 101;
@@ -68,6 +69,13 @@
 .tps_dpt {
     grid-area: dpt;
     background-color: darkgray;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .tps_det {

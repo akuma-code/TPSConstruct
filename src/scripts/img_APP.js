@@ -6,7 +6,7 @@
 
 const $img_conteiner = document.querySelector('.tps_img');
 const $img_cont = document.querySelector('div.img_cont');
-const $sys = document.querySelector('div.tps_sys>span');
+const $sys = document.querySelector('div.tps_sys');
 const $sys_content = document.querySelector('.tps_sys_content');
 const $out = document.querySelector('div.tps_output');
 const $sides = document.querySelectorAll('.img_side');
@@ -18,15 +18,16 @@ const $outputelem = {
         right: '[output=right]',
         bot: '[output=bot]',
         out: '[output=out]',
+        depth: '[output=depth]',
     }
     //! Обработчик на контейнер изображения
 $img_cont.addEventListener('click', function(event) {
         let target = event.target;
 
-        // if (target.classList.contains('img_cont')) {
-        //     // $out.innerHTML = ''
-        //     return
-        // };
+        if (target.classList.contains('img_cont')) {
+            $out.innerHTML = ''
+            return
+        };
         $out.innerHTML = '';
         $out.insertAdjacentText('afterbegin', `${event.target.dataset.side || 'Selected'}: ${target.textContent || 'none('}`);
         // debugger
@@ -36,11 +37,11 @@ $img_cont.addEventListener('click', function(event) {
     //! ОБЩИЙ ОБРАБОТЧИК
 $main.addEventListener('click', function(e) {
     let target = e.target;
-    // if (target.matches('ul.side_content>li') || target.matches('ul.tps_sys_content>li')) {
 
     if (target.matches('li')) {
+        let $output = $outputelem[target.closest('ul').dataset.side];
 
-        document.querySelector(`${$outputelem[target.closest('ul').dataset.side]}`).innerText = target.textContent
+        document.querySelector(`${$output}`).innerText = target.textContent
 
         for (let elem of target.closest('ul').children) {
             elem.classList.remove('selected')
