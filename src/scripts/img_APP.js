@@ -28,8 +28,9 @@ const currentDepth = {
 
 document.body.addEventListener('mousemove', function(e) {
         let target = e.target;
-        // if (e.ctrlKey && e.altKey) target.classList.add('selected')
-        // if (!(e.ctrlKey && e.altKey)) target.classList.remove('selected')
+        if (!target.matches('.tps_main *')) return
+            // if (e.ctrlKey && e.altKey) target.classList.add('selected')
+            // if (!(e.ctrlKey && e.altKey)) target.classList.remove('selected')
 
         const $t_out = document.querySelector('div.target_output > ul');
         const $Current = document.querySelector('li[data-target=current]>span');
