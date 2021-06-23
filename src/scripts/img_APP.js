@@ -3,7 +3,7 @@
 // TODO: добавить обработчик на сайды, чтобы отображалось выбранное по клику
 // TODO: функция для вывода информации списком на каждый клик
 
-
+const $StatusCheck = {};
 const $img_conteiner = document.querySelector('.tps_img');
 const $img_cont = document.querySelector('div.img_cont');
 const $sys = document.querySelector('div.tps_sys');
@@ -12,15 +12,22 @@ const $out = document.querySelector('div.tps_output');
 const $sides = document.querySelectorAll('.img_side');
 const $main = document.querySelector('div.tps_main');
 const $outputelem = {
-        system: '[output=system]',
-        left: '[output=left]',
-        top: '[output=top]',
-        right: '[output=right]',
-        bot: '[output=bot]',
-        out: '[output=out]',
-        depth: '[output=depth]',
-    }
-    //! Обработчик на контейнер изображения
+    system: '[output=system]',
+    left: '[output=left]',
+    top: '[output=top]',
+    right: '[output=right]',
+    bot: '[output=bot]',
+    out: '[output=out]',
+    depth: '[output=depth]',
+};
+const currentDepth = {
+    ProLine: ['28mm', '36mm', '40mm'],
+    SoftLine: ['28mm', '36mm', '40mm'],
+    WHS: ['24mm', '30mm'],
+}
+
+
+//! Обработчик на контейнер изображения
 $img_cont.addEventListener('click', function(event) {
         let target = event.target;
 
@@ -38,17 +45,28 @@ $img_cont.addEventListener('click', function(event) {
 $main.addEventListener('click', function(e) {
     let target = e.target;
 
+    //! выделение строки списка
     if (target.matches('li')) {
-        let $output = $outputelem[target.closest('ul').dataset.side];
-
-        document.querySelector(`${$output}`).innerText = target.textContent
-
+        let current_side = target.closest('ul').dataset.side;
+        document.querySelector(`${$outputelem[current_side]}`).innerText = target.textContent
+        $StatusCheck[current_side] = target.textContent;
         for (let elem of target.closest('ul').children) {
             elem.classList.remove('selected')
         }
-
         target.classList.add('selected');
     }
+    //! толщина ст-пакета
+    if (target.matches('[data-side=system] li')) {
+        document.querySelector('[data-side=depth]').innerHTML = '';
+        document.querySelector('[data-side=depth]').innerHTML = setDepth(target.textContent);
+
+        $StatusCheck.system = target.textContent
+    }
+
+    if (target.matches('[data-side=depth] *')) {
+        $StatusCheck.depth = target.textContent
+    }
+    //! настройка отображения детализации
 }, true)
 
 function setOutput(target, text) {
@@ -64,4 +82,10 @@ function setOutput(target, text) {
 `;
 
     return $ul
+}
+
+function setDepth(system) {
+    let list = '';
+    currentDepth[system].forEach(element => list += `<li>${element}</li>`);
+    return list
 }

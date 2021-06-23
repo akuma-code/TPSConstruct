@@ -7,7 +7,7 @@
     left: var(--pos-tps-left);
     top: var(--pos-tps-top);
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 3rem 2rem 1rem 1rem 24px 32px auto 32px auto 32px auto;
+    grid-template-rows: 3rem 2rem 3rem 1rem 24px 32px auto 32px auto 32px auto;
     grid-template-areas: "head head head head head" "sys sys dpt out out" "det det det out out" "det det det out out" "tgl tgl tgl out out" ". topS topS topS ." ". img img img ." "leftS img img img rightS " ". img img img ." ". botS botS botS ." ". . . . .";
     grid-gap: 5px 10px;
     text-align: center;
@@ -35,7 +35,7 @@
     /* padding-top: 0.8rem; */
 }
 
-:is(.tps_sys, .tps_dpt):hover :is(.tps_sys_content, [data-side="depth"]) {
+:is(.tps_sys, .tps_dpt):hover .drop_content {
     display: flex;
     position: absolute;
     flex-direction: column;
@@ -52,7 +52,7 @@
     opacity: 1;
 }
 
-:is(.tps_sys_content, [data-side="depth"]) li:hover:not(.selected) {
+.drop_content li:hover:not(.selected) {
     background-color: #e79418;
     cursor: pointer;
     z-index: 101;
@@ -81,6 +81,11 @@
 .tps_det {
     grid-area: det;
     background-color: rgb(216, 16, 16);
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: baseline;
+    flex-wrap: wrap;
 }
 
 .tps_output {
