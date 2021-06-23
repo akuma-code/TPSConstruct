@@ -128,3 +128,13 @@
     background-color: crimson;
     /* height: 1rem; */
 }
+
+.target_output {
+    display: flex;
+    position: relative;
+    left: 600px;
+    width: 400px;
+    height: max-content;
+    background-color: darkseagreen;
+    text-align: stretch;
+}

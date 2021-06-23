@@ -26,8 +26,19 @@ const currentDepth = {
     WHS: ['24mm', '30mm'],
 }
 
+document.body.addEventListener('mousemove', function(e) {
+        let target = e.target;
+        // if (e.ctrlKey && e.altKey) target.classList.add('selected')
+        // if (!(e.ctrlKey && e.altKey)) target.classList.remove('selected')
 
-//! Обработчик на контейнер изображения
+        const $t_out = document.querySelector('div.target_output > ul');
+        const $Current = document.querySelector('li[data-target=current]>span');
+        const $et = document.querySelector('li[data-target=etarget]>span');
+        $Current.innerText = e.currentTarget.tagName;
+        $et.innerText = target.className;
+        document.querySelector('li[data-target=text]>span').innerText = target.innerText
+    }, true)
+    //! Обработчик на контейнер изображения
 $img_cont.addEventListener('click', function(event) {
         let target = event.target;
 
@@ -44,6 +55,7 @@ $img_cont.addEventListener('click', function(event) {
     //! ОБЩИЙ ОБРАБОТЧИК
 $main.addEventListener('click', function(e) {
     let target = e.target;
+
 
     //! выделение строки списка
     if (target.matches('li')) {
