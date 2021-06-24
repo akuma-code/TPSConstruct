@@ -137,4 +137,5 @@
     height: max-content;
     background-color: darkseagreen;
     text-align: stretch;
+    flex-flow: column nowrap;
 }

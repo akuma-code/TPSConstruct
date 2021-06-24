@@ -5,6 +5,12 @@
     <script src='src/loader.js'></script>
     <link rel='stylesheet' href='src/style.css'>
     <meta charset='UTF-8'>
+    <script>
+        function toggle_target(selector) {
+            document.querySelector(selector).toggleAttribute('hidden')
+            return
+        }
+    </script>
 </head>
 
 <body>
@@ -94,12 +100,16 @@
 
         </div>
         <div class="target_output">
-            <ul class="target_list">
-                <li data-target='current'>Main Listener: <span></span></li>
+            <button onclick="toggle_target('.target_list')">Show $StatusStorage</button>
+            <ul class="target_list" hidden>
+                <!-- <li data-target='current'>Main Listener: <span></span></li>
                 <li data-target="etarget">Current target classlist: <span></span></li>
                 <li data-target="text">Current target text: <span></span></li>
-                <li data-target="info">Additional information: <span></span></li>
+                <li data-target="info">Additional information: <span></span></li> -->
             </ul>
+            <!-- <ul class="target_list">
+
+            </ul> -->
         </div>
 </body>
 

@@ -26,38 +26,36 @@ const currentDepth = {
     WHS: ['24mm', '30mm'],
 }
 
-document.body.addEventListener('mousemove', function(e) {
+document.body.addEventListener('dbclick', function(e) {
         let target = e.target;
         if (!target.matches('.tps_main *')) return
-            // if (e.ctrlKey && e.altKey) target.classList.add('selected')
-            // if (!(e.ctrlKey && e.altKey)) target.classList.remove('selected')
-
-        const $t_out = document.querySelector('div.target_output > ul');
         const $Current = document.querySelector('li[data-target=current]>span');
         const $et = document.querySelector('li[data-target=etarget]>span');
         $Current.innerText = e.currentTarget.tagName;
         $et.innerText = target.className;
         document.querySelector('li[data-target=text]>span').innerText = target.innerText
+        document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
+
     }, true)
     //! Обработчик на контейнер изображения
 $img_cont.addEventListener('click', function(event) {
-        let target = event.target;
+    let target = event.target;
 
-        if (target.classList.contains('img_cont')) {
-            $out.innerHTML = ''
-            return
-        };
-        $out.innerHTML = '';
-        $out.insertAdjacentText('afterbegin', `${event.target.dataset.side || 'Selected'}: ${target.textContent || 'none('}`);
-        // debugger
-        $out.innerHTML = setOutput(target.tagName, target.textContent)
+    if (target.classList.contains('img_cont')) {
+        $out.innerHTML = ''
+        return
+    };
+    $out.innerHTML = '';
+    $out.insertAdjacentText('afterbegin', `${event.target.dataset.side || 'Selected'}: ${target.textContent || 'none('}`);
+    // debugger
+    $out.innerHTML = setOutput(target.tagName, target.textContent)
 
-    }, true)
-    //! ОБЩИЙ ОБРАБОТЧИК
+}, true)
+
+
+//! ОБЩИЙ ОБРАБОТЧИК
 $main.addEventListener('click', function(e) {
     let target = e.target;
-
-
     //! выделение строки списка
     if (target.matches('li')) {
         let current_side = target.closest('ul').dataset.side;
@@ -79,7 +77,9 @@ $main.addEventListener('click', function(e) {
     if (target.matches('[data-side=depth] *')) {
         $StatusCheck.depth = target.textContent
     }
-    //! настройка отображения детализации
+    document.querySelector('div.target_output > ul.target_list').innerHTML = "";
+    document.querySelector('div.target_output > ul.target_list').insertAdjacentHTML("afterbegin", setStatusInfo())
+        //! настройка отображения детализации
 }, true)
 
 function setOutput(target, text) {
@@ -101,4 +101,12 @@ function setDepth(system) {
     let list = '';
     currentDepth[system].forEach(element => list += `<li>${element}</li>`);
     return list
+}
+
+function setStatusInfo(StatusObject = $StatusCheck) {
+    let result = '';
+    for (let key in StatusObject) {
+        result += `<li>${key}: ${StatusObject[key]}</li>`
+    }
+    return result
 }
