@@ -157,13 +157,33 @@ span:is([output=right],
     opacity: 1;
 }
 
-
-/* .tps_dpt:hover .drop_content {
-    display: flex;
-    opacity: 1;
-} */
-
 .drop_content li:hover {
     opacity: 1;
     background-color: #869ff1;
+}
+
+.tps_output {
+    grid-area: out;
+    background-color: rgb(115, 100, 201);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 3px;
+    padding: 7px 5px 0px 5px;
+}
+
+.tps_output span {
+    display: inline-block;
+}
+
+.tps_output div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dotted black;
+    font-size: 1.1rem;
+}
+
+.tps_output div>span:first-child {
+    font-weight: bolder;
 }

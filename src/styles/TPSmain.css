@@ -1,12 +1,12 @@
 .tps_main {
     display: grid;
     position: absolute;
-    width: 400px;
+    width: 450px;
     height: 600px;
     background-color: darkkhaki;
     left: var(--pos-tps-left);
     top: var(--pos-tps-top);
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr) 100px 100px;
     grid-template-rows: 3rem 2rem 3rem 1rem 24px 32px auto 32px auto 32px auto;
     grid-template-areas: "head head head head head" "sys sys dpt out out" "det det det out out" "det det det out out" "tgl tgl tgl out out" ". topS topS topS ." ". img img img ." "leftS img img img rightS " ". img img img ." ". botS botS botS ." ". . . . .";
     grid-gap: 5px 10px;
@@ -86,11 +86,6 @@
     align-content: flex-start;
     align-items: baseline;
     flex-wrap: wrap;
-}
-
-.tps_output {
-    grid-area: out;
-    background-color: rgb(115, 100, 201);
 }
 
 .tps_tgl {

@@ -1,8 +1,3 @@
-//! TODO: класс, который навешивает на выпадающий список подсветку и цепляется к елементу по атрибуту
-// TODO:повесить обработчик на дивы для создания списка выбора
-// TODO: добавить обработчик на сайды, чтобы отображалось выбранное по клику
-// TODO: функция для вывода информации списком на каждый клик
-
 const $StatusCheck = {};
 const $img_conteiner = document.querySelector('.tps_img');
 const $img_cont = document.querySelector('div.img_cont');
@@ -27,30 +22,32 @@ const currentDepth = {
 }
 
 document.body.addEventListener('dbclick', function(e) {
-        let target = e.target;
-        if (!target.matches('.tps_main *')) return
-        const $Current = document.querySelector('li[data-target=current]>span');
-        const $et = document.querySelector('li[data-target=etarget]>span');
-        $Current.innerText = e.currentTarget.tagName;
-        $et.innerText = target.className;
-        document.querySelector('li[data-target=text]>span').innerText = target.innerText
-        document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
-
-    }, true)
-    //! Обработчик на контейнер изображения
-$img_cont.addEventListener('click', function(event) {
-    let target = event.target;
-
-    if (target.classList.contains('img_cont')) {
-        $out.innerHTML = ''
-        return
-    };
-    $out.innerHTML = '';
-    $out.insertAdjacentText('afterbegin', `${event.target.dataset.side || 'Selected'}: ${target.textContent || 'none('}`);
-    // debugger
-    $out.innerHTML = setOutput(target.tagName, target.textContent)
+    let target = e.target;
+    e.preventDefault()
+    if (!target.matches('.tps_main *')) return
+    document.querySelector('li[data-target=current]>span').innerText = e.currentTarget.tagName;
+    document.querySelector('li[data-target=etarget]>span').innerText = target.className;
+    document.querySelector('li[data-target=text]>span').innerText = target.innerText
+    document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
 
 }, true)
+
+
+
+//! Обработчик на контейнер изображения
+// $img_cont.addEventListener('click', function(event) {
+//     let target = event.target;
+// 
+//     if (target.classList.contains('img_cont')) {
+//         $out.innerHTML = ''
+//         return
+//     };
+//     $out.innerHTML = '';
+//     $out.insertAdjacentText('afterbegin', `${event.target.dataset.side || 'Selected'}: ${target.textContent || 'none('}`);
+//     // debugger
+//     $out.innerHTML = setOutput(target.tagName, target.textContent)
+// 
+// }, true)
 
 
 //! ОБЩИЙ ОБРАБОТЧИК
