@@ -35,8 +35,14 @@
     /* padding-top: 0.8rem; */
 }
 
+:is(.tps_sys, .tps_dpt)>.drop_content {
+    display: none;
+    opacity: 0;
+}
+
 :is(.tps_sys, .tps_dpt):hover .drop_content {
     display: flex;
+    transition: all cubic-bezier(.62, .01, 10s, -0.09);
     position: absolute;
     flex-direction: column;
     align-content: center;
