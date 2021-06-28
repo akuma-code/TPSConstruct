@@ -8,7 +8,7 @@
     <script>
         function toggle_target(selector) {
             document.querySelector(selector).toggleAttribute('hidden')
-            return
+            return this
         }
     </script>
 </head>
@@ -48,6 +48,14 @@
                 </span>
 
 
+            </div>
+
+            <div class="tps_size">
+                <input type="text" id="tps_w" placeholder="WIDTH">
+                <input type="text" id="tps_h" placeholder="HEIGHT">
+            </div>
+            <div class="tps_button">
+                <button class="tps_btn">CALC</button>
             </div>
             <div class="tps_output" output='out'>
 

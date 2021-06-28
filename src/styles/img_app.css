@@ -187,3 +187,39 @@ span:is([output=right],
 .tps_output div>span:first-child {
     font-weight: bolder;
 }
+
+.tps_size {
+    background-color: #869ff1;
+    display: flex;
+    grid-area: size;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+}
+
+.tps_size input[type=text] {
+    appearance: none;
+    width: 60px;
+    /* height: 40px; */
+    text-align: center;
+    /* font-size: 1.2rem; */
+}
+
+.tps_button {
+    grid-area: btn;
+    width: 100%;
+    background-color: #300b0b;
+}
+
+
+/* .tps_button button {
+    width: 100%;
+    height: 100%;
+} */
+
+.tps_btn {
+    width: 100%;
+    height: 100%;
+}

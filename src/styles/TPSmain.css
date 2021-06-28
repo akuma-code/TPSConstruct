@@ -7,8 +7,8 @@
     left: var(--pos-tps-left);
     top: var(--pos-tps-top);
     grid-template-columns: repeat(3, 1fr) 100px 100px;
-    grid-template-rows: 3rem 2rem 3rem 1rem 24px 32px auto 32px auto 32px auto;
-    grid-template-areas: "head head head head head" "sys sys dpt out out" "det det det out out" "det det det out out" "tgl tgl tgl out out" ". topS topS topS ." ". img img img ." "leftS img img img rightS " ". img img img ." ". botS botS botS ." ". . . . .";
+    grid-template-rows: 3rem 2rem 3rem 1rem 24px auto 32px auto 32px auto 32px;
+    grid-template-areas: "head head head head head" "sys sys dpt out out" "det det det out out" "det det det out out" "tgl tgl tgl out out" "size size size out out" ". . . btn btn" ". img img img ." "leftS img img img rightS " ". img img img ." ". botS botS botS .";
     grid-gap: 5px 10px;
     text-align: center;
 }
