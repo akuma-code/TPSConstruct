@@ -77,6 +77,13 @@ $main.addEventListener('click', function(e) {
     document.querySelector('div.target_output > ul.target_list').innerHTML = "";
     document.querySelector('div.target_output > ul.target_list').insertAdjacentHTML("afterbegin", setStatusInfo())
         //! настройка отображения детализации
+
+    if (target.matches('.tgl_big_item' || '.tgl_big_item  span')) {
+        for (let elem of target.closest('.tgl_big_box').children) {
+            elem.classList.remove('active')
+        }
+        target.classList.add('active');
+    }
 }, true)
 
 function setOutput(target, text) {
@@ -106,4 +113,8 @@ function setStatusInfo(StatusObject = $StatusCheck) {
         result += `<li>${key}: ${StatusObject[key]}</li>`
     }
     return result
+}
+
+function tglActive(element) {
+    element.classList.toggle('active')
 }
