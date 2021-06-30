@@ -101,9 +101,9 @@
     padding-bottom: 2px;
 }
 
-.tgl_big_item {
+.tgl_big_item:not([data-tgl-status=info]) {
     display: flex;
-    border: 2px solid brown;
+    border: 2px ridge brown;
     font-size: 1rem;
     height: 95%;
     place-items: center;
@@ -116,6 +116,7 @@
     position: relative;
     overflow: hidden;
     z-index: 5;
+    border-collapse: collapse;
 }
 
 
@@ -135,21 +136,22 @@
 }
 
 .active {
-    background-color: cornflowerblue;
-    border: 2px inset brown;
+    background-color: rgb(145, 145, 145);
+    border: 4px ridge brown;
     border-radius: 5px;
     text-transform: uppercase;
     font-size: 1rem;
+    color: #4d4d4d;
 }
 
 .tgl_big_item[data-tgl-status='stv']:after {
-    content: 'Створка';
+    content: 'Створке';
     margin: 2px auto;
     z-index: 190;
 }
 
 .tgl_big_item[data-tgl-status='fix']:after {
-    content: 'Фикса';
+    content: 'Фиксе';
     margin: 2px auto;
     z-index: 100;
 }
@@ -177,6 +179,22 @@
     width: 0%;
     transform: translate(-50%, -50%);
     z-index: 1;
+}
+
+[data-tgl-status=info] {
+    margin: 4px 2px;
+    padding: 0;
+    width: min-content;
+}
+
+[data-tgl-status=info]::before {
+    border: none;
+    background: none;
+}
+
+[data-tgl-status=info]:hover::before {
+    border: none;
+    background: none;
 }
 
 .tgl_big_item:hover::before {
