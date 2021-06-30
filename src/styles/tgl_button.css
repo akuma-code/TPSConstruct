@@ -103,8 +103,8 @@
 
 .tgl_big_item {
     display: flex;
-    border: 1px solid black;
-    font-size: 1.2rem;
+    border: 2px solid brown;
+    font-size: 1rem;
     height: 95%;
     place-items: center;
     text-align: center;
@@ -113,12 +113,16 @@
     cursor: pointer;
     border-radius: 5px;
     width: 22%;
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
 }
 
-.tgl_big_item:hover {
+
+/* .tgl_big_item:hover {
     background-color: lightgray;
     background-size: 120% 100%;
-}
+} */
 
 .tgl_big_item>span:active {
     color: beige;
@@ -134,24 +138,47 @@
     background-color: cornflowerblue;
     border: 2px inset brown;
     border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 1rem;
 }
 
 .tgl_big_item[data-tgl-status='stv']:after {
     content: 'Створка';
     margin: 2px auto;
+    z-index: 190;
 }
 
 .tgl_big_item[data-tgl-status='fix']:after {
     content: 'Фикса';
     margin: 2px auto;
+    z-index: 100;
 }
 
 .tgl_big_item[data-tgl-status='svet']:after {
     content: 'По свету';
     margin: 2px auto;
+    z-index: 100;
 }
 
 .tgl_big_item[data-tgl-status='gls']:after {
     content: 'По стеклу';
     margin: 2px auto;
+    z-index: 100;
+}
+
+.tgl_big_item::before {
+    content: "";
+    background-color: cornflowerblue;
+    position: absolute;
+    transition: all .3s ease;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: 0%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.tgl_big_item:hover::before {
+    width: 100%;
 }
