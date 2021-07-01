@@ -193,7 +193,7 @@ span:is([output=right],
     background-color: #869ff1;
     display: flex;
     grid-area: size;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -202,10 +202,11 @@ span:is([output=right],
 
 .tps_size input[type=text] {
     appearance: none;
-    width: 60px;
-    /* height: 40px; */
+    width: 80px;
+    height: 30px;
     text-align: center;
-    /* font-size: 1.2rem; */
+    font-size: 1.1rem;
+    text-transform: uppercase;
 }
 
 .tps_button {

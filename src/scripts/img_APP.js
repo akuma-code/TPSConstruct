@@ -6,6 +6,8 @@ const $sys_content = document.querySelector('.tps_sys_content');
 const $out = document.querySelector('div.tps_output');
 const $sides = document.querySelectorAll('.img_side');
 const $main = document.querySelector('div.tps_main');
+const $size = document.querySelector('div.tps_size');
+
 const $outputelem = {
     system: '[output=system]',
     left: '[output=left]',
@@ -28,7 +30,8 @@ document.body.addEventListener('dbclick', function(e) {
     document.querySelector('li[data-target=current]>span').innerText = e.currentTarget.tagName;
     document.querySelector('li[data-target=etarget]>span').innerText = target.className;
     document.querySelector('li[data-target=text]>span').innerText = target.innerText
-    document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
+        // document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
+    document.querySelector('[data-target=info]>span').innerHTML = Object.values($StatusCheck)
 
 }, true)
 
@@ -77,14 +80,21 @@ $main.addEventListener('click', function(e) {
     document.querySelector('div.target_output > ul.target_list').innerHTML = "";
     document.querySelector('div.target_output > ul.target_list').insertAdjacentHTML("afterbegin", setStatusInfo())
         //! настройка отображения детализации
-
-    if (target.matches('.tgl_big_item' || '.tgl_big_item  span')) {
+    if (target.matches('.tgl_big_item')) {
+        if (target.matches('.tgl_big_item[data-tgl-status=info')) return
         for (let elem of target.closest('.tgl_big_box').children) {
             elem.classList.remove('active')
         }
         target.classList.add('active');
     }
-}, true)
+}, true);
+
+$size.addEventListener('input', function(e) {
+    let t = e.target;
+    if (!t.matches('.tps_size input[type=text]')) return console.log('target error!');
+    if (t.matches('#tps_w')) $StatusCheck.width = t.value;
+    if (t.matches('#tps_h')) $StatusCheck.height = t.value;
+})
 
 function setOutput(target, text) {
     const $ul = `<ul>
