@@ -7,6 +7,7 @@ const $out = document.querySelector('div.tps_output');
 const $sides = document.querySelectorAll('.img_side');
 const $main = document.querySelector('div.tps_main');
 const $size = document.querySelector('div.tps_size');
+const $out_sizes = document.getElementById('out_sizes');
 
 const $outputelem = {
     system: '[output=system]',
@@ -23,14 +24,14 @@ const currentDepth = {
     WHS: ['24mm', '30mm'],
 }
 
-document.body.addEventListener('dbclick', function(e) {
+document.body.addEventListener('dbclick', function (e) {
     let target = e.target;
     e.preventDefault()
     if (!target.matches('.tps_main *')) return
     document.querySelector('li[data-target=current]>span').innerText = e.currentTarget.tagName;
     document.querySelector('li[data-target=etarget]>span').innerText = target.className;
     document.querySelector('li[data-target=text]>span').innerText = target.innerText
-        // document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
+    // document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
     document.querySelector('[data-target=info]>span').innerHTML = Object.values($StatusCheck)
 
 }, true)
@@ -54,7 +55,7 @@ document.body.addEventListener('dbclick', function(e) {
 
 
 //! ОБЩИЙ ОБРАБОТЧИК
-$main.addEventListener('click', function(e) {
+$main.addEventListener('click', function (e) {
     let target = e.target;
     //! выделение строки списка
     if (target.matches('li')) {
@@ -79,7 +80,7 @@ $main.addEventListener('click', function(e) {
     }
     document.querySelector('div.target_output > ul.target_list').innerHTML = "";
     document.querySelector('div.target_output > ul.target_list').insertAdjacentHTML("afterbegin", setStatusInfo())
-        //! настройка отображения детализации
+    //! настройка отображения детализации
     if (target.matches('.tgl_big_item')) {
         if (target.matches('.tgl_big_item[data-tgl-status=info')) return
         for (let elem of target.closest('.tgl_big_box').children) {
@@ -89,11 +90,13 @@ $main.addEventListener('click', function(e) {
     }
 }, true);
 
-$size.addEventListener('input', function(e) {
+$size.addEventListener('input', function (e) {
     let t = e.target;
-    if (!t.matches('.tps_size input[type=text]')) return console.log('target error!');
-    if (t.matches('#tps_w')) $StatusCheck.width = t.value;
-    if (t.matches('#tps_h')) $StatusCheck.height = t.value;
+    if (!t.matches('.tps_size input')) return console.log('target error!');
+    if (t.matches('#tps_w')) $StatusCheck.width = t.value || '---';
+    if (t.matches('#tps_h')) $StatusCheck.height = t.value || '---';
+    $out_sizes.innerHTML = '';
+    $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
 })
 
 function setOutput(target, text) {

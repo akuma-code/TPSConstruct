@@ -182,7 +182,7 @@ span:is([output=right],
     display: flex;
     justify-content: space-between;
     border-bottom: 1px dotted black;
-    font-size: 1.1rem;
+    font-size: .9rem;
 }
 
 .tps_output div>span:first-child {
@@ -200,7 +200,7 @@ span:is([output=right],
     align-content: center;
 }
 
-.tps_size input[type=text] {
+.tps_size input {
     appearance: none;
     width: 80px;
     height: 30px;
