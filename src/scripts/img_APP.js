@@ -24,17 +24,41 @@ const currentDepth = {
     WHS: ['24mm', '30mm'],
 }
 
-document.body.addEventListener('dbclick', function (e) {
-    let target = e.target;
-    e.preventDefault()
-    if (!target.matches('.tps_main *')) return
-    document.querySelector('li[data-target=current]>span').innerText = e.currentTarget.tagName;
-    document.querySelector('li[data-target=etarget]>span').innerText = target.className;
-    document.querySelector('li[data-target=text]>span').innerText = target.innerText
-    // document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
-    document.querySelector('[data-target=info]>span').innerHTML = Object.values($StatusCheck)
+const Sidelist = {
+    svet: {
+        top: 'световой проем',
+        bot: 'световой проем',
+        left: 'световой проем',
+        right: 'световой проем',
+    },
 
-}, true)
+    fix: {
+        top: ['рама', 'импост'],
+        bot: ['рама', 'импост', 'порог'],
+        left: ['рама', 'импост'],
+        right: ['рама', 'импост'],
+    },
+
+    stv: {
+
+        top: ['рама', 'импост', 'импост в створке'],
+        bot: ['рама', 'импост', 'импост в створке', 'порог'],
+        left: ['рама', 'импост', 'штульп', 'импост в створке'],
+        right: ['рама', 'импост', 'штульп', 'импост в створке'],
+    }
+}
+
+// document.body.addEventListener('dbclick', function (e) {
+//     let target = e.target;
+//     e.preventDefault()
+//     if (!target.matches('.tps_main *')) return
+//     document.querySelector('li[data-target=current]>span').innerText = e.currentTarget.tagName;
+//     document.querySelector('li[data-target=etarget]>span').innerText = target.className;
+//     document.querySelector('li[data-target=text]>span').innerText = target.innerText
+//     // document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
+//     document.querySelector('[data-target=info]>span').innerHTML = Object.values($StatusCheck)
+
+// }, true)
 
 
 
