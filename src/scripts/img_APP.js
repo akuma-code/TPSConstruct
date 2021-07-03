@@ -6,6 +6,10 @@ const $sys_content = document.querySelector('.tps_sys_content');
 const $out = document.querySelector('div.tps_output');
 const $sides = document.querySelectorAll('.img_side');
 const $main = document.querySelector('div.tps_main');
+const $size = document.querySelector('div.tps_size');
+const $out_sizes = document.getElementById('out_sizes');
+const $tgl_btn = document.querySelector('div.tps_tgl');
+
 const $outputelem = {
     system: '[output=system]',
     left: '[output=left]',
@@ -21,36 +25,40 @@ const currentDepth = {
     WHS: ['24mm', '30mm'],
 }
 
-document.body.addEventListener('dbclick', function(e) {
-    let target = e.target;
-    e.preventDefault()
-    if (!target.matches('.tps_main *')) return
-    document.querySelector('li[data-target=current]>span').innerText = e.currentTarget.tagName;
-    document.querySelector('li[data-target=etarget]>span').innerText = target.className;
-    document.querySelector('li[data-target=text]>span').innerText = target.innerText
-    document.querySelector('[data-target=info]>span').insertAdjacentText('afterbegin', Object.values($StatusCheck))
+const Sidelist = {
+        svet: {
+            top: ['световой проем'],
+            bot: ['световой проем'],
+            left: ['световой проем'],
+            right: ['световой проем'],
+        },
 
-}, true)
+        fix: {
+            top: ['рама', 'импост'],
+            bot: ['рама', 'импост', 'порог'],
+            left: ['рама', 'импост'],
+            right: ['рама', 'импост'],
+        },
 
+        stv: {
+            top: ['рама', 'импост', 'импост в створке'],
+            bot: ['рама', 'импост', 'импост в створке', 'порог'],
+            left: ['рама', 'импост', 'штульп', 'импост в створке'],
+            right: ['рама', 'импост', 'штульп', 'импост в створке'],
+        },
 
-
-//! Обработчик на контейнер изображения
-// $img_cont.addEventListener('click', function(event) {
-//     let target = event.target;
-// 
-//     if (target.classList.contains('img_cont')) {
-//         $out.innerHTML = ''
-//         return
-//     };
-//     $out.innerHTML = '';
-//     $out.insertAdjacentText('afterbegin', `${event.target.dataset.side || 'Selected'}: ${target.textContent || 'none('}`);
-//     // debugger
-//     $out.innerHTML = setOutput(target.tagName, target.textContent)
-// 
-// }, true)
-
-
-//! ОБЩИЙ ОБРАБОТЧИК
+        setup(tglStatus = '') {
+            const sides = ['top', 'bot', 'left', 'right'];
+            for (let side of sides) {
+                let list = '';
+                let $selector = document.querySelector(`ul.drop_content[data-side=${side}]`);
+                this[tglStatus][side].forEach(element => list += `<li>${element}</li>`);
+                $selector.innerHTML = '';
+                $selector.insertAdjacentHTML('afterbegin', list)
+            }
+        },
+    }
+    //! ОБЩИЙ ОБРАБОТЧИК
 $main.addEventListener('click', function(e) {
     let target = e.target;
     //! выделение строки списка
@@ -77,29 +85,30 @@ $main.addEventListener('click', function(e) {
     document.querySelector('div.target_output > ul.target_list').innerHTML = "";
     document.querySelector('div.target_output > ul.target_list').insertAdjacentHTML("afterbegin", setStatusInfo())
         //! настройка отображения детализации
-
-    if (target.matches('.tgl_big_item' || '.tgl_big_item  span')) {
+    if (target.matches('.tgl_big_item')) {
+        if (target.matches('.tgl_big_item[data-tgl-status=info')) return
         for (let elem of target.closest('.tgl_big_box').children) {
             elem.classList.remove('active')
         }
         target.classList.add('active');
     }
-}, true)
+}, true);
 
-function setOutput(target, text) {
-    const $ul = `<ul>
-<li>
-    <span>EventTarget: ${target}</span>
-</li>
-<li>
-    <span>Text: ${text}</span>
-</li>
+$size.addEventListener('input', function(e) {
+    let t = e.target;
+    if (!t.matches('.tps_size input')) return console.log('target error!');
+    if (t.matches('#tps_w')) $StatusCheck.width = t.value;
+    if (t.matches('#tps_h')) $StatusCheck.height = t.value;
+    $out_sizes.innerHTML = '';
+    $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
+})
 
-</ul>
-`;
+$tgl_btn.addEventListener('click', function(event) {
+    let t = event.target;
+    if (t.matches('[data-tgl-status=info]')) return
+    if (t.matches('[data-tgl-status]')) Sidelist.setup(t.dataset.tglStatus);
 
-    return $ul
-}
+})
 
 function setDepth(system) {
     let list = '';

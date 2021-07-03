@@ -17,7 +17,7 @@
     /* background-color: blueviolet; */
     opacity: 1;
     z-index: 4;
-    border: 1px solid #5da31b;
+    border: 1px solid #000000;
     transition: all .2s;
     justify-content: center;
     align-items: center;
@@ -33,6 +33,7 @@ span[output] {
     display: inline-block;
     font-size: 20px;
     color: #300b0b;
+    width: max-content;
     font-weight: bolder;
     position: inherit;
     text-align: center;
@@ -182,7 +183,7 @@ span:is([output=right],
     display: flex;
     justify-content: space-between;
     border-bottom: 1px dotted black;
-    font-size: 1.1rem;
+    font-size: .9rem;
 }
 
 .tps_output div>span:first-child {
@@ -193,19 +194,22 @@ span:is([output=right],
     background-color: #869ff1;
     display: flex;
     grid-area: size;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: nowrap;
     flex-direction: row;
     align-content: center;
 }
 
-.tps_size input[type=text] {
+.tps_size input {
     appearance: none;
-    width: 60px;
-    /* height: 40px; */
+    width: 95px;
+    height: 30px;
     text-align: center;
-    /* font-size: 1.2rem; */
+    font-size: 1rem;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    padding: 0;
 }
 
 .tps_button {
