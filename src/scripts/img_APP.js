@@ -9,6 +9,7 @@ const $main = document.querySelector('div.tps_main');
 const $size = document.querySelector('div.tps_size');
 const $out_sizes = document.getElementById('out_sizes');
 const $tgl_btn = document.querySelector('div.tps_tgl');
+const $stv232 = document.querySelector('#stv232');
 
 const $outputelem = {
     system: '[output=system]',
@@ -25,40 +26,60 @@ const currentDepth = {
     WHS: ['24mm', '30mm'],
 }
 
+
+
+
 const Sidelist = {
-        svet: {
-            top: ['световой проем'],
-            bot: ['световой проем'],
-            left: ['световой проем'],
-            right: ['световой проем'],
-        },
+    svet: {
+        top: ['световой проем'],
+        bot: ['световой проем'],
+        left: ['световой проем'],
+        right: ['световой проем'],
+    },
 
-        fix: {
-            top: ['рама', 'импост'],
-            bot: ['рама', 'импост', 'порог'],
-            left: ['рама', 'импост'],
-            right: ['рама', 'импост'],
-        },
+    fix: {
+        top: ['рама', 'импост'],
+        bot: ['рама', 'импост', 'порог'],
+        left: ['рама', 'импост'],
+        right: ['рама', 'импост'],
+    },
 
-        stv: {
-            top: ['рама', 'импост', 'импост в створке'],
-            bot: ['рама', 'импост', 'импост в створке', 'порог'],
-            left: ['рама', 'импост', 'штульп', 'импост в створке'],
-            right: ['рама', 'импост', 'штульп', 'импост в створке'],
-        },
+    stv: {
+        top: ['рама', 'импост', 'импост в створке'],
+        bot: ['рама', 'импост', 'импост в створке', 'порог'],
+        left: ['рама', 'импост', 'штульп', 'импост в створке'],
+        right: ['рама', 'импост', 'штульп', 'импост в створке'],
+    },
 
-        setup(tglStatus = '') {
-            const sides = ['top', 'bot', 'left', 'right'];
-            for (let side of sides) {
-                let list = '';
-                let $selector = document.querySelector(`ul.drop_content[data-side=${side}]`);
-                this[tglStatus][side].forEach(element => list += `<li>${element}</li>`);
-                $selector.innerHTML = '';
-                $selector.insertAdjacentHTML('afterbegin', list)
-            }
-        },
+    setup(tglStatus = '') {
+
+        const sides = ['top', 'bot', 'left', 'right'];
+        for (let side of sides) {
+            let list = '';
+            let $selector = document.querySelector(`ul.drop_content[data-side=${side}]`);
+            this[tglStatus][side].forEach(element => list += `<li>${element}</li>`);
+            $selector.innerHTML = '';
+            $selector.insertAdjacentHTML('afterbegin', list)
+        }
+    },
+};
+
+const Detailslist = {
+    stv: `<span>
+                <input type="checkbox" name="stv232" id="stv232" disabled>
+                <label for="stv232">Нестандартная створка .232</label>
+                </span>`,
+    fix: [],
+    svet: '<span>Только для определения размеров москитных сеток!</span>',
+    toHTML(current_state) {
+        const $tps_det = document.querySelector('div.tps_det');
+        $tps_det.innerHTML = '';
+        $tps_det.insertAdjacentHTML('afterbegin', this[current_state]);
     }
-    //! ОБЩИЙ ОБРАБОТЧИК
+
+}
+
+//! ОБЩИЙ ОБРАБОТЧИК
 $main.addEventListener('click', function(e) {
     let target = e.target;
     //! выделение строки списка
@@ -77,6 +98,7 @@ $main.addEventListener('click', function(e) {
         document.querySelector('[data-side=depth]').innerHTML = setDepth(target.textContent);
 
         $StatusCheck.system = target.textContent
+        check232(target.textContent);
     }
 
     if (target.matches('[data-side=depth] *')) {
@@ -92,6 +114,7 @@ $main.addEventListener('click', function(e) {
         }
         target.classList.add('active');
     }
+
 }, true);
 
 $size.addEventListener('input', function(e) {
@@ -106,7 +129,10 @@ $size.addEventListener('input', function(e) {
 $tgl_btn.addEventListener('click', function(event) {
     let t = event.target;
     if (t.matches('[data-tgl-status=info]')) return
-    if (t.matches('[data-tgl-status]')) Sidelist.setup(t.dataset.tglStatus);
+    if (t.matches('[data-tgl-status]')) {
+        Sidelist.setup(t.dataset.tglStatus);
+        Detailslist.toHTML(t.dataset.tglStatus);
+    };
 
 })
 
@@ -126,4 +152,11 @@ function setStatusInfo(StatusObject = $StatusCheck) {
 
 function tglActive(element) {
     element.classList.toggle('active')
+}
+
+function check232(system) {
+    let elem = document.getElementById('stv232');
+    if (!elem) return
+    return elem.disabled = (system == 'ProLine' || system == 'SoftLine') ? false : true;
+
 }
