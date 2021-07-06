@@ -1,4 +1,4 @@
-const delta_ms = {
+const dStorage = {
     skf: {
         dw: (-45),
         dh: (-47)
@@ -24,37 +24,54 @@ const delta_ms = {
 
 class TPScalc__ {
     svet(w = Number, h = Number) {
-        let skf = delta_ms.calculate(w, h).skf;
-        let {
-            simple
-        } = delta_ms.calculate(w, h).simple;
+        let skf = dStorage.calculate(w, h).skf;
+        let simple = dStorage.calculate(w, h).simple;
         skf.toHTML = `<span>${skf.w || '---'}мм х ${skf.h || '---'}мм</span>`;
         simple.toHTML = `<span>${simple.w || '---'}мм х ${simple.h || '---'}мм</span>`;
     }
 }
 
 class TPScalc {
-    constructor(w, h) {
+    constructor(w = $StatusCheck.width || 0, h = $StatusCheck.height || 0) {
         this.w = w;
         this.h = h;
+        // this.cons
     }
 
+    get cons() {
+        if (!this.w || !this.h) return
+        console.count('sizes count');
+        console.log({ w: this.w, h: this.h })
+    }
+    get clear() {
+        return console.clear()
+    }
     toHTML() {
         return alert('Вывод данных не назначен!!')
     }
 };
 
 class SvetCalc extends TPScalc {
-    skf(w = this.w, h = this.h) {
-        return delta_ms.calculate(w, h).skf
-    }
-    simple(w = this.w, h = this.h) {
-        return delta_ms.calculate(w, h).simple
+    get out() {
+        let skf = dStorage.calculate(this.w, this.h).skf;
+        let simple = dStorage.calculate(this.w, this.h).simple;
+        return { skf, simple }
     }
 
+
     toHTML(type) {
-        if (type == 'skf') return `<span>${this.skf(this.w,this.h).w || '---'}мм х ${this.skf().h || '---'}мм</span>`
+        return `<span>${this.out[type].w || '---'}мм х ${this.out[type].h || '---'}мм</span>`
     }
 }
 
-let svCALC = new SvetCalc;
+
+function calcSelect(tglState) {
+    if (!tglState) return
+    const tps_status = {
+        svet() { return new SvetCalc() },
+        fix() { console.log('fixCalc not ready yet') },
+        stv() { console.log('stvCalc not ready yet') },
+    };
+    let current = tps_status[tglState]();
+    return current
+}

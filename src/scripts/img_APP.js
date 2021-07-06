@@ -108,9 +108,8 @@ $main.addEventListener('click', function(e) {
     if (target.matches('[data-side=depth] *')) {
         $StatusCheck.depth = target.textContent
     }
-    document.querySelector('div.target_output > ul.target_list').innerHTML = "";
-    document.querySelector('div.target_output > ul.target_list').insertAdjacentHTML("afterbegin", setStatusInfo())
-        //! настройка отображения детализации
+
+    //! настройка отображения детализации
     if (target.matches('.tgl_big_item')) {
         if (target.matches('.tgl_big_item[data-tgl-status=info')) return
         for (let elem of target.closest('.tgl_big_box').children) {
@@ -125,24 +124,38 @@ $size.addEventListener('input', function(e) {
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
-    let ms = delta_ms.calculate($StatusCheck.width, $StatusCheck.height);
-    $ms_simple.innerHTML = '';
-    $ms_simple.insertAdjacentHTML('afterbegin', `<span>М/С:</span> <span>${ms.simple.w || '---'}мм х ${ms.simple.h || '---'}мм</span>`)
-    $ms_skf.innerHTML = '';
-    // $ms_skf.insertAdjacentHTML('afterbegin', `<span>М/С SKF:</span> <span>${ms.skf.w || '---'}мм х ${ms.skf.h || '---'}мм</span>`)
-    $ms_skf.insertAdjacentHTML('afterbegin', `<span>М/С SKF:</span> ${svCALC.toHTML('skf')}`)
+    let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
+    updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
+    updateHTML($ms_skf, `<span>М/С:</span>${svCALC.toHTML('skf')}`);
+    calcSelect($StatusCheck.tglState)
     $out_sizes.innerHTML = '';
     $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
+});
+
+$size.addEventListener('change', function(e) {
+
+    let t = e.target;
+    let msg = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
+    if (!t.matches('.tps_size input')) return
+    return msg.cons
 })
 
 $tgl_btn.addEventListener('click', function(event) {
     let t = event.target;
     if (t.matches('[data-tgl-status=info]')) return
     if (t.matches('[data-tgl-status]')) {
+        $StatusCheck.tglState = t.dataset.tglStatus;
         Sidelist.setup(t.dataset.tglStatus);
         Detailslist.toHTML(t.dataset.tglStatus);
     };
 
+})
+
+$main.addEventListener('mousemove', function() {
+    setTimeout(function() {
+        document.querySelector('div.target_output > ul.target_list').innerHTML = "";
+        document.querySelector('div.target_output > ul.target_list').innerHTML = setStatusInfo();
+    }, 1000)
 })
 
 function setDepth(system) {
@@ -169,5 +182,10 @@ function check232(system) {
     elem.disabled = (system == 'ProLine' || system == 'SoftLine') ? false : true;
     if (elem.disabled) elem.checked = false;
     return
+}
 
+function updateHTML(HTMLelement, text) {
+    HTMLelement.innerHTML = '';
+    HTMLelement.insertAdjacentHTML('afterbegin', text)
+    return
 }
