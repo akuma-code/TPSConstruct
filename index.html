@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <script src='src/loader.js'></script>
+    <!-- <script src='src/loader.js'></script> -->
     <link rel='stylesheet' href='src/style.css'>
     <meta charset='UTF-8'>
     <script>
@@ -24,16 +24,16 @@
                 <ul class="drop_content" data-side="system">
                     <li>ProLine</li>
                     <li>SoftLine</li>
+                    <li>EuroLine</li>
+                    <li>SoftLine82</li>
                     <li>WHS</li>
+                    <li>WHS72</li>
                 </ul>
             </div>
             <div class="tps_dpt">
                 <span output="depth">depth</span>
                 <ul class="drop_content" data-side="depth">
-                    <li>24mm</li>
-                    <li>28mm</li>
-                    <li>36mm</li>
-                    <li>40mm</li>
+
                 </ul>
             </div>
             <div class="tps_det">
@@ -58,8 +58,8 @@
                 <div><span>Стеклопакет:</span> <span>500 x 500</span></div>
                 <div><span>Створка:</span> <span>450 х 450</span></div>
                 <div><span>Штапик:</span> <span>490 x 490</span></div>
-                <div><span>М\С:</span> <span>545 х 545</span></div>
-                <div><span>М\С SKF:</span> <span>520 х 520</span></div>
+                <div id='ms_simple'></div>
+                <div id='ms_skf'></div>
 
                 <!-- <ul class="output_ul">
                     <li><span>Стеклопакет:</span> <span>500 x 500</span></li>
@@ -130,6 +130,7 @@
 
             </ul> -->
         </div>
+        <script src='src/loader.js'></script>
 </body>
 
 </html>

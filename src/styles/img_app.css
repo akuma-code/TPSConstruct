@@ -166,7 +166,7 @@ span:is([output=right],
 
 .tps_output {
     grid-area: out;
-    background-color: rgb(115, 100, 201);
+    background-color: #a396fd;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;

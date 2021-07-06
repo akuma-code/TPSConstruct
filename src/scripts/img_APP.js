@@ -10,6 +10,8 @@ const $size = document.querySelector('div.tps_size');
 const $out_sizes = document.getElementById('out_sizes');
 const $tgl_btn = document.querySelector('div.tps_tgl');
 const $stv232 = document.querySelector('#stv232');
+const $ms_simple = document.querySelector('#ms_simple');
+const $ms_skf = document.querySelector('#ms_skf');
 
 const $outputelem = {
     system: '[output=system]',
@@ -21,11 +23,13 @@ const $outputelem = {
     depth: '[output=depth]',
 };
 const currentDepth = {
-    ProLine: ['28mm', '36mm', '40mm'],
-    SoftLine: ['28mm', '36mm', '40mm'],
-    WHS: ['24mm', '30mm'],
+    ProLine: ['24mm', '28mm', '36mm', '40mm'],
+    SoftLine: ['24mm', '28mm', '36mm', '40mm'],
+    EuroLine: ['24mm', '32mm'],
+    SoftLine82: ['40mm', '52mm'],
+    WHS: ['24mm', '32mm'],
+    WHS72: ['24mm', '32mm', '40mm'],
 }
-
 
 
 
@@ -114,7 +118,6 @@ $main.addEventListener('click', function(e) {
         }
         target.classList.add('active');
     }
-
 }, true);
 
 $size.addEventListener('input', function(e) {
@@ -122,6 +125,12 @@ $size.addEventListener('input', function(e) {
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
+    let ms = delta_ms.calculate($StatusCheck.width, $StatusCheck.height);
+    $ms_simple.innerHTML = '';
+    $ms_simple.insertAdjacentHTML('afterbegin', `<span>М/С:</span> <span>${ms.simple.w || '---'}мм х ${ms.simple.h || '---'}мм</span>`)
+    $ms_skf.innerHTML = '';
+    // $ms_skf.insertAdjacentHTML('afterbegin', `<span>М/С SKF:</span> <span>${ms.skf.w || '---'}мм х ${ms.skf.h || '---'}мм</span>`)
+    $ms_skf.insertAdjacentHTML('afterbegin', `<span>М/С SKF:</span> ${svCALC.toHTML('skf')}`)
     $out_sizes.innerHTML = '';
     $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
 })
@@ -157,6 +166,8 @@ function tglActive(element) {
 function check232(system) {
     let elem = document.getElementById('stv232');
     if (!elem) return
-    return elem.disabled = (system == 'ProLine' || system == 'SoftLine') ? false : true;
+    elem.disabled = (system == 'ProLine' || system == 'SoftLine') ? false : true;
+    if (elem.disabled) elem.checked = false;
+    return
 
 }
