@@ -139,10 +139,10 @@ $size.addEventListener('input', function(e) {
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-    calcSelect($StatusCheck.tglState)
-    outputList.setup($StatusCheck.tglState || 'svet')
-        // $out_sizes.innerHTML = '';
-        // $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
+    console.dir(calcSelect($StatusCheck.tglState));
+    if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
+    // $out_sizes.innerHTML = '';
+    // $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
 });
 
 $size.addEventListener('change', function(e) {
@@ -200,6 +200,6 @@ function check232(system) {
 
 function updateHTML(HTMLelement, text) {
     HTMLelement.innerHTML = '';
-    HTMLelement.insertAdjacentHTML('afterbegin', text)
+    HTMLelement.insertAdjacentHTML('beforeend', text)
     return
 }

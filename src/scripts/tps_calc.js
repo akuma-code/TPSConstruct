@@ -56,13 +56,43 @@ class SvetCalc extends TPScalc {
     }
 }
 
+class Side_delta {
+    constructor() {
+        this.top;
+        this.bot;
+        this.left;
+        this.right;
+        this.getvals
+    }
+    get getvals() {
+        if (!$StatusCheck.tglState || !$StatusCheck.tglState) return console.log('malo');;
+        for (let side of $sides) {
+            let $elem = document.querySelector($outputelem[side.dataset.side]);
+            this[side.dataset.side] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)]
+        }
+    }
+    trans_to_delta(text) {
+        const trans = {
+            'импост': 'di',
+            'рама': 'dr',
+            'порог': 'd_porog',
+            'штульп': 'd_shtulp',
+            ['импост в створке']: 'di_stv',
+            // ['световой проем']: 'svet'
+        }
+        if (!trans[text]) return
+        return trans[text]
+    }
+
+}
+
 
 function calcSelect(tglState) {
     if (!tglState) return
     const tps_status = {
         svet() { return new SvetCalc() },
-        fix() { console.log('fixCalc not ready yet') },
-        stv() { console.log('stvCalc not ready yet') },
+        fix() { return new Side_delta() },
+        stv() { return new Side_delta() },
     };
     let current = tps_status[tglState]();
     return current
