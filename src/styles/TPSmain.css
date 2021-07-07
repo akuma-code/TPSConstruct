@@ -86,12 +86,13 @@
 
 .tps_det {
     grid-area: det;
-    background-color: rgb(216, 16, 16);
+    background-color: #d8101069;
     display: flex;
     flex-direction: column;
-    align-content: flex-start;
-    align-items: baseline;
+    align-content: center;
+    align-items: center;
     flex-wrap: wrap;
+    place-content: center;
 }
 
 .tps_tgl {

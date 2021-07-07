@@ -1,17 +1,17 @@
 const $StatusCheck = {};
-const $img_conteiner = document.querySelector('.tps_img');
-const $img_cont = document.querySelector('div.img_cont');
-const $sys = document.querySelector('div.tps_sys');
-const $sys_content = document.querySelector('.tps_sys_content');
-const $out = document.querySelector('div.tps_output');
-const $sides = document.querySelectorAll('.img_side');
-const $main = document.querySelector('div.tps_main');
-const $size = document.querySelector('div.tps_size');
-const $out_sizes = document.getElementById('out_sizes');
-const $tgl_btn = document.querySelector('div.tps_tgl');
-const $stv232 = document.querySelector('#stv232');
-const $ms_simple = document.querySelector('#ms_simple');
-const $ms_skf = document.querySelector('#ms_skf');
+const $img_conteiner = document.querySelector('.tps_img'),
+    $img_cont = document.querySelector('div.img_cont'),
+    $sys = document.querySelector('div.tps_sys'),
+    $sys_content = document.querySelector('.tps_sys_content'),
+    $out = document.querySelector('div.tps_output'),
+    $sides = document.querySelectorAll('.img_side'),
+    $main = document.querySelector('div.tps_main'),
+    $size = document.querySelector('div.tps_size'),
+    $out_sizes = document.getElementById('out_sizes'),
+    $tgl_btn = document.querySelector('div.tps_tgl'),
+    $stv232 = document.querySelector('#stv232'),
+    $ms_simple = document.querySelector('#ms_simple'),
+    $ms_skf = document.querySelector('#ms_skf');
 
 const $outputelem = {
     system: '[output=system]',
@@ -31,7 +31,18 @@ const currentDepth = {
     WHS72: ['24mm', '32mm', '40mm'],
 }
 
-
+const outputList = {
+    svet: ['out_sizes', 'ms_simple', 'ms_skf'],
+    stv: ['out_glass', "out_stv", "out_shtap", 'out_sizes', 'ms_simple', 'ms_skf'],
+    fix: ['out_glass', "out_stv", "out_shtap", 'out_sizes'],
+    setup(state) {
+        const $outlist = document.getElementsByClassName('outlist');
+        for (let elem of $outlist) {
+            if (!this[state].includes(elem.id)) elem.classList.add('disp_none')
+            else elem.classList.remove('disp_none')
+        }
+    }
+}
 
 const Sidelist = {
     svet: {
@@ -73,7 +84,7 @@ const Detailslist = {
                 <input type="checkbox" name="stv232" id="stv232" disabled>
                 <label for="stv232">Нестандартная створка .232</label>
                 </span>`,
-    fix: [],
+    fix: '<span>Фикса, просто фикса...</span>',
     svet: '<span>Только для определения размеров москитных сеток!</span>',
     toHTML(current_state) {
         const $tps_det = document.querySelector('div.tps_det');
@@ -126,10 +137,12 @@ $size.addEventListener('input', function(e) {
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
     let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
-    updateHTML($ms_skf, `<span>М/С:</span>${svCALC.toHTML('skf')}`);
+    updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
+    updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     calcSelect($StatusCheck.tglState)
-    $out_sizes.innerHTML = '';
-    $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
+    outputList.setup($StatusCheck.tglState || 'svet')
+        // $out_sizes.innerHTML = '';
+        // $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
 });
 
 $size.addEventListener('change', function(e) {
@@ -147,6 +160,7 @@ $tgl_btn.addEventListener('click', function(event) {
         $StatusCheck.tglState = t.dataset.tglStatus;
         Sidelist.setup(t.dataset.tglStatus);
         Detailslist.toHTML(t.dataset.tglStatus);
+        outputList.setup(t.dataset.tglStatus)
     };
 
 })

@@ -1,34 +1,48 @@
+//@ts-check
+
 const deltaStorage = {
-    fix: {
-        ProLine: {
-            dr: {},
-            di: {},
-            dporog: {},
+    ProLine: {
+        fix: {
+            dr: 48,
+            di: 26.5
         },
-        SoftLine: {
-            dr: {},
-            di: {},
-            dporog: {},
+        stv: {
+            dr: 96,
+            di: 74.5,
+            d_shtulp: 64,
+            di_stv: 26.5,
         },
-        SoftLine82: {
-            dr: {},
-            di: {},
-            dporog: {},
+    },
+
+    SoftLine: {
+        fix: {
+            dr: 51,
+            di: 26.5
         },
-        WHS: {
-            dr: {},
-            di: {},
-            dporog: {},
+    },
+    SoftLine82: {
+        fix: {
+            dr: 58,
+            di: 32
         },
-        WHS72: {
-            dr: {},
-            di: {},
-            dporog: {},
+    },
+    WHS: {
+        fix: {
+            dr: 44,
+            di: 23.5
         },
-        Euroline: {
-            dr: {},
-            di: {},
-            dporog: {},
+    },
+    WHS72: {
+        fix: {
+            dr: 45,
+            di: 24.5
         },
-    }
+    },
+    Euroline: {
+        fix: {
+            dr: 54,
+            di: 28
+        },
+    },
+
 }

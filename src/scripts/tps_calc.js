@@ -1,4 +1,3 @@
-//@ts-check
 const dStorage = {
     skf: {
         dw: (-45),
@@ -23,17 +22,7 @@ const dStorage = {
 }
 
 
-class TPScalc__ {
-    svet(w = Number, h = Number) {
-        let skf = dStorage.calculate(w, h).skf;
-        let simple = dStorage.calculate(w, h).simple;
-        skf.toHTML = `<span>${skf.w || '---'}мм х ${skf.h || '---'}мм</span>`;
-        simple.toHTML = `<span>${simple.w || '---'}мм х ${simple.h || '---'}мм</span>`;
-    }
-}
-/**
- * 
- */
+
 class TPScalc {
     constructor(w = $StatusCheck.width || 0, h = $StatusCheck.height || 0) {
         this.w = w;
@@ -49,8 +38,8 @@ class TPScalc {
     get clear() {
         return console.clear()
     }
-    toHTML(type = '') {
-        return alert(`Вывод данных не назначен!! ${type}`)
+    toHTML() {
+        return alert('Вывод данных не назначен!!')
     }
 };
 
@@ -62,18 +51,12 @@ class SvetCalc extends TPScalc {
     }
 
 
-    /**
-     * @param {string} type
-     */
     toHTML(type) {
         return `<span>${this.out[type].w || '---'}мм х ${this.out[type].h || '---'}мм</span>`
     }
 }
 
 
-/**
- * @param {string } tglState
- */
 function calcSelect(tglState) {
     if (!tglState) return
     const tps_status = {

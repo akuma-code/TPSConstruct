@@ -1,6 +1,7 @@
 const Scripts = [
     'src/scripts/img_APP.js',
     'src/scripts/tps_calc.js',
+    'src/scripts/DB/dbTPSdelta.js',
     'src/scripts/TPSconstruct.js',
     // 'src/scripts/model.js',
     // 'src/scripts/DB/SizeDB.js',

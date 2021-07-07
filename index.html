@@ -38,8 +38,8 @@
             </div>
             <div class="tps_det">
                 <span>
-                <input type="checkbox" name="stv232" id="stv232" data-check-prop="system place" disabled>
-                <label for="stv232">Нестандартная створка .232</label>
+                    <input type="checkbox" name="stv232" id="stv232" data-check-prop="system place" disabled>
+                    <label for="stv232">Нестандартная створка .232</label>
                 </span>
 
 
@@ -49,25 +49,14 @@
                 <input type="number" id="tps_w" placeholder="ширина" min="0">
                 <input type="number" id="tps_h" placeholder="высота" min="0">
             </div>
-            <!-- <div class="tps_button">
-                <button class="tps_btn">CALC</button>
-            </div> -->
             <div class="tps_output" output='out'>
 
-                <div id="out_sizes"><span>Исходные размеры: </span></div>
-                <div><span>Стеклопакет:</span> <span>500 x 500</span></div>
-                <div><span>Створка:</span> <span>450 х 450</span></div>
-                <div><span>Штапик:</span> <span>490 x 490</span></div>
-                <div id='ms_simple'></div>
-                <div id='ms_skf'></div>
-
-                <!-- <ul class="output_ul">
-                    <li><span>Стеклопакет:</span> <span>500 x 500</span></li>
-                    <li>Створка: <span>450 х 450</span></li>
-                    <li>Штапик: <span>490 x 490</span></li>
-                    <li>М\С: <span>545 х 545</span></li>
-                    <li>М\С SKF: <span>520 х 520</span></li>
-                </ul> -->
+                <div class="outlist" id="out_sizes"><span>Исходные размеры: </span></div>
+                <div class="outlist" id="out_glass"><span>Стеклопакет:</span> <span>500 x 500</span></div>
+                <div class="outlist" id="out_stv"><span>Створка:</span> <span>450 х 450</span></div>
+                <div class="outlist" id="out_shtap"><span>Штапик:</span> <span>490 x 490</span></div>
+                <div class="outlist" id='ms_simple'></div>
+                <div class="outlist" id='ms_skf'></div>
             </div>
             <div class="tps_img">
                 <div class="img_cont">
@@ -102,16 +91,13 @@
             </div>
 
             <div class="tps_tgl">
-                <!-- <div class="tgl_box stv_bg">
-                    <div class="tgl_thumb" data-tgl-status="stv" id="tgl_fix"></div>
-                </div> -->
 
                 <div class="tgl_big_box">
                     <div class="tgl_big_item" data-tgl-status="info">СТ\ПАКЕТ ПО:</div>
                     <div class="tgl_big_item" data-tgl-status="stv"></div>
                     <div class="tgl_big_item" data-tgl-status="fix"></div>
                     <div class="tgl_big_item" data-tgl-status="info">или размеры </div>
-                    <div class="tgl_big_item" data-tgl-status="svet"></div>
+                    <div class="tgl_big_item active" data-tgl-status="svet"></div>
                 </div>
             </div>
 
