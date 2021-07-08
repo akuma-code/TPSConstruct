@@ -1,3 +1,4 @@
+() => console.clear();
 const $StatusCheck = {};
 const $img_conteiner = document.querySelector('.tps_img'),
     $img_cont = document.querySelector('div.img_cont'),
@@ -91,7 +92,6 @@ const Detailslist = {
         $tps_det.innerHTML = '';
         $tps_det.insertAdjacentHTML('afterbegin', this[current_state]);
     }
-
 }
 
 //! ОБЩИЙ ОБРАБОТЧИК
@@ -139,7 +139,7 @@ $size.addEventListener('input', function(e) {
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-    console.dir(calcSelect($StatusCheck.tglState));
+    calcSelect($StatusCheck.tglState);
     if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
     // $out_sizes.innerHTML = '';
     // $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
@@ -150,7 +150,7 @@ $size.addEventListener('change', function(e) {
     let t = e.target;
     let msg = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
     if (!t.matches('.tps_size input')) return
-    return msg.cons
+    return msg
 })
 
 $tgl_btn.addEventListener('click', function(event) {
@@ -180,8 +180,10 @@ function setDepth(system) {
 
 function setStatusInfo(StatusObject = $StatusCheck) {
     let result = '';
+    const sides = ['top', 'bot', 'left', 'right'];
     for (let key in StatusObject) {
-        result += `<li>${key}: ${StatusObject[key]}</li>`
+        (sides.includes(key)) ? result += `<li>${key}: ${StatusObject[key]}(${current_delta[key]})</li>`:
+            result += `<li>${key}: ${StatusObject[key]}</li>`
     }
     return result
 }

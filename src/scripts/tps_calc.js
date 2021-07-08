@@ -67,9 +67,12 @@ class Side_delta {
     get getvals() {
         if (!$StatusCheck.tglState || !$StatusCheck.tglState) return console.log('malo');;
         for (let side of $sides) {
+            let temp;
             let $elem = document.querySelector($outputelem[side.dataset.side]);
-            this[side.dataset.side] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)]
+            current_delta[side.dataset.side] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)] || 0;
+            this[side.dataset.side] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)];
         }
+        return console.info(current_delta)
     }
     trans_to_delta(text) {
         const trans = {
@@ -87,12 +90,23 @@ class Side_delta {
 }
 
 
+let current_delta = {
+    top: '',
+    bot: '',
+    left: '',
+    right: '',
+}
+
 function calcSelect(tglState) {
     if (!tglState) return
     const tps_status = {
         svet() { return new SvetCalc() },
-        fix() { return new Side_delta() },
-        stv() { return new Side_delta() },
+        fix() {
+            return new Side_delta()
+        },
+        stv() {
+            return new Side_delta()
+        },
     };
     let current = tps_status[tglState]();
     return current
