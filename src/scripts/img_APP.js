@@ -1,9 +1,7 @@
-() => console.clear();
 const $StatusCheck = {};
 const $img_conteiner = document.querySelector('.tps_img'),
     $img_cont = document.querySelector('div.img_cont'),
     $sys = document.querySelector('div.tps_sys'),
-    $sys_content = document.querySelector('.tps_sys_content'),
     $out = document.querySelector('div.tps_output'),
     $sides = document.querySelectorAll('.img_side'),
     $main = document.querySelector('div.tps_main'),
@@ -205,3 +203,5 @@ function updateHTML(HTMLelement, text) {
     HTMLelement.insertAdjacentHTML('beforeend', text)
     return
 }
+
+() => console.clear();

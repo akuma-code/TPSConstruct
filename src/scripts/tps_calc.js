@@ -72,7 +72,7 @@ class Side_delta {
             current_delta[side.dataset.side] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)] || 0;
             this[side.dataset.side] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)];
         }
-        return console.info(current_delta)
+        return console.log(current_delta)
     }
     trans_to_delta(text) {
         const trans = {
@@ -101,13 +101,14 @@ function calcSelect(tglState) {
     if (!tglState) return
     const tps_status = {
         svet() { return new SvetCalc() },
-        fix() {
-            return new Side_delta()
+        fix(tglState) {
+            return new Side_delta()[tglState]
         },
-        stv() {
-            return new Side_delta()
+        stv(tglState) {
+            return new Side_delta(tglState)
         },
     };
-    let current = tps_status[tglState]();
+    let current = tps_status[tglState](tglState);
+    debugger
     return current
 }
