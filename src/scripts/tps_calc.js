@@ -109,6 +109,6 @@ function calcSelect(tglState) {
         },
     };
     let current = tps_status[tglState](tglState);
-    debugger
+    // debugger
     return current
 }

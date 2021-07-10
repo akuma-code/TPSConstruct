@@ -1,4 +1,5 @@
 const $StatusCheck = {};
+const dataStorage = localStorage;
 const $img_conteiner = document.querySelector('.tps_img'),
     $img_cont = document.querySelector('div.img_cont'),
     $sys = document.querySelector('div.tps_sys'),
@@ -170,6 +171,8 @@ $main.addEventListener('mousemove', function() {
     }, 1000)
 })
 
+window.addEventListener('beforeunload', () => updateDB($StatusCheck));
+
 function setDepth(system) {
     let list = '';
     currentDepth[system].forEach(element => list += `<li>${element}</li>`);
@@ -204,4 +207,25 @@ function updateHTML(HTMLelement, text) {
     return
 }
 
-() => console.clear();
+function updateDB(storage = {}) {
+    for (let key in storage) {
+        if (dataStorage.getItem(key) === storage[key]) continue
+        else dataStorage.setItem(key, storage[key]);
+        console.count(`added ${key} : ${storage[key]} to dataStorage, item index`)
+    }
+    return
+}
+
+function restoreValues() {
+    const elements = document.querySelectorAll('[data-stdb]');
+    for (let el of elements) {
+        let elem_key = el.dataset.stdb;
+        if (!elem_key) console.log('no key!');
+        if (dataStorage.getItem(elem_key)) {
+            (el.type === 'number') ? el.value = dataStorage.getItem(elem_key): el.innerText = dataStorage.getItem(elem_key)
+        }
+    }
+    return console.log(dataStorage.length);
+}
+
+restoreValues()

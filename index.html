@@ -20,7 +20,7 @@
                 ТехПомощь Style constructor
             </div>
             <div class="tps_sys" data-selector='system'>
-                <span output='system'>system</span>
+                <span output='system' data-stdb="system">system</span>
                 <ul class="drop_content" data-side="system">
                     <li>ProLine</li>
                     <li>SoftLine</li>
@@ -31,7 +31,7 @@
                 </ul>
             </div>
             <div class="tps_dpt">
-                <span output="depth">depth</span>
+                <span output="depth" data-stdb="depth">depth</span>
                 <ul class="drop_content" data-side="depth"></ul>
             </div>
             <div class="tps_det">
@@ -44,8 +44,8 @@
             </div>
 
             <div class="tps_size">
-                <input type="number" id="tps_w" placeholder="ширина" min="0" value="500">
-                <input type="number" id="tps_h" placeholder="высота" min="0" value="1000">
+                <input type="number" id="tps_w" placeholder="ширина" min="0" data-stdb="width">
+                <input type="number" id="tps_h" placeholder="высота" min="0" data-stdb="height">
             </div>
             <div class="tps_output" output='out'>
 
@@ -59,28 +59,28 @@
             <div class="tps_img">
                 <div class="img_cont">
                     <div class="img_side" data-side="top">
-                        <span output='top'>верх</span>
+                        <span output='top' data-stdb='top'>верх</span>
                         <ul class="drop_content" data-side="top">
                             <!-- <li>укажите расположение ст-та</li> -->
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="right">
-                        <span output='right'>право</span>
+                        <span output='right' data-stdb="right">право</span>
                         <ul class="drop_content" data-side="right">
                             <!-- <li>укажите расположение ст-та</li> -->
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="bot">
-                        <span output='bot'>низ</span>
+                        <span output='bot' data-stdb="bot">низ</span>
                         <ul class="drop_content" data-side="bot">
                             <!-- <li>укажите расположение ст-та</li> -->
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="left">
-                        <span output='left'>лево</span>
+                        <span output='left' data-stdb="left">лево</span>
                         <ul class="drop_content" data-side="left">
                             <!-- <li>укажите расположение ст-та</li> -->
                         </ul>
