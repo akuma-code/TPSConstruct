@@ -222,7 +222,8 @@ function restoreValues() {
         let elem_key = el.dataset.stdb;
         if (!elem_key) console.log('no key!');
         if (dataStorage.getItem(elem_key)) {
-            (el.type === 'number') ? el.value = dataStorage.getItem(elem_key): el.innerText = dataStorage.getItem(elem_key)
+            if (el.type === 'number') el.value = dataStorage.getItem(elem_key)
+                // el.innerText = dataStorage.getItem(elem_key)
         }
     }
     return console.log(dataStorage.length);
