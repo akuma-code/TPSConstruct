@@ -97,4 +97,34 @@ const deltaStorage = {
         },
     },
 
+};
+
+function get_delta(system = '') {
+    return function(state = '') {
+        return deltaStorage[system][state]
+    }
+};
+
+let d_proline = get_delta('ProLine');
+
+function check() {
+    let state = prompt('input state', 'stv');
+    let result = Object.entries(d_proline(state));
+    console.log(result);
+    console.dir(Object.fromEntries(result))
+}
+
+function glassSize(inp_w = 0, inp_h = 0) {
+    return function(dw, dh) {
+        return { W: inp_w - dw, H: inp_h - dh }
+    }
+};
+
+function check2() {
+    //@ts-ignore
+    let w = document.querySelector('input#tps_w').value || 0;
+    //@ts-ignore
+    let h = document.querySelector('input#tps_h').value || 0;
+    let g_stv = glassSize(w, h);
+    console.log(g_stv(96, 96));
 }

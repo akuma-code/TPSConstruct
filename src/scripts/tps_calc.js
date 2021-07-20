@@ -67,10 +67,10 @@ class Side_delta {
     get getvals() {
         if (!$StatusCheck.tglState || !$StatusCheck.tglState) return console.log('malo');;
         for (let side of $sides) {
-            let temp;
-            let $elem = document.querySelector($outputelem[side.dataset.side]);
-            current_delta[side.dataset.side] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)] || 0;
-            this[side.dataset.side] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)];
+            let s = side.dataset.side;
+            let $elem = document.querySelector($outputelem[s]);
+            current_delta[s] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)] || 0;
+            this[s] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)];
         }
         return console.log(current_delta)
     }
