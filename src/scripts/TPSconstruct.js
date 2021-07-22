@@ -1,17 +1,35 @@
 //@ts-check
 console.log(`TPS constructor Loaded`);
-/**
- * @class  базовый класс
- * @return  Базовый экземпляр
- */
-class TPSRama {
-    /**
-     * 
-     * @param {number} height высота рамы
-     * @param {number} width ширина рамы
-     */
-    constructor(height = 0, width = 0) {
-        this.height = height;
-        this.width = width;
+class TPSapp {
+    constructor(elem) {
+        // this._elem = elem;
+        document.getElementById(elem).onclick = this.onClick.bind(this)
+    }
+
+    onClick(event) {
+        let action = event.target.dataset.action;
+        if (action) {
+            this[action]();
+        }
+    }
+
+    restore() {
+        return restoreValues()
+    }
+
+    clear() {
+        return console.clear()
+    }
+
+    restoreStv() {
+        const stv = document.querySelector('[data-tgl-status=stv]');
+        //@ts-ignore
+        stv.click();
+        let store = document.querySelectorAll('[data-stdb]');
+        for (let key in store) {
+            if (!!localStorage.getItem(key)) store[key].innerHTML = localStorage.getItem(key)
+        }
     }
 }
+
+new TPSapp('ctrl_panel');

@@ -65,44 +65,38 @@ class Side_delta {
         this.getvals
     }
     get getvals() {
-        if (!$StatusCheck.tglState || !$StatusCheck.tglState) return console.log('malo');;
+        if (!$StatusCheck.system || !$StatusCheck.tglState) return console.log(`system not set`);
         for (let side of $sides) {
             let s = side.dataset.side;
             let $elem = document.querySelector($outputelem[s]);
-            current_delta[s] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)] || 0;
-            this[s] = deltaStorage[$StatusCheck.system][$StatusCheck.tglState][this.trans_to_delta($elem.innerText)];
+            let delta = rename($elem.innerText);
+            let dSt = deltaStorage[$StatusCheck.system][$StatusCheck.tglState];
+            current_delta[s] = dSt[delta] || 0;
+            this[s] = dSt[delta] || 0;
         }
-        return console.log(current_delta)
+        // return console.log({ current_delta })
     }
-    trans_to_delta(text) {
-        const trans = {
-            'импост': 'di',
-            'рама': 'dr',
-            'порог': 'd_porog',
-            'штульп': 'd_shtulp',
-            ['импост в створке']: 'di_stv',
-            // ['световой проем']: 'svet'
-        }
-        if (!trans[text]) return
-        return trans[text]
-    }
+
 
 }
 
 
 let current_delta = {
-    top: '',
-    bot: '',
-    left: '',
-    right: '',
+    top: 0,
+    bot: 0,
+    left: 0,
+    right: 0,
+    get dwdh() {
+        return { dw: this.left + this.right, dh: this.top + this.bot }
+    }
 }
 
 function calcSelect(tglState) {
-    if (!tglState) return
+    if (!$StatusCheck.tglState) return console.log(`state not set`);
     const tps_status = {
         svet() { return new SvetCalc() },
         fix(tglState) {
-            return new Side_delta()[tglState]
+            return new Side_delta(tglState)
         },
         stv(tglState) {
             return new Side_delta(tglState)
@@ -111,4 +105,17 @@ function calcSelect(tglState) {
     let current = tps_status[tglState](tglState);
     // debugger
     return current
+}
+
+function rename(text) {
+    const dictionary = {
+        'импост': 'di',
+        'рама': 'dr',
+        'порог': 'd_porog',
+        'штульп': 'd_shtulp',
+        ['импост в створке']: 'di_stv',
+        ['световой проем']: 'svet'
+    }
+    if (!dictionary[text]) return
+    return dictionary[text]
 }

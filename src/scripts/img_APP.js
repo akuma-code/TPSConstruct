@@ -1,5 +1,5 @@
 const $StatusCheck = {};
-const dataStorage = localStorage;
+// const localStorage = localStorage;
 const $img_conteiner = document.querySelector('.tps_img'),
     $img_cont = document.querySelector('div.img_cont'),
     $sys = document.querySelector('div.tps_sys'),
@@ -72,7 +72,7 @@ const Sidelist = {
         for (let side of sides) {
             let list = '';
             let $selector = document.querySelector(`ul.drop_content[data-side=${side}]`);
-            this[tglStatus][side].forEach(element => list += `<li>${element}</li>`);
+            this[tglStatus][side].forEach(element => list += `<li data-delta=${rename(element)}>${element}</li>`);
             $selector.innerHTML = '';
             $selector.insertAdjacentHTML('afterbegin', list)
         }
@@ -138,7 +138,7 @@ $size.addEventListener('input', function(e) {
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-    calcSelect($StatusCheck.tglState);
+
     if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
     // $out_sizes.innerHTML = '';
     // $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
@@ -209,9 +209,9 @@ function updateHTML(HTMLelement, text) {
 
 function updateDB(storage = {}) {
     for (let key in storage) {
-        if (dataStorage.getItem(key) === storage[key]) continue
-        else dataStorage.setItem(key, storage[key]);
-        console.count(`added ${key} : ${storage[key]} to dataStorage, item index`)
+        if (localStorage.getItem(key) === storage[key]) continue
+        else localStorage.setItem(key, storage[key]);
+        console.count(`added ${key} : ${storage[key]} change number`)
     }
     return
 }
@@ -221,12 +221,10 @@ function restoreValues() {
     for (let el of elements) {
         let elem_key = el.dataset.stdb;
         if (!elem_key) console.log('no key!');
-        if (dataStorage.getItem(elem_key)) {
-            if (el.type === 'number') el.value = dataStorage.getItem(elem_key)
+        if (localStorage.getItem(elem_key)) {
+            if (el.type === 'number') el.value = localStorage.getItem(elem_key)
                 // el.innerText = dataStorage.getItem(elem_key)
         }
     }
-    return console.log(dataStorage.length);
+    return console.log(localStorage.length);
 }
-
-restoreValues()

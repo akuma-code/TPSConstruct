@@ -29,7 +29,8 @@
     margin: 0;
 }
 
-span[output] {
+:is(span,
+input)[output] {
     display: inline-block;
     font-size: 20px;
     color: #300b0b;
@@ -43,11 +44,13 @@ span[output] {
     transition: all .4s;
 }
 
-span[output]:hover {
+:is(span,
+input)[output]:hover {
     background: none
 }
 
-span[output]:active {
+:is(span,
+input)[output]:active {
     color: beige;
     font-size: 15px;
 }
@@ -231,4 +234,11 @@ span:is([output=right],
 
 div.disp_none {
     display: none;
+}
+
+.control_btn_cont {
+    position: relative;
+    display: block;
+    margin-left: var(--pos-tps-left);
+    z-index: 10;
 }
