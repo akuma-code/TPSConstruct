@@ -11,6 +11,7 @@
     --gr-sel-l: leftS;
     --index-up: 100;
     --index-down: 5;
+    --bg-image: url('../assets/rama/stv.svg')
 }
 
 .cont_bg {

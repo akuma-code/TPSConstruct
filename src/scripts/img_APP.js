@@ -1,5 +1,4 @@
 const $StatusCheck = {};
-// const localStorage = localStorage;
 const $img_conteiner = document.querySelector('.tps_img'),
     $img_cont = document.querySelector('div.img_cont'),
     $sys = document.querySelector('div.tps_sys'),
@@ -138,7 +137,6 @@ $size.addEventListener('input', function(e) {
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-
     if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
     // $out_sizes.innerHTML = '';
     // $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
@@ -159,7 +157,8 @@ $tgl_btn.addEventListener('click', function(event) {
         $StatusCheck.tglState = t.dataset.tglStatus;
         Sidelist.setup(t.dataset.tglStatus);
         Detailslist.toHTML(t.dataset.tglStatus);
-        outputList.setup(t.dataset.tglStatus)
+        outputList.setup(t.dataset.tglStatus);
+        selectBGimg(t.dataset.tglStatus)
     };
 
 })
@@ -168,7 +167,7 @@ $main.addEventListener('mousemove', function() {
     setTimeout(function() {
         document.querySelector('div.target_output > ul.target_list').innerHTML = "";
         document.querySelector('div.target_output > ul.target_list').innerHTML = setStatusInfo();
-    }, 1000)
+    }, 100)
 })
 
 window.addEventListener('beforeunload', () => updateDB($StatusCheck));
@@ -216,15 +215,13 @@ function updateDB(storage = {}) {
     return
 }
 
-function restoreValues() {
-    const elements = document.querySelectorAll('[data-stdb]');
-    for (let el of elements) {
-        let elem_key = el.dataset.stdb;
-        if (!elem_key) console.log('no key!');
-        if (localStorage.getItem(elem_key)) {
-            if (el.type === 'number') el.value = localStorage.getItem(elem_key)
-                // el.innerText = dataStorage.getItem(elem_key)
-        }
+function selectBGimg(state) {
+    const src = {
+        stv: "url('../assets/rama/stv.svg')",
+        fix: "url('../assets/rama/fix.svg')",
+        svet: "url('../assets/rama/svet.svg')",
     }
-    return console.log(localStorage.length);
+
+    let root = document.documentElement.style;
+    return root.setProperty(`--bg-image`, src[state])
 }

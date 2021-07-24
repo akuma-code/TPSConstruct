@@ -1,5 +1,5 @@
 //@ts-check
-console.log(`TPS constructor Loaded`);
+// console.log(`TPS constructor Loaded`);
 class TPSapp {
     constructor(elem) {
         // this._elem = elem;
@@ -14,22 +14,19 @@ class TPSapp {
     }
 
     restore() {
+        //@ts-ignore
         return restoreValues()
     }
 
     clear() {
-        return console.clear()
+        console.log('Storage Cleared');
+        localStorage.clear()
+        return
     }
 
-    restoreStv() {
-        const stv = document.querySelector('[data-tgl-status=stv]');
-        //@ts-ignore
-        stv.click();
-        let store = document.querySelectorAll('[data-stdb]');
-        for (let key in store) {
-            if (!!localStorage.getItem(key)) store[key].innerHTML = localStorage.getItem(key)
-        }
+    updateLS() {
+        return updateDB($StatusCheck)
     }
+
 }
-
 new TPSapp('ctrl_panel');

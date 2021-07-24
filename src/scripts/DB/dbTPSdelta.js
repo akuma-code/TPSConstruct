@@ -105,26 +105,96 @@ function get_delta(system = '') {
     }
 };
 
-let d_proline = get_delta('ProLine');
+const BigStorage = {
 
-function check() {
-    let state = prompt('input state', 'stv');
-    let result = Object.entries(d_proline(state));
-    console.log(result);
-    console.dir(Object.fromEntries(result))
-}
+    svet: {
+        skf: {
+            dw: (-45),
+            dh: (-47)
+        },
+        simple: {
+            dw: (24),
+            dh: (45)
+        },
+        whs: {
+            dw: (46),
+            dh: (46)
+        }
+    },
 
-function glassSize(inp_w = 0, inp_h = 0) {
-    return function(dw, dh) {
-        return { W: inp_w - dw, H: inp_h - dh }
+    stv: {
+        ProLine: {
+            dr: 96,
+            di: 74.5,
+            d_shtulp: 64,
+            di_stv: 26.5,
+        },
+
+        SoftLine: {
+            dr: 102,
+            di: 77.5,
+            d_shtulp: 67,
+            di_stv: 26.5,
+        },
+
+        SoftLine82: {
+            dr: 104,
+            di: 78,
+            d_shtulp: 68,
+            di_stv: 27,
+        },
+
+        WHS: {
+            dr: 92,
+            di: 71.5,
+            d_shtulp: null,
+            di_stv: 23.5,
+        },
+
+        WHS72: {
+            dr: 95,
+            di: 74.5,
+            d_shtulp: null,
+            di_stv: 24.5,
+        },
+
+        Euroline: {
+            dr: 110.5,
+            di: 84.5,
+            d_shtulp: 72.5,
+            di_stv: 28,
+        },
+    },
+
+    fix: {
+        ProLine: {
+            dr: 48,
+            di: 26.5
+        },
+
+        SoftLine: {
+            dr: 51,
+            di: 26.5
+
+        },
+        SoftLine82: {
+            dr: 58,
+            di: 32
+
+        },
+        WHS: {
+            dr: 44,
+            di: 23.5
+
+        },
+        WHS72: {
+            dr: 45,
+            di: 24.5
+
+        },
+        Euroline: {
+            dr: 54,
+            di: 28
+        },
     }
-};
-
-function check2() {
-    //@ts-ignore
-    let w = document.querySelector('input#tps_w').value || 0;
-    //@ts-ignore
-    let h = document.querySelector('input#tps_h').value || 0;
-    let g_stv = glassSize(w, h);
-    console.log(g_stv(96, 96));
 }

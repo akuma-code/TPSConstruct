@@ -103,7 +103,7 @@
 .tps_img {
     display: grid;
     grid-area: img;
-    background-color: gold;
+    background-color: transparent;
     place-items: center;
 }
 

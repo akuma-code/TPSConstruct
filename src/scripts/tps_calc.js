@@ -65,18 +65,18 @@ class Side_delta {
         this.getvals
     }
     get getvals() {
-        if (!$StatusCheck.system || !$StatusCheck.tglState) return console.log(`system not set`);
+        // if (!$StatusCheck.system || !$StatusCheck.tglState) return console.log(`system not set`);
         for (let side of $sides) {
             let s = side.dataset.side;
             let $elem = document.querySelector($outputelem[s]);
             let delta = rename($elem.innerText);
-            let dSt = deltaStorage[$StatusCheck.system][$StatusCheck.tglState];
+            let dSt = deltaStorage[localStorage.getItem('system')][localStorage.getItem('tglState')];
             current_delta[s] = dSt[delta] || 0;
+            debugger
             this[s] = dSt[delta] || 0;
         }
         // return console.log({ current_delta })
     }
-
 
 }
 
@@ -87,18 +87,21 @@ let current_delta = {
     left: 0,
     right: 0,
     get dwdh() {
-        return { dw: this.left + this.right, dh: this.top + this.bot }
+        return {
+            dw: this.left + this.right,
+            dh: this.top + this.bot
+        }
     }
 }
 
 function calcSelect(tglState) {
-    if (!$StatusCheck.tglState) return console.log(`state not set`);
+    if (tglState == undefined) return console.log(`state not set`);
     const tps_status = {
         svet() { return new SvetCalc() },
-        fix(tglState) {
+        fix() {
             return new Side_delta(tglState)
         },
-        stv(tglState) {
+        stv() {
             return new Side_delta(tglState)
         },
     };
