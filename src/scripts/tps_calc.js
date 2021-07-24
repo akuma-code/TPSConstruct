@@ -72,7 +72,6 @@ class Side_delta {
             let delta = rename($elem.innerText);
             let dSt = deltaStorage[localStorage.getItem('system')][localStorage.getItem('tglState')];
             current_delta[s] = dSt[delta] || 0;
-            debugger
             this[s] = dSt[delta] || 0;
         }
         // return console.log({ current_delta })

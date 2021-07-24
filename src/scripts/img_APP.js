@@ -138,8 +138,7 @@ $size.addEventListener('input', function(e) {
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
-    // $out_sizes.innerHTML = '';
-    // $out_sizes.insertAdjacentHTML('beforeend', `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`)
+
 });
 
 $size.addEventListener('change', function(e) {
