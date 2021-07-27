@@ -43,6 +43,8 @@ const outputList = {
     }
 }
 
+const img_sides = ['top', 'bot', 'left', 'right'];
+
 const Sidelist = {
     svet: {
         top: ['световой проем'],
@@ -157,7 +159,8 @@ $tgl_btn.addEventListener('click', function(event) {
         Sidelist.setup(t.dataset.tglStatus);
         Detailslist.toHTML(t.dataset.tglStatus);
         outputList.setup(t.dataset.tglStatus);
-        selectBGimg(t.dataset.tglStatus)
+        selectBGimg(t.dataset.tglStatus);
+        checkSideState(t);
     };
 
 })
@@ -223,4 +226,14 @@ function selectBGimg(state) {
 
     let root = document.documentElement.style;
     return root.setProperty(`--bg-image`, src[state])
+}
+
+function checkSideState(target) {
+    const getCurrentState = target.dataset.tglStatus || 'unset';
+    if (getCurrentState === 'unset') return console.log('unset');
+    for (let side of $sides) {
+        let dir = side.dataset.side;
+        let elem = document.querySelector(`span[output=${dir}`)
+        if (!Sidelist[getCurrentState][dir].includes(elem.textContent)) elem.textContent = Sidelist[getCurrentState][dir][0]
+    }
 }
