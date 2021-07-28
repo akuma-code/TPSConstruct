@@ -55,7 +55,7 @@ const Sidelist = {
 
     fix: {
         top: ['рама', 'импост'],
-        bot: ['рама', 'импост', 'порог'],
+        bot: ['рама', 'импост'],
         left: ['рама', 'импост'],
         right: ['рама', 'импост'],
     },
@@ -139,8 +139,8 @@ $size.addEventListener('input', function(e) {
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
+    // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
-
 });
 
 $size.addEventListener('change', function(e) {
@@ -161,6 +161,7 @@ $tgl_btn.addEventListener('click', function(event) {
         outputList.setup(t.dataset.tglStatus);
         selectBGimg(t.dataset.tglStatus);
         checkSideState(t);
+        new TPScalculator()
     };
 
 })
@@ -229,11 +230,11 @@ function selectBGimg(state) {
 }
 
 function checkSideState(target) {
-    const getCurrentState = target.dataset.tglStatus || 'unset';
-    if (getCurrentState === 'unset') return console.log('unset');
+    const currentState = target.dataset.tglStatus || 'unset';
+    if (currentState === 'unset') return console.log('state unset');
     for (let side of $sides) {
-        let dir = side.dataset.side;
-        let elem = document.querySelector(`span[output=${dir}`)
-        if (!Sidelist[getCurrentState][dir].includes(elem.textContent)) elem.textContent = Sidelist[getCurrentState][dir][0]
+        let direction = side.dataset.side;
+        let elem = document.querySelector(`span[output=${direction}`)
+        if (!Sidelist[currentState][direction].includes(elem.textContent)) elem.textContent = Sidelist[currentState][direction][0]
     }
 }

@@ -29,15 +29,6 @@ class TPScalc {
         this.h = h;
         // this.cons
     }
-
-    get cons() {
-        if (!this.w || !this.h) return
-        console.count('sizes count');
-        console.log({ w: this.w, h: this.h })
-    }
-    get clear() {
-        return console.clear()
-    }
     toHTML() {
         return alert('Вывод данных не назначен!!')
     }
@@ -85,28 +76,12 @@ let current_delta = {
     bot: 0,
     left: 0,
     right: 0,
-    get dwdh() {
-        return {
-            dw: this.left + this.right,
-            dh: this.top + this.bot
-        }
-    }
-}
-
-function calcSelect(tglState) {
-    if (tglState == undefined) return console.log(`state not set`);
-    const tps_status = {
-        svet() { return new SvetCalc() },
-        fix() {
-            return new Side_delta(tglState)
-        },
-        stv() {
-            return new Side_delta(tglState)
-        },
-    };
-    let current = tps_status[tglState](tglState);
-    // debugger
-    return current
+    // get dwdh() {
+    //     return {
+    //         dw: this.left + this.right,
+    //         dh: this.top + this.bot
+    //     }
+    // }
 }
 
 function rename(text) {
@@ -120,4 +95,46 @@ function rename(text) {
     }
     if (!dictionary[text]) return
     return dictionary[text]
+};
+
+
+/**
+ * ! Основной класс калькулятора.... либо класс для получения дельт из BigStorage, еще не понятно
+ */
+class TPScalculator {
+    constructor() {
+        this.devInfo
+    }
+
+    get size() {
+        const w = +document.querySelector('#tps_w').value;
+        const h = +document.querySelector('#tps_h').value;
+        return {
+            w,
+            h
+        }
+    };
+
+    get state() {
+        const currentElement = document.querySelector('.tgl_big_item.active');
+        const currentState = currentElement.dataset.tglStatus || 'state undefined';
+        return currentState
+    };
+
+    get devInfo() {
+        console.log(this.size);
+        console.log(this.system);
+        console.log(this.delta);
+        return this
+    };
+
+    get system() {
+        const sys = document.querySelector('span[output=system]')
+        return sys.textContent
+    };
+
+    get delta() {
+        const currentDelta = (this.state === 'svet') ? BigStorage[this.state] : BigStorage[this.state][this.system]
+        return currentDelta
+    }
 }

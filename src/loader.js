@@ -43,10 +43,10 @@ function restoreValues() {
             $StatusCheck[elem_key] = localStorage.getItem(elem_key)
         }
     }
-    select(localStorage.getItem('tglState'))
-    const statusbtn = document.querySelector(`[data-tgl-status=${localStorage.getItem('tglState')}]`);
+    // select(localStorage.getItem('tglState'))
+    const statusbtn = localStorage.getItem('tglState') && document.querySelector(`[data-tgl-status=${localStorage.getItem('tglState')}]`);
     //@ts-ignore
-    statusbtn.click();
+    localStorage.getItem('tglState') && statusbtn.click();
     return console.log(localStorage.length);
 }
 
@@ -58,7 +58,7 @@ function load(src) {
 
 function startAPP(scripts, callback) {
     scripts.forEach(item => load(item));
-    () => callback()
+    document.onload = () => callback()
 }
 
 startAPP(Scripts, restoreValues)

@@ -134,8 +134,9 @@
 .target_output {
     display: flex;
     position: relative;
-    left: 600px;
-    width: 400px;
+    left: 20px;
+    top: 75%;
+    width: 450px;
     height: max-content;
     background-color: darkseagreen;
     text-align: stretch;

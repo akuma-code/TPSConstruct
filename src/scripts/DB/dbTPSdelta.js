@@ -124,6 +124,8 @@ const BigStorage = {
 
     stv: {
         ProLine: {
+            rama: 64,
+            impost: 42.5,
             dr: 96,
             di: 74.5,
             d_shtulp: 64,
