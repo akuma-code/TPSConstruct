@@ -103,7 +103,8 @@ function rename(text) {
  */
 class TPScalculator {
     constructor() {
-        this.devInfo
+        // this.devInfo
+        this.calcGlass
     }
 
     get size() {
@@ -114,17 +115,19 @@ class TPScalculator {
             h
         }
     };
-
+    /**
+     * ! Определяет состояние по значению атрибута активной кнопки(.active)
+     */
     get state() {
-        const currentElement = document.querySelector('.tgl_big_item.active');
-        const currentState = currentElement.dataset.tglStatus || 'state undefined';
+        const activeButton = document.querySelector('.tgl_big_item.active');
+        const currentState = activeButton.dataset.tglStatus || 'state undefined';
         return currentState
     };
 
     get devInfo() {
-        console.log(this.size);
-        console.log(this.system);
-        console.log(this.delta);
+        console.log(this.sysdelta);
+        // console.log(this.system);
+        // console.log(this.selectMethod);
         return this
     };
 
@@ -133,8 +136,38 @@ class TPScalculator {
         return sys.textContent
     };
 
-    get delta() {
-        const currentDelta = (this.state === 'svet') ? BigStorage[this.state] : BigStorage[this.state][this.system]
-        return currentDelta
+    // get selectMethod() {
+    //     const method = (this.state === 'svet') ? BigStorage[this.state] : BigStorage[this.state][this.system]
+    //     return method
+    // };
+
+    get sysdelta() {
+        if (this.state === 'svet') return console.log(this.state);
+        const result = {};
+        // const result = { top, left, bot, right };
+        for (let direction of $sides) {
+            let side = direction.dataset.side;
+            let $elem = document.querySelector($outputelem[side]);
+            let delta = rename($elem.innerText);
+            let dSt = BigStorage[this.state][this.system];
+            result[side] = dSt[delta];
+        }
+        return result
+    };
+
+    RamaSvet() {
+        // !TODO: Идея - добавить метод в объект хранилища, который будет возвращать световой проем
+    }
+
+    get calcGlass() {
+        const { w, h } = this.size;
+        let { left, right, top, bot } = this.sysdelta;
+        // debugger
+        const dw = +left + right;
+        const dh = +top + bot;
+        const glass = { width: w - dw, height: h - dh };
+        console.log(`glass: ${glass.width}x${glass.height}`);
+        return glass
+
     }
 }

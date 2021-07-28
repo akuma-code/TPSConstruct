@@ -10,7 +10,8 @@ const $img_conteiner = document.querySelector('.tps_img'),
     $tgl_btn = document.querySelector('div.tps_tgl'),
     $stv232 = document.querySelector('#stv232'),
     $ms_simple = document.querySelector('#ms_simple'),
-    $ms_skf = document.querySelector('#ms_skf');
+    $ms_skf = document.querySelector('#ms_skf'),
+    $out_glass = document.querySelector('#out_glass');
 
 const $outputelem = {
     system: '[output=system]',
@@ -136,8 +137,10 @@ $size.addEventListener('input', function(e) {
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
     let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
+    const { width, height } = new TPScalculator();
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
+    updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
