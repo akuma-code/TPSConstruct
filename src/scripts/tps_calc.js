@@ -104,7 +104,7 @@ function rename(text) {
 class TPScalculator {
     constructor() {
         // this.devInfo
-        this.calcGlass
+        this.devInfo
     }
 
     get size() {
@@ -142,7 +142,7 @@ class TPScalculator {
     // };
 
     get sysdelta() {
-        if (this.state === 'svet') return console.log(this.state);
+        if (this.state === 'svet') return new SvetCalc(...this.size)
         const result = {};
         // const result = { top, left, bot, right };
         for (let direction of $sides) {

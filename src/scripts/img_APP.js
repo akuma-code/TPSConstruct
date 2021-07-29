@@ -137,10 +137,12 @@ $size.addEventListener('input', function(e) {
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
     let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
-    const { width, height } = new TPScalculator();
+    // const results = new TPScalculator;
+    // const { width, height } = results.calcGlass;
+    // updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
+    updateHTML_glass()
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
-    updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
@@ -149,9 +151,10 @@ $size.addEventListener('input', function(e) {
 $size.addEventListener('change', function(e) {
 
     let t = e.target;
-    let msg = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
     if (!t.matches('.tps_size input')) return
-    return msg
+    updateHTML_glass()
+        // let msg = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
+        // return msg
 })
 
 $tgl_btn.addEventListener('click', function(event) {
@@ -210,6 +213,12 @@ function updateHTML(HTMLelement, text) {
     HTMLelement.innerHTML = '';
     HTMLelement.insertAdjacentHTML('beforeend', text)
     return
+}
+
+function updateHTML_glass() {
+    const results = new TPScalculator;
+    const { width, height } = results.calcGlass;
+    return updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
 }
 
 function updateDB(storage = {}) {
