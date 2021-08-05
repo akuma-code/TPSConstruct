@@ -22,7 +22,7 @@ function restoreValues() {
         if (localStorage.getItem(elem_key)) {
             if (el.type === 'number') el.value = localStorage.getItem(elem_key)
             el.innerText = localStorage.getItem(elem_key)
-            $StatusCheck[elem_key] = localStorage.getItem(elem_key)
+                // $StatusCheck[elem_key] = localStorage.getItem(elem_key)
         }
     }
     const statusbtn = localStorage.getItem('tglState') && document.querySelector(`[data-tgl-status=${localStorage.getItem('tglState')}]`);
@@ -42,4 +42,4 @@ function startAPP(scripts, callback) {
     document.onload = () => callback()
 }
 
-startAPP(Scripts, restoreValues)
+startAPP(Scripts, restoreValues())

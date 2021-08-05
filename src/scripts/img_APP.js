@@ -7,7 +7,7 @@ const $img_conteiner = document.querySelector('.tps_img'),
     $main = document.querySelector('div.tps_main'),
     $size = document.querySelector('div.tps_size'),
     $out_sizes = document.getElementById('out_sizes'),
-    $tgl_btn = document.querySelector('div.tps_tgl'),
+    $tgl_btn = document.querySelector('div.tgl_big_box'),
     $stv232 = document.querySelector('#stv232'),
     $ms_simple = document.querySelector('#ms_simple'),
     $ms_skf = document.querySelector('#ms_skf'),
@@ -128,6 +128,7 @@ $main.addEventListener('click', function(e) {
             elem.classList.remove('active')
         }
         target.classList.add('active');
+        updateOutput();
     }
 }, true);
 //!INPUT LISTENER
@@ -136,17 +137,18 @@ $size.addEventListener('input', function(e) {
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
-    let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
+    // let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
     // const results = new TPScalculator;
     // const { width, height } = results.calcGlass;
     // updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
     //updateHTML_glass() //* update glass
-    updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
-    updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
+    // updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
+    // updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-    if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
-});
+    // if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
+    updateOutput();
+}, true);
 
 // $size.addEventListener('change', function(e) {
 // 
@@ -159,27 +161,31 @@ $size.addEventListener('input', function(e) {
 
 $tgl_btn.addEventListener('click', function(event) {
     let t = event.target;
+    const $big_box = document.querySelector('div.tgl_big_box');
+    // updateOutput();
     if (t.matches('[data-tgl-status=info]')) return
     if (t.matches('[data-tgl-status]')) {
-        $StatusCheck.tglState = t.dataset.tglStatus;
-        Sidelist.setup(t.dataset.tglStatus);
-        Detailslist.toHTML(t.dataset.tglStatus);
-        outputList.setup(t.dataset.tglStatus);
-        selectBGimg(t.dataset.tglStatus);
+        const state = t.dataset.tglStatus;
+        $StatusCheck.tglState = state;
+        $big_box.dataset.tglStatus = state;
+        Sidelist.setup(state);
+        Detailslist.toHTML(state);
+        outputList.setup(state);
+        selectBGimg(state);
         checkSideState(t);
-        selectTYPE();
+        // selectTYPE();
         //updateHTML_glass() //! update glass
 
     };
 
 }, true)
 
-$main.addEventListener('mousemove', function() {
-    setTimeout(function() {
-        document.querySelector('div.target_output > ul.target_list').innerHTML = "";
-        document.querySelector('div.target_output > ul.target_list').innerHTML = setStatusInfo();
-    }, 100)
-})
+// $main.addEventListener('mousemove', function() {
+//     setTimeout(function() {
+//         document.querySelector('div.target_output > ul.target_list').innerHTML = "";
+//         document.querySelector('div.target_output > ul.target_list').innerHTML = setStatusInfo();
+//     }, 100)
+// })
 
 window.addEventListener('beforeunload', () => updateDB($StatusCheck));
 
