@@ -102,10 +102,9 @@ function rename(text) {
  * ! Основной класс калькулятора.... либо класс для получения дельт из BigStorage, еще не понятно
  */
 class TPScalculator {
-    constructor() {
-        // this.devInfo
-        this.devInfo
-    }
+    // constructor() {
+    //     // this.devInfo
+    // }
 
     get size() {
         const w = +document.querySelector('#tps_w').value;
@@ -121,8 +120,19 @@ class TPScalculator {
     get state() {
         const activeButton = document.querySelector('.tgl_big_item.active');
         const currentState = activeButton.dataset.tglStatus || 'state undefined';
-        return currentState
+        this._state = currentState
+        return this._state
     };
+
+    set state(value) {
+            if (this.state === 'svet') return console.log('STOPED!');
+            this.state = value
+        }
+        // get state() {
+        //     const activeButton = document.querySelector('.tgl_big_item.active');
+        //     const currentState = activeButton.dataset.tglStatus || 'state undefined';
+        //     return currentState
+        // };
 
     get devInfo() {
         console.log(this.sysdelta);
@@ -142,7 +152,7 @@ class TPScalculator {
     // };
 
     get sysdelta() {
-        if (this.state === 'svet') return new SvetCalc(...this.size)
+        if (this.state === 'svet') return
         const result = {};
         // const result = { top, left, bot, right };
         for (let direction of $sides) {
@@ -155,17 +165,25 @@ class TPScalculator {
         return result
     };
 
-    RamaSvet() {
-        // !TODO: Идея - добавить метод в объект хранилища, который будет возвращать световой проем
-    }
-
     get calcGlass() {
-        const { w, h } = this.size;
-        let { left, right, top, bot } = this.sysdelta;
+        if (this.state === 'svet') return
+        const {
+            w,
+            h
+        } = this.size;
+        let {
+            left,
+            right,
+            top,
+            bot
+        } = this.sysdelta;
         // debugger
         const dw = +left + right;
         const dh = +top + bot;
-        const glass = { width: w - dw, height: h - dh };
+        const glass = {
+            width: w - dw,
+            height: h - dh
+        };
         console.log(`glass: ${glass.width}x${glass.height}`);
         return glass
 

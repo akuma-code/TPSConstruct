@@ -99,7 +99,11 @@ const deltaStorage = {
 
 };
 
-
+function get_delta(system = '') {
+    return function(state = '') {
+        return deltaStorage[system][state]
+    }
+};
 
 const BigStorage = {
 
@@ -129,6 +133,8 @@ const BigStorage = {
         },
 
         SoftLine: {
+            rama: 67,
+            impost: 42.5,
             dr: 102,
             di: 77.5,
             d_shtulp: 67,
@@ -136,6 +142,8 @@ const BigStorage = {
         },
 
         SoftLine82: {
+            rama: 73,
+            impost: 47,
             dr: 104,
             di: 78,
             d_shtulp: 68,
@@ -143,6 +151,8 @@ const BigStorage = {
         },
 
         WHS: {
+            rama: 58,
+            impost: 37.5,
             dr: 92,
             di: 71.5,
             d_shtulp: null,
@@ -150,13 +160,17 @@ const BigStorage = {
         },
 
         WHS72: {
+            rama: 61,
+            impost: 42.5,
             dr: 95,
             di: 74.5,
             d_shtulp: null,
             di_stv: 24.5,
         },
 
-        Euroline: {
+        EuroLine: {
+            rama: 67,
+            impost: 41,
             dr: 110.5,
             di: 84.5,
             d_shtulp: 72.5,
@@ -190,7 +204,7 @@ const BigStorage = {
             di: 24.5
 
         },
-        Euroline: {
+        EuroLine: {
             dr: 54,
             di: 28
         },

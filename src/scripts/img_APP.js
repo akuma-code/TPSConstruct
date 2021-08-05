@@ -70,8 +70,7 @@ const Sidelist = {
 
     setup(tglStatus = '') {
 
-        const sides = ['top', 'bot', 'left', 'right'];
-        for (let side of sides) {
+        for (let side of img_sides) {
             let list = '';
             let $selector = document.querySelector(`ul.drop_content[data-side=${side}]`);
             this[tglStatus][side].forEach(element => list += `<li data-delta=${rename(element)}>${element}</li>`);
@@ -95,10 +94,11 @@ const Detailslist = {
     }
 }
 
-//! ОБЩИЙ ОБРАБОТЧИК
+//! ОБЩИЙ ОБРАБОТЧИК (onClick Listener)
 $main.addEventListener('click', function(e) {
     let target = e.target;
     //! выделение строки списка
+    //updateHTML_glass() //*update glass
     if (target.matches('li')) {
         let current_side = target.closest('ul').dataset.side;
         document.querySelector(`${$outputelem[current_side]}`).innerText = target.textContent
@@ -130,7 +130,7 @@ $main.addEventListener('click', function(e) {
         target.classList.add('active');
     }
 }, true);
-
+//!INPUT LISTENER
 $size.addEventListener('input', function(e) {
     let t = e.target;
     if (!t.matches('.tps_size input')) return console.log('target error!');
@@ -140,7 +140,7 @@ $size.addEventListener('input', function(e) {
     // const results = new TPScalculator;
     // const { width, height } = results.calcGlass;
     // updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
-    // updateHTML_glass()
+    //updateHTML_glass() //* update glass
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
@@ -148,14 +148,14 @@ $size.addEventListener('input', function(e) {
     if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
 });
 
-$size.addEventListener('change', function(e) {
-
-    let t = e.target;
-    if (!t.matches('.tps_size input')) return
-        // updateHTML_glass()
-        // let msg = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
-        // return msg
-})
+// $size.addEventListener('change', function(e) {
+// 
+//     let t = e.target;
+//     if (!t.matches('.tps_size input')) return
+//     updateHTML_glass()
+//         // let msg = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
+//         // return msg
+// })
 
 $tgl_btn.addEventListener('click', function(event) {
     let t = event.target;
@@ -167,10 +167,12 @@ $tgl_btn.addEventListener('click', function(event) {
         outputList.setup(t.dataset.tglStatus);
         selectBGimg(t.dataset.tglStatus);
         checkSideState(t);
-        new TPScalculator()
+        selectTYPE();
+        //updateHTML_glass() //! update glass
+
     };
 
-})
+}, true)
 
 $main.addEventListener('mousemove', function() {
     setTimeout(function() {
@@ -216,19 +218,27 @@ function updateHTML(HTMLelement, text) {
 }
 
 function updateHTML_glass() {
-    const results = new TPScalculator;
-    const { width, height } = results.calcGlass;
+    const results = new TPScalculator();
+    if (results.state === 'svet') return console.log('uncorrect state, update_glass() stopped');
+    const {
+        width,
+        height
+    } = results.calcGlass;
     return updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
 }
+
+
 
 function updateDB(storage = {}) {
     for (let key in storage) {
         if (localStorage.getItem(key) === storage[key]) continue
         else localStorage.setItem(key, storage[key]);
-        console.count(`added ${key} : ${storage[key]} change number`)
+        $StatusCheck[key] = localStorage.getItem(key);
+        console.count(`added ${key} : ${storage[key]}`)
     }
     return
 }
+
 
 function selectBGimg(state) {
     const src = {
@@ -240,7 +250,11 @@ function selectBGimg(state) {
     let root = document.documentElement.style;
     return root.setProperty(`--bg-image`, src[state])
 }
-
+/**
+ * меняет сторону окна или рамы при смене типа расчета - створка/фикса/свет
+ * @param {string} target event.target
+ * @returns Если совпадает, то ничего, если не совпадает, то заменяет на первое значение из списка
+ */
 function checkSideState(target) {
     const currentState = target.dataset.tglStatus || 'unset';
     if (currentState === 'unset') return console.log('state unset');

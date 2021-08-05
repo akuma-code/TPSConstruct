@@ -5,6 +5,7 @@ const Scripts = [
     // 'src/scripts/DB/zDB.js',
     'src/scripts/tgl_btn.js',
     'src/scripts/TPSconstruct.js',
+    'src/scripts/tps_calc1.js',
     'src/scripts/tps_calc.js',
     'src/scripts/img_APP.js',
 ]
