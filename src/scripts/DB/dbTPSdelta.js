@@ -99,11 +99,7 @@ const deltaStorage = {
 
 };
 
-function get_delta(system = '') {
-    return function(state = '') {
-        return deltaStorage[system][state]
-    }
-};
+
 
 const BigStorage = {
 

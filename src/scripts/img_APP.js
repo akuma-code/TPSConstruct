@@ -140,7 +140,7 @@ $size.addEventListener('input', function(e) {
     // const results = new TPScalculator;
     // const { width, height } = results.calcGlass;
     // updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
-    updateHTML_glass()
+    // updateHTML_glass()
     updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
     updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
@@ -152,7 +152,7 @@ $size.addEventListener('change', function(e) {
 
     let t = e.target;
     if (!t.matches('.tps_size input')) return
-    updateHTML_glass()
+        // updateHTML_glass()
         // let msg = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
         // return msg
 })
