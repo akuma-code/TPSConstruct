@@ -129,6 +129,7 @@ $main.addEventListener('click', function(e) {
         }
         target.classList.add('active');
         updateOutput();
+
     }
 }, true);
 //!INPUT LISTENER
@@ -147,9 +148,11 @@ $size.addEventListener('input', function(e) {
     updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
     // if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
+    new SizeMaker()
     updateOutput();
 }, true);
 
+const itemsize = new SizeMaker();
 // $size.addEventListener('change', function(e) {
 // 
 //     let t = e.target;

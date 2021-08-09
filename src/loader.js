@@ -7,6 +7,7 @@ const Scripts = [
     'src/scripts/TPSconstruct.js',
     'src/scripts/tps_calc1.js',
     'src/scripts/tps_calc.js',
+    'src/scripts/testclass.js',
     'src/scripts/img_APP.js',
 ]
 
