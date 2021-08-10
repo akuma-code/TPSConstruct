@@ -144,14 +144,14 @@ class TPS_HTML_Output {
                 element.h = sizeObject.h
             }
         });
-        console.table(currentmodel)
+        // console.table(currentmodel)
         return currentmodel
     };
 
     getHTMLObject(type) {
         let Text2Html = [];
         let MODEL = this.getModel(type);
-        console.dir({ model: MODEL });
+        // console.dir({ model: MODEL });
         MODEL.forEach(element => {
             Text2Html.push(`<div data-output=${element.html_out}>${element.label}</div>`)
         });
