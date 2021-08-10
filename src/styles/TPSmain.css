@@ -142,3 +142,18 @@
     text-align: stretch;
     flex-flow: column nowrap;
 }
+
+.html_output {
+    display: grid;
+    position: absolute;
+    left: 485px;
+    top: 82px;
+    background-color: aqua;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 1rem;
+    grid-template-areas: 'label size'
+}
+
+[data-output*=html_] {
+    display: flex;
+}
