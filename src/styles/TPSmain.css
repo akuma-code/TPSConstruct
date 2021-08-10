@@ -144,16 +144,15 @@
 }
 
 .html_output {
-    display: grid;
+    display: flex;
     position: absolute;
     left: 485px;
     top: 82px;
     background-color: aqua;
-    grid-template-columns: 3fr 2fr;
-    grid-template-rows: 1rem;
-    grid-template-areas: 'label size'
+    flex-flow: column wrap;
 }
 
 [data-output*=html_] {
     display: flex;
+    flex-direction: column;
 }

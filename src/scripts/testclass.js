@@ -1,69 +1,102 @@
+const StatusBox = function() {
+    function getstate() {
+        const activeButton = document.querySelector('div.tgl_big_box');
+        //@ts-ignore
+        const { state } = activeButton.dataset.tglStatus;
+        if (state == 'undefined') alert('Invalid State!')
+        return state
+    };
+
+    function getsystem() {
+        const sys = document.querySelector('span[output=system]');
+        if (sys == 'system') alert('System not set!')
+        return sys.textContent
+    };
+
+    return {
+        type: getstate(),
+        system: getsystem()
+    }
+};
+
+
 class SizeItem {
     constructor(w = Number, h = Number, options = null) {
         this.w = +w;
         this.h = +h;
         this.options = options;
-        console.count(`(${w} x ${h}) => Size item #`)
+        console.count(`(${w} x ${h}) => SizeItem:`)
     }
 };
 
+
+
+
 class SizeMaker {
     constructor() {
-        this.makeItem
-    }
-
-    get options() {
-        function getstate() {
-            const activeButton = document.querySelector('div.tgl_big_box');
-            //@ts-ignore
-            const state = `${activeButton.dataset.tglStatus}`;
-            if (state == 'undefined') alert('Invalid State!')
-            return state
-        };
-
-        function getsystem() {
-            const sys = document.querySelector('span[output=system]');
-            if (sys == 'system') alert('System not set!')
-            return sys.textContent
-        };
-
-        return {
-            type: getstate(),
-            system: getsystem()
+            this.options = StatusBox();
+            this.makeSizeItem;
         }
-    };
+        // 
+        //     get options() {
+        //         function getstate() {
+        // 
+        //             const activeButton = document.querySelector('div.tgl_big_box');
+        //             //@ts-ignore
+        //             const state = `${activeButton.dataset.tglStatus}`;
+        //             if (state == 'undefined') alert('Invalid State!')
+        //             return state
+        //         };
+        // 
+        //         function getsystem() {
+        //             const sys = document.querySelector('span[output=system]');
+        //             if (sys == 'system') alert('System not set!')
+        //             return sys.textContent
+        //         };
+        // 
+        //         return {
+        //             type: getstate(),
+        //             system: getsystem()
+        //         }
+        //     };
 
-    get makeItem() {
+
+    get makeSizeItem() {
         //@ts-ignore
         const w = +document.querySelector('input#tps_w').value;
         //@ts-ignore
         const h = +document.querySelector('input#tps_h').value;
         const item = new SizeItem(w, h, this.options);
-        console.log({ item });
+        // console.log({ item });
         return item
     };
 }
 
 class Manipulator {
     constructor() {
-        this.itemCalc = this.create()
+        this.itemCalc = {};
     }
     create() {
-        return new SizeMaker().makeItem
+        this.itemCalc = new SizeMaker()
+        return this.itemCalc
     }
 
     updateSize() {
-
         //@ts-ignore
         const w = +document.querySelector('input#tps_w').value;
         //@ts-ignore
         const h = +document.querySelector('input#tps_h').value;
         this.itemCalc.w = w;
         this.itemCalc.h = h;
-        return console.table(this.itemCalc)
+        return console.log(this.itemCalc)
     };
 
 }
+let op = new Manipulator();
+// op.create()
+
+// TODO: функция расчета стекла, обработчик на изменения значений
+
 
 const modelOutput = {
     svet: [{
@@ -131,29 +164,22 @@ class TPS_HTML_Output {
         this.templateOutput = modelOutput
     }
 
-    getModel(type) {
-        const result = modelOutput[type]
+    getModel() {
+
+        const $el = document.querySelector('[data-html-type]');
+        const type = $el.dataset.htmlType;
+        const result = this.templateOutput[type];
         return result
     };
 
-    getSizes(sizeObject) {
-        currentmodel.map(element => {
-            if (element.id === sizeObject.id) {
 
-                element.w = sizeObject.w;
-                element.h = sizeObject.h
-            }
-        });
-        // console.table(currentmodel)
-        return currentmodel
-    };
 
-    getHTMLObject(type) {
+    getHTMLObject() {
         let Text2Html = [];
-        let MODEL = this.getModel(type);
+        let MODEL = this.getModel();
         // console.dir({ model: MODEL });
         MODEL.forEach(element => {
-            Text2Html.push(`<div data-output=${element.html_out}>${element.label}</div>`)
+            Text2Html.push(`<div data-output=${element.html_out}><span>${element.label}</span></div>`)
         });
         // console.table(resultHTML);
         return Text2Html
@@ -170,19 +196,19 @@ function renderHTML(HtmlTextObjects = []) {
 }
 
 function TPS_addHandler() {
-    const $tgl_box = document.querySelector('div.tgl_big_box');
     const buttons = document.getElementsByClassName('ts');
     for (button of buttons) {
 
         button.addEventListener('click', function(event) {
             let t = event.target;
-            let type = t.dataset.type_sel;
-            const state = document.querySelector('[data-html-type]');
-            state.dataset.htmlType = type;
-            let HTML_OUT = new TPS_HTML_Output()
-            renderHTML(HTML_OUT.getHTMLObject(type))
 
-            return console.log(HTML_OUT)
+            let type = t.dataset.type_sel;
+            // const { state } = document.querySelector('[data-html-type]');
+            // state.dataset.htmlType = type;
+            let HTML_OUT = new TPS_HTML_Output()
+            renderHTML(HTML_OUT.getHTMLObject())
+
+            return
         })
 
     }

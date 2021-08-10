@@ -128,7 +128,7 @@ $main.addEventListener('click', function(e) {
             elem.classList.remove('active')
         }
         target.classList.add('active');
-        updateOutput();
+        // !updateOutput();
 
     }
 }, true);
@@ -138,21 +138,21 @@ $size.addEventListener('input', function(e) {
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
-    // let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
-    // const results = new TPScalculator;
-    // const { width, height } = results.calcGlass;
-    // updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
-    //updateHTML_glass() //* update glass
-    // updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
-    // updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
-    updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-    // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-    // if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
-    new SizeMaker()
-    updateOutput();
+    op.updateSize()
+        // let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
+        // const results = new TPScalculator;
+        // const { width, height } = results.calcGlass;
+        // updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
+        //updateHTML_glass() //* update glass
+        // updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
+        // updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
+        // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
+        // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
+        // if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
+        //!new SizeMaker()
+        //!updateOutput();
 }, true);
 
-const itemsize = new SizeMaker();
 // $size.addEventListener('change', function(e) {
 // 
 //     let t = e.target;
@@ -171,6 +171,7 @@ $tgl_btn.addEventListener('click', function(event) {
         const state = t.dataset.tglStatus;
         $StatusCheck.tglState = state;
         $big_box.dataset.tglStatus = state;
+        $big_box.dataset.htmlType = state;
         Sidelist.setup(state);
         Detailslist.toHTML(state);
         outputList.setup(state);
