@@ -2,8 +2,8 @@ const StatusBox = function() {
     function getstate() {
         const activeButton = document.querySelector('div.tgl_big_box');
         //@ts-ignore
-        const { state } = activeButton.dataset.tglStatus;
-        if (state == 'undefined') alert('Invalid State!')
+        const state = activeButton.dataset.tglStatus;
+        if (state === 'undefined') alert('Invalid State!')
         return state
     };
 
@@ -34,32 +34,9 @@ class SizeItem {
 
 class SizeMaker {
     constructor() {
-            this.options = StatusBox();
-            this.makeSizeItem;
-        }
-        // 
-        //     get options() {
-        //         function getstate() {
-        // 
-        //             const activeButton = document.querySelector('div.tgl_big_box');
-        //             //@ts-ignore
-        //             const state = `${activeButton.dataset.tglStatus}`;
-        //             if (state == 'undefined') alert('Invalid State!')
-        //             return state
-        //         };
-        // 
-        //         function getsystem() {
-        //             const sys = document.querySelector('span[output=system]');
-        //             if (sys == 'system') alert('System not set!')
-        //             return sys.textContent
-        //         };
-        // 
-        //         return {
-        //             type: getstate(),
-        //             system: getsystem()
-        //         }
-        //     };
-
+        this.options = StatusBox();
+        this.makeSizeItem;
+    }
 
     get makeSizeItem() {
         //@ts-ignore
@@ -75,10 +52,12 @@ class SizeMaker {
 class Manipulator {
     constructor() {
         this.itemCalc = {};
+        this.delta = {};
     }
     create() {
-        this.itemCalc = new SizeMaker()
-        return this.itemCalc
+        this.itemCalc = new SizeMaker();
+        this.delta = new dBox();
+        return
     }
 
     updateSize() {
@@ -91,11 +70,121 @@ class Manipulator {
         return console.log(this.itemCalc)
     };
 
+    updateDelta() {
+        const { type, system } = this.itemCalc.options
+        this.delta.dSides.map(element => {
+            element.value = BigStorage[type][system][element.d_Id]
+        });
+        return this.delta
+    };
+
+    convert() {
+        return dwdh(this.delta)
+    };
+
+    get info() {
+        const info = {
+            item: this.itemCalc,
+            delta: this.delta,
+            dwdh: this.convert()
+        };
+        return { info }
+    }
+
+
 }
 let op = new Manipulator();
 // op.create()
 
 // TODO: функция расчета стекла, обработчик на изменения значений
+// ! TODO: добавить калькуляцию
+
+// *Калькуляция стеклопакета и дельты
+
+class dBox {
+    constructor() {
+        this.dSides;
+    }
+    get options() {
+        return StatusBox();
+    }
+    get dSides() {
+        let { type, system } = this.options;
+
+        if (type === 'svet') {
+            console.log(`Use another calc for SVET`);
+            return
+        };
+
+        const deltaBox = [];
+        const $sides = document.querySelectorAll('.img_side')
+        for (let $el of $sides) {
+            let side = $el.dataset.side;
+            let $elem = document.querySelector($outputelem[side]);
+            let delta = rename($elem.innerText);
+            deltaBox.push({
+                side: side,
+                d_Id: delta,
+                value: BigStorage[type][system][delta],
+            })
+        };
+
+        return deltaBox
+    };
+
+    dwdh() {
+        const { type, system } = this.options;
+        const delta_obj = {
+            dw: 0,
+            dh: 0,
+            type: type,
+            system: system,
+        };
+        this.dSides.forEach(element => {
+            if (element.side === 'top' || element.side === 'bot') delta_obj.dh += element.value;
+            if (element.side === 'right' || element.side === 'left') delta_obj.dw += element.value;
+        });
+        return delta_obj
+    }
+};
+
+const dwdh = (dbox) => {
+    const { type, system } = StatusBox();
+    const delta_obj = {
+        dw: 0,
+        dh: 0,
+        type: type,
+        system: system,
+    };
+    dbox.dSides.forEach(element => {
+        if (element.side === 'top' || element.side === 'bot') delta_obj.dh += element.value;
+        if (element.side === 'right' || element.side === 'left') delta_obj.dw += element.value;
+    });
+    return delta_obj
+}
+
+
+function make_dObj(dbox) {
+    const { type, system } = StatusBox();
+    const delta_obj = {
+        dw: 0,
+        dh: 0,
+        type: type,
+        system: system,
+    };
+    dbox.forEach(element => {
+        if (element.side === 'top' || element.side === 'bot') delta_obj.dh += element.value;
+        if (element.side === 'right' || element.side === 'left') delta_obj.dw += element.value;
+    });
+    console.table(dbox);
+    return delta_obj
+}
+
+
+
+function gCalc() {
+
+};
 
 
 const modelOutput = {
