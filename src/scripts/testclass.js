@@ -85,10 +85,10 @@ class Manipulator {
     get info() {
         const info = {
             item: this.itemCalc,
-            delta: this.delta,
+            delta: this.delta.dSides,
             dwdh: this.convert()
         };
-        return { info }
+        return info
     }
 
 
