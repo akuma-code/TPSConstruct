@@ -106,21 +106,25 @@ function get_delta(system = '') {
 };
 
 const BigStorage = {
-
-    svet: {
-        skf: {
+    dwdh_s: function(ms_type = '') {
+        return this.svet.filter(item => item.ms_type === ms_type)
+    },
+    svet: [{
+            ms_type: 'skf',
             dw: (-45),
             dh: (-47)
         },
-        simple: {
+        {
+            ms_type: 'simple',
             dw: (24),
             dh: (45)
         },
-        whs: {
+        {
+            ms_type: 'whs',
             dw: (46),
             dh: (46)
         }
-    },
+    ],
 
     stv: {
         ProLine: {
@@ -209,4 +213,4 @@ const BigStorage = {
             di: 28
         },
     }
-}
+};

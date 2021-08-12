@@ -138,7 +138,7 @@ $size.addEventListener('input', function(e) {
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
-    op.updateSize()
+    Man.updateSize()
         // let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
         // const results = new TPScalculator;
         // const { width, height } = results.calcGlass;

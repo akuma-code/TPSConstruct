@@ -51,12 +51,12 @@ class SizeMaker {
 
 class Manipulator {
     constructor() {
-        this.itemCalc = {};
-        this.delta = {};
+        this.itemSize = {};
+        this.delta_dwdh = {};
     }
     create() {
-        this.itemCalc = new SizeMaker();
-        this.delta = new dBox();
+        this.itemSize = new SizeMaker();
+        this.delta_dwdh = this.select_dwdh();
         return
     }
 
@@ -65,36 +65,76 @@ class Manipulator {
         const w = +document.querySelector('input#tps_w').value;
         //@ts-ignore
         const h = +document.querySelector('input#tps_h').value;
-        this.itemCalc.w = w;
-        this.itemCalc.h = h;
-        return console.log(this.itemCalc)
+        this.itemSize.w = w;
+        this.itemSize.h = h;
+        console.log(this.itemSize)
+        return this.itemSize
     };
 
-    updateDelta() {
-        const { type, system } = this.itemCalc.options
-        this.delta.dSides.map(element => {
-            element.value = BigStorage[type][system][element.d_Id]
-        });
-        return this.delta
-    };
+
 
     convert() {
-        return dwdh(this.delta)
+        return dwdh(this.delta_dwdh)
     };
 
     get info() {
         const info = {
-            item: this.itemCalc,
-            delta: this.delta.dSides,
-            dwdh: this.convert()
+            item: this.itemSize,
+            // dwdh: dwdh(this.select().deltaRama()),
+            delta: this.delta_dwdh,
         };
+        console.table(info.delta);
         return info
+    };
+
+    select_dwdh() {
+        const { type } = StatusBox();
+        if (type === 'stv' || type === 'fix') return new dBox().Rama2dwdh();
+        if (type === 'svet') {
+            const skf = BigStorage.dwdh_s('skf')[0];
+            const simple = BigStorage.dwdh_s('simple')[0];
+            const whs = BigStorage.dwdh_s('whs')[0];
+            const items = { skf, simple, whs };
+            return items
+        }
+    }
+}
+
+
+
+
+class Operator extends Manipulator {
+    calcGlass() {
+        const { w, h } = this.updateSize();
+        const { dw, dh } = this.select_dwdh();
+        const result = {
+            gw: w - dw,
+            gh: h - dh
+        };
+        return result
     }
 
+    calcMS() {
+        // debugger
+        const { skf, simple, whs } = this.select_dwdh();
+        const dwdhitems = [skf, simple, whs];
+        const { w, h } = this.updateSize();
+        const result = {};
+        const resultArray = [];
+        dwdhitems.forEach(item => {
+            result[item.ms_type] = { msW: w + item.dw, msH: h + item.dh }
+        });
+        dwdhitems.forEach(item => {
+            resultArray.push({ type: item.ms_type, msW: w + item.dw, msH: h + item.dh })
+        })
+        return resultArray
+    }
+};
 
-}
-let op = new Manipulator();
-// op.create()
+
+let Man = new Manipulator();
+let op = new Operator();
+
 
 // TODO: функция расчета стекла, обработчик на изменения значений
 // ! TODO: добавить калькуляцию
@@ -103,12 +143,18 @@ let op = new Manipulator();
 
 class dBox {
     constructor() {
-        this.dSides;
-    }
+        this.options;
+        // this.Rama2dwdh();
+    };
+
+
     get options() {
         return StatusBox();
-    }
-    get dSides() {
+    };
+
+
+
+    deltaRama() {
         let { type, system } = this.options;
 
         if (type === 'svet') {
@@ -132,7 +178,7 @@ class dBox {
         return deltaBox
     };
 
-    dwdh() {
+    Rama2dwdh() {
         const { type, system } = this.options;
         const delta_obj = {
             dw: 0,
@@ -140,31 +186,19 @@ class dBox {
             type: type,
             system: system,
         };
-        this.dSides.forEach(element => {
+        this.deltaRama().forEach(element => {
             if (element.side === 'top' || element.side === 'bot') delta_obj.dh += element.value;
             if (element.side === 'right' || element.side === 'left') delta_obj.dw += element.value;
         });
+
         return delta_obj
-    }
+    };
+
+
 };
 
-const dwdh = (dbox) => {
-    const { type, system } = StatusBox();
-    const delta_obj = {
-        dw: 0,
-        dh: 0,
-        type: type,
-        system: system,
-    };
-    dbox.dSides.forEach(element => {
-        if (element.side === 'top' || element.side === 'bot') delta_obj.dh += element.value;
-        if (element.side === 'right' || element.side === 'left') delta_obj.dw += element.value;
-    });
-    return delta_obj
-}
 
-
-function make_dObj(dbox) {
+function dwdh(dbox) {
     const { type, system } = StatusBox();
     const delta_obj = {
         dw: 0,
@@ -176,15 +210,13 @@ function make_dObj(dbox) {
         if (element.side === 'top' || element.side === 'bot') delta_obj.dh += element.value;
         if (element.side === 'right' || element.side === 'left') delta_obj.dw += element.value;
     });
-    console.table(dbox);
+    console.table(delta_obj);
     return delta_obj
 }
 
 
 
-function gCalc() {
 
-};
 
 
 const modelOutput = {
@@ -294,10 +326,11 @@ function TPS_addHandler() {
             let type = t.dataset.type_sel;
             // const { state } = document.querySelector('[data-html-type]');
             // state.dataset.htmlType = type;
-            let HTML_OUT = new TPS_HTML_Output()
-            renderHTML(HTML_OUT.getHTMLObject())
+            let HTML_OUT = new TPS_HTML_Output();
+            renderHTML(HTML_OUT.getHTMLObject());
+            Man.create();
+            Man.info;
 
-            return
         })
 
     }
@@ -305,10 +338,3 @@ function TPS_addHandler() {
 }
 
 TPS_addHandler();
-
-let test_sizeobj = {
-    w: 1234,
-    h: 450,
-    id: '#out_stv',
-    type: 'stv'
-}
