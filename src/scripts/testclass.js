@@ -34,8 +34,9 @@ class SizeItem {
 
 class SizeMaker {
     constructor() {
+        console.count('sizemaker#')
         this.options = StatusBox();
-        this.makeSizeItem;
+        // this.makeSizeItem;
     }
 
     get makeSizeItem() {
@@ -45,17 +46,19 @@ class SizeMaker {
         const h = +document.querySelector('input#tps_h').value;
         const item = new SizeItem(w, h, this.options);
         // console.log({ item });
+        console.count('makeSizeItem ')
         return item
     };
 }
 
 class Manipulator {
     constructor() {
+        console.count('manipulator#')
         this.itemSize = {};
         this.delta_dwdh = {};
     }
     create() {
-        this.itemSize = new SizeMaker();
+        this.itemSize = new SizeMaker().makeSizeItem;
         this.delta_dwdh = this.select_dwdh();
         return
     }
@@ -65,9 +68,9 @@ class Manipulator {
         const w = +document.querySelector('input#tps_w').value;
         //@ts-ignore
         const h = +document.querySelector('input#tps_h').value;
-        this.itemSize.w = w;
-        this.itemSize.h = h;
-        console.log(this.itemSize)
+        this.itemSize.w = w || 0;
+        this.itemSize.h = h || 0;
+        console.log('updateSize()')
         return this.itemSize
     };
 
@@ -88,8 +91,8 @@ class Manipulator {
     };
 
     select_dwdh() {
+        // debugger;
         const { type } = StatusBox();
-        if (type === 'stv' || type === 'fix') return new dBox().Rama2dwdh();
         if (type === 'svet') {
             const skf = BigStorage.dwdh_s('skf')[0];
             const simple = BigStorage.dwdh_s('simple')[0];
@@ -97,6 +100,8 @@ class Manipulator {
             const items = { skf, simple, whs };
             return items
         }
+        if (type === 'stv') { return new dBox().Rama2dwdh() };
+        if (type === 'fix') { return new dBox().Rama2dwdh() };
     }
 }
 
@@ -109,7 +114,10 @@ class Operator extends Manipulator {
         const { dw, dh } = this.select_dwdh();
         const result = {
             gw: w - dw,
-            gh: h - dh
+            gh: h - dh,
+            w: w,
+            h: h
+
         };
         return result
     }
@@ -120,19 +128,19 @@ class Operator extends Manipulator {
         const dwdhitems = [skf, simple, whs];
         const { w, h } = this.updateSize();
         const result = {};
-        const resultArray = [];
+        // const resultArray = [];
         dwdhitems.forEach(item => {
-            result[item.ms_type] = { msW: w + item.dw, msH: h + item.dh }
+            result[item.ms_type] = { w: w, h: h, msW: w + item.dw, msH: h + item.dh }
         });
-        dwdhitems.forEach(item => {
-            resultArray.push({ type: item.ms_type, msW: w + item.dw, msH: h + item.dh })
-        })
-        return resultArray
+        // dwdhitems.forEach(item => {
+        //     resultArray.push({ type: item.ms_type, msW: w + item.dw, msH: h + item.dh })
+        // })
+        return result
     }
 };
 
 
-let Man = new Manipulator();
+// let Man = new Manipulator();
 let op = new Operator();
 
 
@@ -144,7 +152,8 @@ let op = new Operator();
 class dBox {
     constructor() {
         this.options;
-        // this.Rama2dwdh();
+        console.count('dBox#')
+            // this.Rama2dwdh();
     };
 
 
@@ -170,7 +179,8 @@ class dBox {
             let delta = rename($elem.innerText);
             deltaBox.push({
                 side: side,
-                d_Id: delta,
+                name: $elem.innerText,
+
                 value: BigStorage[type][system][delta],
             })
         };
@@ -179,7 +189,7 @@ class dBox {
     };
 
     Rama2dwdh() {
-        const { type, system } = this.options;
+        let { type, system } = this.options;
         const delta_obj = {
             dw: 0,
             dh: 0,
@@ -287,23 +297,55 @@ class TPS_HTML_Output {
 
     getModel() {
 
-        const $el = document.querySelector('[data-html-type]');
-        const type = $el.dataset.htmlType;
+        // const $el = document.querySelector('[data-html-type]');
+        const type = StatusBox().type;
         const result = this.templateOutput[type];
         return result
     };
-
+    addSizes(MODEL = []) {
+        // const MODEL = this.getModel();
+        // debugger
+        if (StatusBox().type !== 'svet') {
+            let { gw, gh, w, h } = op.calcGlass();
+            MODEL.map(item => {
+                if (item.html_out == 'html_glass') {
+                    item.gw = gw;
+                    item.gh = gh
+                };
+                if (item.html_out == 'html_sizes') {
+                    item.h = h;
+                    item.w = w
+                };
+            })
+        }
+        if (StatusBox().type === 'svet') MODEL.map(item => {
+            let { msW, msH, h, w } = op.calcMS();
+            if (item.html_out === 'html_skf' || item.html_out === 'html_simple') {
+                item.msW = msW;
+                item.msH = msH
+            }
+            if (item.html_out == 'html_sizes') {
+                item.h = h;
+                item.w = w
+            };
+        });
+        console.table(MODEL)
+        return MODEL
+    }
 
 
     getHTMLObject() {
+        const type = StatusBox().type
         let Text2Html = [];
-        let MODEL = this.getModel();
-        // console.dir({ model: MODEL });
-        MODEL.forEach(element => {
-            Text2Html.push(`<div data-output=${element.html_out}><span>${element.label}</span></div>`)
-        });
-        // console.table(resultHTML);
-        return Text2Html
+        let MODEL = this.addSizes(this.getModel());
+        if (type === 'stv') {
+            MODEL.forEach(element => {
+                Text2Html.push(`
+                <div data-output=${element.html_out}><span>${element.label}</span><span>${element.gw}x${element.gh}</span></div>`)
+            });
+            // console.table(resultHTML);
+            return Text2Html
+        }
     };
 
 };
@@ -324,12 +366,12 @@ function TPS_addHandler() {
             let t = event.target;
 
             let type = t.dataset.type_sel;
-            // const { state } = document.querySelector('[data-html-type]');
-            // state.dataset.htmlType = type;
+            const state = document.querySelector('[data-html-type]');
+            state.dataset.htmlType = type;
             let HTML_OUT = new TPS_HTML_Output();
             renderHTML(HTML_OUT.getHTMLObject());
-            Man.create();
-            Man.info;
+            op.create();
+
 
         })
 

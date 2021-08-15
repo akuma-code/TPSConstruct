@@ -48,10 +48,10 @@ const img_sides = ['top', 'bot', 'left', 'right'];
 
 const Sidelist = {
     svet: {
-        top: ['световой проем'],
-        bot: ['световой проем'],
-        left: ['световой проем'],
-        right: ['световой проем'],
+        top: ['свет'],
+        bot: ['свет'],
+        left: ['свет'],
+        right: ['свет'],
     },
 
     fix: {
@@ -115,6 +115,7 @@ $main.addEventListener('click', function(e) {
 
         $StatusCheck.system = target.textContent
         check232(target.textContent);
+        sb.updateState();
     }
 
     if (target.matches('[data-side=depth] *')) {
@@ -127,6 +128,7 @@ $main.addEventListener('click', function(e) {
         for (let elem of target.closest('.tgl_big_box').children) {
             elem.classList.remove('active')
         }
+        sb.updateState();
         target.classList.add('active');
         // !updateOutput();
 
@@ -138,7 +140,8 @@ $size.addEventListener('input', function(e) {
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
-    Man.updateSize()
+    const { width, height } = $StatusCheck
+    sb.updateSize(width, height)
         // let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
         // const results = new TPScalculator;
         // const { width, height } = results.calcGlass;
@@ -177,12 +180,14 @@ $tgl_btn.addEventListener('click', function(event) {
         outputList.setup(state);
         selectBGimg(state);
         checkSideState(t);
+        sb.updateState();
         // selectTYPE();
         //updateHTML_glass() //! update glass
 
     };
 
 }, true)
+
 
 // $main.addEventListener('mousemove', function() {
 //     setTimeout(function() {

@@ -1,4 +1,5 @@
 const Scripts = [
+    'src/scripts/module/calc/state.js',
     'src/scripts/DB/dbTPSdelta.js',
     // 'src/scripts/model.js',
     // 'src/scripts/DB/SizeDB.js',
@@ -9,8 +10,7 @@ const Scripts = [
     'src/scripts/tps_calc.js',
     'src/scripts/testclass.js',
     'src/scripts/img_APP.js',
-]
-
+];
 // Scripts.forEach(item => load(item));
 // 
 // restoreValues()
@@ -43,4 +43,4 @@ function startAPP(scripts, callback) {
     document.onload = () => callback()
 }
 
-startAPP(Scripts, restoreValues())
+startAPP(Scripts, restoreValues());
