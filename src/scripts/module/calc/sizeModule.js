@@ -139,4 +139,44 @@ class StorageModule {
 
 }
 
-const sb = new StorageModule();
+class ListenerModule extends StorageModule {
+    constructor() {
+        super();
+        this.addInputs()
+    }
+
+    addInputs() {
+        const $elements = document.querySelectorAll('[data-handler]');
+        for (let el of $elements) {
+            const action = el.dataset.handler;
+            const actionType = el.dataset.handlerType;
+            if (action && actionType) {
+                el.addEventListener(actionType, this[action].bind(this), true)
+            }
+        }
+
+
+    };
+
+    updW(e) {
+        let target = e.target;
+        let w = target.value;
+        this.storage.set('w', w)
+        return console.log(`updW: ${this.storage.get('w')}`);
+    };
+    updH(e) {
+        let target = e.target;
+        let h = target.value;
+        this.storage.set('h', h)
+        return console.log(`updH: ${this.storage.get('h')}`);
+    };
+
+    updState() {
+        this.updateState();
+        this.updateSides();
+    }
+
+};
+
+const LM = new ListenerModule();
+// const sb = new StorageModule();

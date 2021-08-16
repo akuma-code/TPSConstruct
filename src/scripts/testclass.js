@@ -371,13 +371,12 @@ function TPS_addHandler() {
         button.addEventListener('click', function(event) {
             let t = event.target;
             let type = t.dataset.type_sel;
-            const bgState = document.querySelector('[data-bg-state]');
-            bgState.dataset.bgState = type;
+            $stateElem.dataset.bgState = type;
 
-        })
+        }, false)
 
     }
 
 }
 
-TPS_addHandler();
+// TPS_addHandler();

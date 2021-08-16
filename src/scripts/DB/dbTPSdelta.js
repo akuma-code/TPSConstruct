@@ -133,8 +133,6 @@ const SvetStorage = {
 
 
 const RamaStorage = {
-
-
     stv: {
         ProLine: {
             rama: 64,

@@ -6,6 +6,7 @@ const Scripts = [
     'src/scripts/module/helpers.js',
     'src/scripts/DB/dbTPSdelta.js',
     'src/scripts/module/calc/sizeModule.js',
+    'src/scripts/module/calc/handlersModule.js',
     'src/scripts/tgl_btn.js',
     'src/scripts/TPSconstruct.js',
     'src/scripts/testclass.js',
@@ -48,7 +49,7 @@ startAPP(Scripts, restoreValues());
 const $StatusCheck = {};
 const $img_conteiner = document.querySelector('.tps_img'),
     $img_cont = document.querySelector('div.img_cont'),
-    $stateElem = document.querySelector('div[data-bg-state]'),
+    $stateElem = document.querySelector('div.img_cont[data-bg-state]'),
     $sys = document.querySelector('div.tps_sys'),
     $out = document.querySelector('div.tps_output'),
     $sides = document.querySelectorAll('.img_side'),

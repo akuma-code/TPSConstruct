@@ -32,7 +32,7 @@ const RamaSvetovoy = {
 };
 
 function swsh() {
-    const delta = RamaSvetovoy[StatusBox().system];
+    const delta = RamaSvetovoy[getState().system];
     return function(deltabox = []) {
         const result = {
             sh: 0,
