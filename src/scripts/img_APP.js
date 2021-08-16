@@ -104,8 +104,8 @@ $tgl_btn.addEventListener('click', function(event) {
     if (t.matches('[data-tgl-status=info]')) return
     if (t.matches('[data-tgl-status]')) {
         const state = t.dataset.tglStatus;
-        $StatusCheck.tglState = state;
-        $big_box.dataset.tglStatus = state;
+        // $StatusCheck.tglState = state;
+        // $big_box.dataset.tglStatus = state;
         // $big_box.dataset.htmlType = state;
         Sidelist.setup(state);
         Detailslist.toHTML(state);

@@ -135,7 +135,7 @@ class Operator extends Manipulator {
 
 
 // let Man = new Manipulator();
-let op = new Operator();
+// let op = new Operator();
 
 
 // TODO: функция расчета стекла, обработчик на изменения значений

@@ -131,9 +131,8 @@ class StorageModule {
 
 
     init() {
-
-        this.updateState();
         this.updateSize();
+        this.updateState();
         return this.Obj
     }
 
