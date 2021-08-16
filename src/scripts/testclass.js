@@ -1,41 +1,7 @@
-const StatusBox = function() {
-    function getstate() {
-        const activeButton = document.querySelector('div.tgl_big_box');
-        //@ts-ignore
-        const state = activeButton.dataset.tglStatus;
-        if (state === 'undefined') alert('Invalid State!')
-        return state
-    };
-
-    function getsystem() {
-        const sys = document.querySelector('span[output=system]');
-        if (sys == 'system') alert('System not set!')
-        return sys.textContent
-    };
-
-    return {
-        type: getstate(),
-        system: getsystem()
-    }
-};
-
-
-class SizeItem {
-    constructor(w = Number, h = Number, options = null) {
-        this.w = +w;
-        this.h = +h;
-        this.options = options;
-        console.count(`(${w} x ${h}) => SizeItem:`)
-    }
-};
-
-
-
-
 class SizeMaker {
     constructor() {
         console.count('sizemaker#')
-        this.options = StatusBox();
+        this.options = getState();
         // this.makeSizeItem;
     }
 
@@ -53,7 +19,7 @@ class SizeMaker {
 
 class Manipulator {
     constructor() {
-        console.count('manipulator#')
+        console.count('manipulator')
         this.itemSize = {};
         this.delta_dwdh = {};
     }
@@ -92,16 +58,26 @@ class Manipulator {
 
     select_dwdh() {
         // debugger;
-        const { type } = StatusBox();
+        const {
+            type
+        } = getState();
         if (type === 'svet') {
-            const skf = BigStorage.dwdh_s('skf')[0];
-            const simple = BigStorage.dwdh_s('simple')[0];
-            const whs = BigStorage.dwdh_s('whs')[0];
-            const items = { skf, simple, whs };
+            const skf = RamaStorage.dwdh_s('skf')[0];
+            const simple = RamaStorage.dwdh_s('simple')[0];
+            const whs = RamaStorage.dwdh_s('whs')[0];
+            const items = {
+                skf,
+                simple,
+                whs
+            };
             return items
         }
-        if (type === 'stv') { return new dBox().Rama2dwdh() };
-        if (type === 'fix') { return new dBox().Rama2dwdh() };
+        if (type === 'stv') {
+            return new dBox().Rama2dwdh()
+        };
+        if (type === 'fix') {
+            return new dBox().Rama2dwdh()
+        };
     }
 }
 
@@ -110,8 +86,14 @@ class Manipulator {
 
 class Operator extends Manipulator {
     calcGlass() {
-        const { w, h } = this.updateSize();
-        const { dw, dh } = this.select_dwdh();
+        const {
+            w,
+            h
+        } = this.updateSize();
+        const {
+            dw,
+            dh
+        } = this.select_dwdh();
         const result = {
             gw: w - dw,
             gh: h - dh,
@@ -124,13 +106,25 @@ class Operator extends Manipulator {
 
     calcMS() {
         // debugger
-        const { skf, simple, whs } = this.select_dwdh();
+        const {
+            skf,
+            simple,
+            whs
+        } = this.select_dwdh();
         const dwdhitems = [skf, simple, whs];
-        const { w, h } = this.updateSize();
+        const {
+            w,
+            h
+        } = this.updateSize();
         const result = {};
         // const resultArray = [];
         dwdhitems.forEach(item => {
-            result[item.ms_type] = { w: w, h: h, msW: w + item.dw, msH: h + item.dh }
+            result[item.ms_type] = {
+                w: w,
+                h: h,
+                msW: w + item.dw,
+                msH: h + item.dh
+            }
         });
         // dwdhitems.forEach(item => {
         //     resultArray.push({ type: item.ms_type, msW: w + item.dw, msH: h + item.dh })
@@ -151,20 +145,20 @@ let op = new Operator();
 
 class dBox {
     constructor() {
-        this.options;
+        this.options = getState();
         console.count('dBox#')
             // this.Rama2dwdh();
     };
 
 
-    get options() {
-        return StatusBox();
-    };
 
 
 
     deltaRama() {
-        let { type, system } = this.options;
+        let {
+            type,
+            system
+        } = this.options;
 
         if (type === 'svet') {
             console.log(`Use another calc for SVET`);
@@ -181,7 +175,7 @@ class dBox {
                 side: side,
                 name: $elem.innerText,
 
-                value: BigStorage[type][system][delta],
+                value: RamaStorage[type][system][delta],
             })
         };
 
@@ -189,7 +183,10 @@ class dBox {
     };
 
     Rama2dwdh() {
-        let { type, system } = this.options;
+        let {
+            type,
+            system
+        } = this.options;
         const delta_obj = {
             dw: 0,
             dh: 0,
@@ -207,9 +204,11 @@ class dBox {
 
 };
 
-
 function dwdh(dbox) {
-    const { type, system } = StatusBox();
+    const {
+        type,
+        system
+    } = getState();
     const delta_obj = {
         dw: 0,
         dh: 0,
@@ -223,9 +222,6 @@ function dwdh(dbox) {
     console.table(delta_obj);
     return delta_obj
 }
-
-
-
 
 
 
@@ -298,15 +294,20 @@ class TPS_HTML_Output {
     getModel() {
 
         // const $el = document.querySelector('[data-html-type]');
-        const type = StatusBox().type;
+        const type = getState().type;
         const result = this.templateOutput[type];
         return result
     };
     addSizes(MODEL = []) {
         // const MODEL = this.getModel();
         // debugger
-        if (StatusBox().type !== 'svet') {
-            let { gw, gh, w, h } = op.calcGlass();
+        if (getState().type !== 'svet') {
+            let {
+                gw,
+                gh,
+                w,
+                h
+            } = op.calcGlass();
             MODEL.map(item => {
                 if (item.html_out == 'html_glass') {
                     item.gw = gw;
@@ -318,8 +319,13 @@ class TPS_HTML_Output {
                 };
             })
         }
-        if (StatusBox().type === 'svet') MODEL.map(item => {
-            let { msW, msH, h, w } = op.calcMS();
+        if (getState().type === 'svet') MODEL.map(item => {
+            let {
+                msW,
+                msH,
+                h,
+                w
+            } = op.calcMS();
             if (item.html_out === 'html_skf' || item.html_out === 'html_simple') {
                 item.msW = msW;
                 item.msH = msH
@@ -335,7 +341,7 @@ class TPS_HTML_Output {
 
 
     getHTMLObject() {
-        const type = StatusBox().type
+        const type = getState().type
         let Text2Html = [];
         let MODEL = this.addSizes(this.getModel());
         if (type === 'stv') {
@@ -364,14 +370,9 @@ function TPS_addHandler() {
 
         button.addEventListener('click', function(event) {
             let t = event.target;
-
             let type = t.dataset.type_sel;
-            const state = document.querySelector('[data-html-type]');
-            state.dataset.htmlType = type;
-            let HTML_OUT = new TPS_HTML_Output();
-            renderHTML(HTML_OUT.getHTMLObject());
-            op.create();
-
+            const bgState = document.querySelector('[data-bg-state]');
+            bgState.dataset.bgState = type;
 
         })
 

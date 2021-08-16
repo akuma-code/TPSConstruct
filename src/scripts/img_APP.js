@@ -1,49 +1,3 @@
-const $StatusCheck = {};
-const $img_conteiner = document.querySelector('.tps_img'),
-    $img_cont = document.querySelector('div.img_cont'),
-    $sys = document.querySelector('div.tps_sys'),
-    $out = document.querySelector('div.tps_output'),
-    $sides = document.querySelectorAll('.img_side'),
-    $main = document.querySelector('div.tps_main'),
-    $size = document.querySelector('div.tps_size'),
-    $out_sizes = document.getElementById('out_sizes'),
-    $tgl_btn = document.querySelector('div.tgl_big_box'),
-    $stv232 = document.querySelector('#stv232'),
-    $ms_simple = document.querySelector('#ms_simple'),
-    $ms_skf = document.querySelector('#ms_skf'),
-    $out_glass = document.querySelector('#out_glass');
-
-const $outputelem = {
-    system: '[output=system]',
-    left: '[output=left]',
-    top: '[output=top]',
-    right: '[output=right]',
-    bot: '[output=bot]',
-    out: '[output=out]',
-    depth: '[output=depth]',
-};
-const currentDepth = {
-    ProLine: ['24mm', '28mm', '36mm', '40mm'],
-    SoftLine: ['24mm', '28mm', '36mm', '40mm'],
-    EuroLine: ['24mm', '32mm'],
-    SoftLine82: ['40mm', '52mm'],
-    WHS: ['24mm', '32mm'],
-    WHS72: ['24mm', '32mm', '40mm'],
-}
-
-const outputList = {
-    svet: ['out_sizes', 'ms_simple', 'ms_skf'],
-    stv: ['out_glass', "out_stv", "out_shtap", 'out_sizes', 'ms_simple', 'ms_skf'],
-    fix: ['out_glass', "out_stv", "out_shtap", 'out_sizes'],
-    setup(state) {
-        const $outlist = document.getElementsByClassName('outlist');
-        for (let elem of $outlist) {
-            if (!this[state].includes(elem.id)) elem.classList.add('disp_none')
-            else elem.classList.remove('disp_none')
-        }
-    }
-}
-
 const img_sides = ['top', 'bot', 'left', 'right'];
 
 const Sidelist = {
@@ -73,7 +27,7 @@ const Sidelist = {
         for (let side of img_sides) {
             let list = '';
             let $selector = document.querySelector(`ul.drop_content[data-side=${side}]`);
-            this[tglStatus][side].forEach(element => list += `<li data-delta=${rename(element)}>${element}</li>`);
+            this[tglStatus][side].forEach(element => list += `<li>${element}</li>`);
             $selector.innerHTML = '';
             $selector.insertAdjacentHTML('afterbegin', list)
         }
@@ -98,7 +52,6 @@ const Detailslist = {
 $main.addEventListener('click', function(e) {
     let target = e.target;
     //! выделение строки списка
-    //updateHTML_glass() //*update glass
     if (target.matches('li')) {
         let current_side = target.closest('ul').dataset.side;
         document.querySelector(`${$outputelem[current_side]}`).innerText = target.textContent
@@ -114,8 +67,7 @@ $main.addEventListener('click', function(e) {
         document.querySelector('[data-side=depth]').innerHTML = setDepth(target.textContent);
 
         $StatusCheck.system = target.textContent
-        check232(target.textContent);
-        sb.updateState();
+        is232(target.textContent);
     }
 
     if (target.matches('[data-side=depth] *')) {
@@ -128,74 +80,41 @@ $main.addEventListener('click', function(e) {
         for (let elem of target.closest('.tgl_big_box').children) {
             elem.classList.remove('active')
         }
-        sb.updateState();
         target.classList.add('active');
         // !updateOutput();
 
     }
 }, true);
+
+
 //!INPUT LISTENER
 $size.addEventListener('input', function(e) {
     let t = e.target;
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
-    const { width, height } = $StatusCheck
-    sb.updateSize(width, height)
-        // let svCALC = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
-        // const results = new TPScalculator;
-        // const { width, height } = results.calcGlass;
-        // updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
-        //updateHTML_glass() //* update glass
-        // updateHTML($ms_simple, `<span>М/С:</span>${svCALC.toHTML('simple')}`);
-        // updateHTML($ms_skf, `<span>М/С SKF:</span>${svCALC.toHTML('skf')}`);
-        // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-        // updateHTML($out_sizes, `<span>Размеры: </span><span>${$StatusCheck.width || '---'} мм х ${$StatusCheck.height || '---'} мм</span>`);
-        // if ($StatusCheck.tglState) outputList.setup($StatusCheck.tglState);
-        //!new SizeMaker()
-        //!updateOutput();
+    const {
+        width,
+        height
+    } = $StatusCheck
 }, true);
-
-// $size.addEventListener('change', function(e) {
-// 
-//     let t = e.target;
-//     if (!t.matches('.tps_size input')) return
-//     updateHTML_glass()
-//         // let msg = new SvetCalc($StatusCheck.width || 0, $StatusCheck.height || 0);
-//         // return msg
-// })
-
 $tgl_btn.addEventListener('click', function(event) {
     let t = event.target;
     const $big_box = document.querySelector('div.tgl_big_box');
-    // updateOutput();
     if (t.matches('[data-tgl-status=info]')) return
     if (t.matches('[data-tgl-status]')) {
         const state = t.dataset.tglStatus;
         $StatusCheck.tglState = state;
         $big_box.dataset.tglStatus = state;
-        $big_box.dataset.htmlType = state;
+        // $big_box.dataset.htmlType = state;
         Sidelist.setup(state);
         Detailslist.toHTML(state);
-        outputList.setup(state);
         selectBGimg(state);
         checkSideState(t);
-        sb.updateState();
-        // selectTYPE();
-        //updateHTML_glass() //! update glass
 
     };
 
 }, true)
-
-
-// $main.addEventListener('mousemove', function() {
-//     setTimeout(function() {
-//         document.querySelector('div.target_output > ul.target_list').innerHTML = "";
-//         document.querySelector('div.target_output > ul.target_list').innerHTML = setStatusInfo();
-//     }, 100)
-// })
-
 window.addEventListener('beforeunload', () => updateDB($StatusCheck));
 
 function setDepth(system) {
@@ -218,7 +137,7 @@ function tglActive(element) {
     element.classList.toggle('active')
 }
 
-function check232(system) {
+function is232(system) {
     let elem = document.getElementById('stv232');
     if (!elem) return
     elem.disabled = (system == 'ProLine' || system == 'SoftLine') ? false : true;
@@ -226,36 +145,19 @@ function check232(system) {
     return
 }
 
-function updateHTML(HTMLelement, text) {
-    HTMLelement.innerHTML = '';
-    HTMLelement.insertAdjacentHTML('beforeend', text)
-    return
-}
-
-function updateHTML_glass() {
-    const results = new TPScalculator();
-    if (results.state === 'svet') return console.log('uncorrect state, update_glass() stopped');
-    const {
-        width,
-        height
-    } = results.calcGlass;
-    return updateHTML($out_glass, `<span>Стеклопакет:</span><span>${width} x ${height}</span>`);
-}
-
-
-
 function updateDB(storage = {}) {
     for (let key in storage) {
         if (localStorage.getItem(key) === storage[key]) continue
-        else localStorage.setItem(key, storage[key]);
+        localStorage.setItem(key, storage[key]);
         $StatusCheck[key] = localStorage.getItem(key);
         console.count(`added ${key} : ${storage[key]}`)
     }
     return
 }
 
-
 function selectBGimg(state) {
+    $img_cont.dataset.bgState = state;
+    $StatusCheck.bgState = state;
     const src = {
         stv: "url('../assets/rama/stv.svg')",
         fix: "url('../assets/rama/fix.svg')",

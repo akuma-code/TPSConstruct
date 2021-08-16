@@ -99,32 +99,41 @@ const deltaStorage = {
 
 };
 
-function get_delta(system = '') {
-    return function(state = '') {
-        return deltaStorage[system][state]
-    }
+const SvetStorage = {
+    skf: {
+        dw: (-45),
+        dh: (-47)
+    },
+    simple: {
+        dw: (24),
+        dh: (45)
+    },
+    simple_whs: {
+        dw: (46),
+        dh: (46)
+    },
+    calc(w = 0, h = 0) {
+        let result = {};
+        result.skf = {
+            w: +w + this.skf.dw,
+            h: +h + this.skf.dh
+        };
+        result.simple = {
+            w: +w + this.simple.dw,
+            h: +h + this.simple.dh
+        };
+        result.simple_whs = {
+            w: +w + this.simple_whs.dw,
+            h: +h + this.simple_whs.dh
+        };
+        return result
+    },
+
 };
 
-const BigStorage = {
-    dwdh_s: function(ms_type = '') {
-        return this.svet.filter(item => item.ms_type === ms_type)
-    },
-    svet: [{
-            ms_type: 'skf',
-            dw: (-45),
-            dh: (-47)
-        },
-        {
-            ms_type: 'simple',
-            dw: (24),
-            dh: (45)
-        },
-        {
-            ms_type: 'whs',
-            dw: (46),
-            dh: (46)
-        }
-    ],
+
+const RamaStorage = {
+
 
     stv: {
         ProLine: {
@@ -214,3 +223,6 @@ const BigStorage = {
         },
     }
 };
+const SS = (w = 0, h = 0) => SvetStorage.calc(w, h);
+const StvST = RamaStorage.stv;
+const FixST = RamaStorage.fix;

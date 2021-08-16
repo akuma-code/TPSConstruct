@@ -56,13 +56,13 @@
 
                 <div class="outlist" id="out_sizes"><span>Исходные размеры: </span></div>
                 <div class="outlist" id="out_glass"><span>Стеклопакет:</span> <span></span></div>
-                <div class="outlist" id="out_stv"><span>Створка:</span> <span>### х ###</span></div>
-                <div class="outlist" id="out_shtap"><span>Штапик:</span> <span></span></div>
+                <!-- <div class="outlist" id="out_stv"><span>Створка:</span> <span>### х ###</span></div> -->
+                <!-- <div class="outlist" id="out_shtap"><span>Штапик:</span> <span></span></div> -->
                 <div class="outlist" id='ms_simple'><span>М/С:</span></div>
                 <div class="outlist" id='ms_skf'><span>М/С SKF:</span></div>
             </div>
             <div class="tps_img">
-                <div class="img_cont">
+                <div class="img_cont" data-bg-state='stv'>
                     <div class="img_side" data-side="top">
                         <!-- <input type="button" value="top" output='top' data-stdb="top">ВЕРХ -->
                         <span output='top' data-stdb='top'>верх</span>
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <div class="target_output">
+        <div class="target_output disp_none">
             <button onclick="toggle_target('.target_list')">Show Status</button>
             <ul class="target_list" hidden> </ul>
 

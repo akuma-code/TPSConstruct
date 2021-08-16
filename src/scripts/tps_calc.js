@@ -76,26 +76,8 @@ let current_delta = {
     bot: 0,
     left: 0,
     right: 0,
-    // get dwdh() {
-    //     return {
-    //         dw: this.left + this.right,
-    //         dh: this.top + this.bot
-    //     }
-    // }
-}
 
-function rename(text) {
-    const dictionary = {
-        'импост': 'di',
-        'рама': 'dr',
-        'порог': 'd_porog',
-        'штульп': 'd_shtulp',
-        ['импост в створке']: 'di_stv',
-        ['световой проем']: 'svet'
-    }
-    if (!dictionary[text]) return
-    return dictionary[text]
-};
+}
 
 
 /**
