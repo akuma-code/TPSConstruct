@@ -2,42 +2,11 @@ class SizeItem {
     constructor() {
         this.w = document.querySelector('#tps_w').value || 0;
         this.h = document.querySelector('#tps_h').value || 0;
-        console.count(`(${this.w} x ${this.h}) => SizeItem`)
+        console.count(`=> SizeItem(${this.w} x ${this.h})`)
     }
 };
 
-const getState = function() {
-    function state() {
-        //@ts-ignore
-        const state = $stateElem.dataset.bgState
-        if (state === 'undefined') alert('Invalid State!')
-        return state
-    };
 
-    function system() {
-        const sys = document.querySelector('span[output=system]');
-        if (sys == 'system') alert('System not set!')
-        return sys.textContent
-    };
-
-    return {
-        type: state(),
-        system: system()
-    }
-};
-
-function rename(text) {
-    const dictionary = {
-        'импост': 'di',
-        'рама': 'dr',
-        'порог': 'd_porog',
-        'штульп': 'd_shtulp',
-        ['импост в створке']: 'di_stv',
-        ['свет']: 'svet'
-    }
-    if (!dictionary[text]) return
-    return dictionary[text]
-};
 
 
 class StorageModule {
@@ -57,17 +26,21 @@ class StorageModule {
         } = new SizeItem();
         if (this.storage.get('w') !== w) {
             this.storage.set('w', w);
-            console.log(`updated W: ${this.storage.get('w')}`)
+            // console.log(`updated W: ${this.storage.get('w')}`)
         }
         if (this.storage.get('h') !== h) {
             this.storage.set('h', h);
-            console.log(`updated H: ${this.storage.get('h')}`);
+            // console.log(`updated H: ${this.storage.get('h')}`);
         }
 
         this.storage.set('w', w);
         this.storage.set('h', h);
         // console.log(this.storage);
         return this.Obj
+    };
+    stored_value(key) {
+        if (!!this.storage.get(key)) return this.storage.get(key)
+        console.log(`${key} not found, returned nothing!`)
     };
 
     updateState() {
@@ -103,6 +76,8 @@ class StorageModule {
         };
 
         this.storage.set('ramaSideBox', sideBox)
+
+
         if (type !== 'svet') {
             const deltabox = RamaStorage[type][system];
             let dw = 0;
@@ -122,8 +97,9 @@ class StorageModule {
         };
 
         if (type === 'svet') {
-            const MS_dwdh = SS(0, 0);
-            this.storage.set('dwdh_ms', MS_dwdh);
+            return
+            const MS_calced = SS(this.stored_value('w'), this.stored_value('h'));
+            this.storage.set('ms_calced', MS_calced);
 
         }
         return this.Obj
@@ -133,6 +109,7 @@ class StorageModule {
     init() {
         this.updateSize();
         this.updateState();
+        this.updateSides();
         return this.Obj
     }
 
@@ -173,9 +150,43 @@ class ListenerModule extends StorageModule {
     updState() {
         this.updateState();
         this.updateSides();
+        this.updateSize();
+    }
+
+};
+
+class CalcModule {
+
+    RamaCalcObj(obj) {
+        const {
+            w,
+            h,
+            type,
+            system,
+            dwdh_rama,
+        } = obj;
+        const {
+            dh,
+            dw
+        } = dwdh_rama;
+
+        return {
+            w,
+            h,
+            type,
+            system,
+            dw,
+            dh,
+        }
+    };
+
+
+
+    connect() {
+
     }
 
 };
 
 const LM = new ListenerModule();
-// const sb = new StorageModule();
+const CM = new CalcModule();

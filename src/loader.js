@@ -35,9 +35,11 @@ function restoreValues() {
 }
 
 function load(src) {
-    let $scr = document.createElement('script');
-    $scr.src = src;
-    document.head.append($scr);
+    setTimeout(() => {
+        let $scr = document.createElement('script');
+        $scr.src = src;
+        document.head.append($scr);
+    }, 100)
 }
 
 function startAPP(scripts, callback) {
@@ -46,6 +48,8 @@ function startAPP(scripts, callback) {
 }
 
 startAPP(Scripts, restoreValues());
+
+
 const $StatusCheck = {};
 const $img_conteiner = document.querySelector('.tps_img'),
     $img_cont = document.querySelector('div.img_cont'),
