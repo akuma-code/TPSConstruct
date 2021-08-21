@@ -93,20 +93,13 @@ $size.addEventListener('input', function(e) {
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
-    const {
-        width,
-        height
-    } = $StatusCheck
+
 }, true);
 $tgl_btn.addEventListener('click', function(event) {
     let t = event.target;
-    const $big_box = document.querySelector('div.tgl_big_box');
     if (t.matches('[data-tgl-status=info]')) return
     if (t.matches('[data-tgl-status]')) {
         const state = t.dataset.tglStatus;
-        // $StatusCheck.tglState = state;
-        // $big_box.dataset.tglStatus = state;
-        // $big_box.dataset.htmlType = state;
         Sidelist.setup(state);
         Detailslist.toHTML(state);
         selectBGimg(state);

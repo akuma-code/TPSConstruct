@@ -19,49 +19,46 @@ class StorageModule {
         const obj = Object.fromEntries(this.storage);
         return obj
     };
-    updateSize() {
+
+    init() {
+        const newsize = new SizeItem();
         const {
             w,
             h
-        } = new SizeItem();
-        if (this.storage.get('w') !== w) {
-            this.storage.set('w', w);
-            // console.log(`updated W: ${this.storage.get('w')}`)
-        }
-        if (this.storage.get('h') !== h) {
-            this.storage.set('h', h);
-            // console.log(`updated H: ${this.storage.get('h')}`);
-        }
+        } = newsize;
+
 
         this.storage.set('w', w);
         this.storage.set('h', h);
-        // console.log(this.storage);
         return this.Obj
-    };
-    stored_value(key) {
-        if (!!this.storage.get(key)) return this.storage.get(key)
-        console.log(`${key} not found, returned nothing!`)
-    };
+    }
+};
 
-    updateState() {
-        const {
-            type,
-            system
-        } = getState();
-        this.storage.set('type', type);
-        this.storage.set('system', system);
-        return {
-            type,
-            system
-        }
-    };
+class DeltaCalcModule extends StorageModule {
+
+    // updateState() {
+    //     const {
+    //         type,
+    //         system
+    //     } = getState();
+    //     this.storage.set('type', type);
+    //     this.storage.set('system', system);
+    //     return {
+    //         type,
+    //         system
+    //     }
+    // };
 
     updateSides() {
         const sideBox = [];
         const {
             type,
             system
-        } = this.updateState();
+            // } = this.updateState();
+        } = getState();
+        this.storage.set('type', type);
+        this.storage.set('system', system);
+
 
         const $sides = document.querySelectorAll('.img_side')
         for (let $el of $sides) {
@@ -76,7 +73,6 @@ class StorageModule {
         };
 
         this.storage.set('ramaSideBox', sideBox)
-
 
         if (type !== 'svet') {
             const deltabox = RamaStorage[type][system];
@@ -96,26 +92,12 @@ class StorageModule {
             this.storage.set('dwdh_rama', dwdh);
         };
 
-        if (type === 'svet') {
-            return
-            const MS_calced = SS(this.stored_value('w'), this.stored_value('h'));
-            this.storage.set('ms_calced', MS_calced);
-
-        }
         return this.Obj
     };
 
-
-    init() {
-        this.updateSize();
-        this.updateState();
-        this.updateSides();
-        return this.Obj
-    }
-
 }
 
-class ListenerModule extends StorageModule {
+class ListenerModule extends DeltaCalcModule {
     constructor() {
         super();
         this.addInputs()
@@ -138,55 +120,36 @@ class ListenerModule extends StorageModule {
         let target = e.target;
         let w = target.value;
         this.storage.set('w', w)
-        return console.log(`updW: ${this.storage.get('w')}`);
+        let text = `updW: ${this.storage.get('w')}`;
+        log500(text);
+        t1000(text)
     };
     updH(e) {
         let target = e.target;
         let h = target.value;
         this.storage.set('h', h)
-        return console.log(`updH: ${this.storage.get('h')}`);
+        log500(`updH: ${this.storage.get('h')}`);
     };
 
-    updState() {
-        this.updateState();
-        this.updateSides();
-        this.updateSize();
-    }
-
-};
-
-class CalcModule {
-
-    RamaCalcObj(obj) {
-        const {
-            w,
-            h,
-            type,
-            system,
-            dwdh_rama,
-        } = obj;
-        const {
-            dh,
-            dw
-        } = dwdh_rama;
-
-        return {
-            w,
-            h,
-            type,
-            system,
-            dw,
-            dh,
-        }
+    updSides() {
+        return this.updateSides();
+        // this.updateState();
+        // this.updateSize();
     };
 
+    updMSCalc() {
 
-
-    connect() {
+        const MS_calced = SS(this.storage.get('w'), this.storage.get('h'));
+        this.storage.set('MS_calced', MS_calced);
+        // return this.Obj
 
     }
-
 };
 
+
+
+
+
+// const SM = new StorageModule;
 const LM = new ListenerModule();
-const CM = new CalcModule();
+// const DCM = new DeltaCalcModule();
