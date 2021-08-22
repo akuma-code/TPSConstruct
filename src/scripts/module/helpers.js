@@ -36,56 +36,36 @@ function rename(text) {
     return dictionary[text]
 };
 
-function logdelay(delay) {
-    return function(text) {
-        setTimeout(() => console.log(text), delay)
-    };
-}
-let log100 = logdelay(1000);
+
 
 function debounce(func, delay) {
-    let isCooldown = false;
-    console.log(isCooldown)
-    return function() {
-        if (isCooldown) return;
-        func.apply(this, arguments);
-        isCooldown = true;
-        console.log(isCooldown)
-        setTimeout(() => isCooldown = false, delay)
-    }
-
-};
-
-function throttle(func, ms) {
-
-    let isThrottled = false,
+    let isCooldown = false,
         savedArgs,
         savedThis;
 
-    function wrapper() {
 
-        if (isThrottled) { // (2)
-            savedArgs = arguments;
+    function bounce() {
+        if (isCooldown) {
             savedThis = this;
-            return;
-        }
+            savedArgs = arguments;
+            return
+        };
 
-        func.apply(this, arguments); // (1)
+        func.apply(this, arguments);
 
-        isThrottled = true;
-
+        isCooldown = true;
         setTimeout(function() {
-            isThrottled = false; // (3)
             if (savedArgs) {
-                wrapper.apply(savedThis, savedArgs);
+                bounce.apply(savedThis, savedArgs);
                 savedArgs = savedThis = null;
             }
-        }, ms);
+            isCooldown = false
+        }, delay)
     }
 
-    return wrapper;
-}
+    return bounce
+};
 
 
-let log500 = debounce(console.log, 500);
-let t1000 = throttle(console.count, 1000)
+
+let log500 = debounce(console.log, 300);

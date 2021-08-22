@@ -12,13 +12,26 @@ class SizeItem {
 class StorageModule {
     constructor() {
         this.storage = new Map();
-        this.init()
+        // this.init()
     };
 
     get Obj() {
         const obj = Object.fromEntries(this.storage);
         return obj
     };
+
+    item(key) {
+        return this.storage.get(key)
+    }
+
+
+};
+
+class DeltaCalcModule extends StorageModule {
+    constructor() {
+        super();
+        this.init()
+    }
 
     init() {
         const newsize = new SizeItem();
@@ -32,22 +45,6 @@ class StorageModule {
         this.storage.set('h', h);
         return this.Obj
     }
-};
-
-class DeltaCalcModule extends StorageModule {
-
-    // updateState() {
-    //     const {
-    //         type,
-    //         system
-    //     } = getState();
-    //     this.storage.set('type', type);
-    //     this.storage.set('system', system);
-    //     return {
-    //         type,
-    //         system
-    //     }
-    // };
 
     updateSides() {
         const sideBox = [];
@@ -100,10 +97,10 @@ class DeltaCalcModule extends StorageModule {
 class ListenerModule extends DeltaCalcModule {
     constructor() {
         super();
-        this.addInputs()
+        this.addEvLists()
     }
 
-    addInputs() {
+    addEvLists() {
         const $elements = document.querySelectorAll('[data-handler]');
         for (let el of $elements) {
             const action = el.dataset.handler;
@@ -122,17 +119,18 @@ class ListenerModule extends DeltaCalcModule {
         this.storage.set('w', w)
         let text = `updW: ${this.storage.get('w')}`;
         log500(text);
-        t1000(text)
     };
     updH(e) {
         let target = e.target;
         let h = target.value;
         this.storage.set('h', h)
         log500(`updH: ${this.storage.get('h')}`);
+
     };
 
     updSides() {
-        return this.updateSides();
+        this.updateSides();
+
         // this.updateState();
         // this.updateSize();
     };
@@ -147,9 +145,16 @@ class ListenerModule extends DeltaCalcModule {
 };
 
 
-
-
-
-// const SM = new StorageModule;
+// const SM = new StorageModule();
 const LM = new ListenerModule();
 // const DCM = new DeltaCalcModule();
+
+
+
+class Output2HTML {
+    constructor() {
+
+    }
+
+
+}
