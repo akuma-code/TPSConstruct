@@ -27,7 +27,7 @@ const Sidelist = {
         for (let side of img_sides) {
             let list = '';
             let $selector = document.querySelector(`ul.drop_content[data-side=${side}]`);
-            this[tglStatus][side].forEach(element => list += `<li data-handler-type='click' data-handler='updState'>${element}</li>`);
+            this[tglStatus][side].forEach(element => list += `<li data-handler-type='click' data-handler='updSides'>${element}</li>`);
             $selector.innerHTML = '';
             $selector.insertAdjacentHTML('afterbegin', list)
         }
