@@ -89,6 +89,7 @@ $main.addEventListener('click', function(e) {
 
 //!INPUT LISTENER
 $size.addEventListener('input', function(e) {
+    e.preventDefault();
     let t = e.target;
     if (!t.matches('.tps_size input')) return console.log('target error!');
     if (t.matches('#tps_w')) $StatusCheck.width = t.value;

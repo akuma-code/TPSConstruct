@@ -2,8 +2,8 @@ class SizeItem {
     constructor() {
         this.w = document.querySelector('#tps_w').value || 0;
         this.h = document.querySelector('#tps_h').value || 0;
-        console.count(`=> SizeItem(${this.w} x ${this.h})`)
     }
+
 };
 
 const DataStorage = new Map();
@@ -40,8 +40,8 @@ class DeltaCalcModule extends StorageModule {
         } = newsize;
 
 
-        this.storage.set('w', w);
-        this.storage.set('h', h);
+        this.storage.set('w', w)
+            .set('h', h);
         return this.Obj
     }
 
@@ -87,7 +87,9 @@ class DeltaCalcModule extends StorageModule {
         return this.Obj
     };
     updateMS() {
-        let MS = SS(this.storage.get('w'), this.storage.get('h'));
+        const { w, h } = new SizeItem()
+        const MS = SS(w, h);
+        // let MS = SS(this.storage.get('w'), this.storage.get('h'));
         this.storage.set('MS', MS);
         return this.Obj
     }
@@ -116,17 +118,23 @@ class ListenerModule extends DeltaCalcModule {
         let target = e.target;
         let w = target.value;
         this.storage.set('w', w);
-        // let text = `updW: ${this.storage.get('w')}`;
-        // log500(text);
-        return Send2HTML(this.Obj)
+        Send2HTML(this.Obj)
+        return
     };
     updH(e) {
         let target = e.target;
         let h = target.value;
         this.storage.set('h', h)
-            // log500(`updH: ${this.storage.get('h')}`);
         return Send2HTML(this.Obj)
 
+    };
+
+    updSizes(e) {
+        e.preventDefault();
+        const { w, h } = new SizeItem();
+        this.storage.set('w', w)
+            .set('h', h);
+        return Send2HTML(this.Obj)
     };
 
     updSides() {
@@ -137,9 +145,6 @@ class ListenerModule extends DeltaCalcModule {
     updMSCalc() {
         this.storage.set('type', 'svet');
         this.updateMS()
-            // let MS = SS(this.storage.get('w'), this.storage.get('h'));
-            // this.storage.set('MS', MS);
-            // debugger
         return Send2HTML(this.Obj)
     }
 };
@@ -149,6 +154,7 @@ new ListenerModule();
 // const LM = new ListenerModule();
 // const DCM = new DeltaCalcModule();
 function Send2HTML(storageObj) {
+    let htmlout = ``;
     if (storageObj.type && storageObj.type !== 'svet') {
         const {
             gw,
@@ -156,11 +162,11 @@ function Send2HTML(storageObj) {
         } = storageObj.glass;
         const model = RamaOutputModel;
 
-        let htmlout = ``;
         model(storageObj.glass).map(item => {
             htmlout += item.div
-        })
-        return $out.innerHTML = htmlout
+        });
+
+        // return $out.innerHTML = htmlout
     };
     if (storageObj.type && storageObj.type === 'svet') {
         const {
@@ -170,13 +176,15 @@ function Send2HTML(storageObj) {
         } = storageObj.MS;
         const model = MSoutputModel;
 
-        let htmlout = '';
+        // let htmlout = '';
         model(skf, simple, simple_whs).map(item => {
             htmlout += item.div
         });
 
-        return $out.innerHTML = htmlout
     }
+
+    $out.innerHTML = htmlout
+    return
 }
 
 const MSoutputModel = (skf = {}, simple = {}, simple_whs = {}) => [{

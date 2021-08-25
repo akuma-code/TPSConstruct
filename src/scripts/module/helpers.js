@@ -38,6 +38,7 @@ function rename(text) {
 
 
 
+
 function debounce(func, delay) {
     let isCooldown = false,
         savedArgs,
