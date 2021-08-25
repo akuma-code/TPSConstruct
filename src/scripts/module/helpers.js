@@ -66,6 +66,7 @@ function debounce(func, delay) {
     return bounce
 };
 
-
-
+function spanResult(w, h) {
+    return `<span><b>${w}</b> x <b>${h}</b> мм</span>`
+}
 let log500 = debounce(console.log, 300);

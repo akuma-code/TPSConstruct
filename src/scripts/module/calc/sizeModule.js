@@ -86,6 +86,11 @@ class DeltaCalcModule extends StorageModule {
         this.storage.set('glass', glass);
         return this.Obj
     };
+    updateMS() {
+        let MS = SS(this.storage.get('w'), this.storage.get('h'));
+        this.storage.set('MS', MS);
+        return this.Obj
+    }
 }
 
 class ListenerModule extends DeltaCalcModule {
@@ -113,48 +118,82 @@ class ListenerModule extends DeltaCalcModule {
         this.storage.set('w', w);
         // let text = `updW: ${this.storage.get('w')}`;
         // log500(text);
-        return this.Obj
+        return Send2HTML(this.Obj)
     };
     updH(e) {
         let target = e.target;
         let h = target.value;
         this.storage.set('h', h)
             // log500(`updH: ${this.storage.get('h')}`);
-        return this.Obj
+        return Send2HTML(this.Obj)
 
     };
 
     updSides() {
-
         this.updateGlass();
-        return this.Obj
+        return Send2HTML(this.Obj)
     };
 
     updMSCalc() {
-        const MS = SS(this.storage.get('w'), this.storage.get('h'));
-        this.storage.set('MS', MS);
-        return this.Obj
+        this.storage.set('type', 'svet');
+        this.updateMS()
+            // let MS = SS(this.storage.get('w'), this.storage.get('h'));
+            // this.storage.set('MS', MS);
+            // debugger
+        return Send2HTML(this.Obj)
     }
 };
 
-// const SM = new StorageModule();
 new ListenerModule();
+// const SM = new StorageModule();
 // const LM = new ListenerModule();
 // const DCM = new DeltaCalcModule();
-function Send2HTML() {
-    const st = Object.fromEntries(DataStorage);
-    const type = $img_cont.dataset.bgState;
-    $out.innerHTML = '';
-    if (type === 'svet') {
-        const { skf, simple, simple_whs } = st.MS;
-        const html = `<div class="outlist" id='ms_skf'><span>М/С SKF:</span><span>${skf.w}mm x ${skf.h}mm</span></div>`;
-        $out.insertAdjacentHTML('beforeend', html)
+function Send2HTML(storageObj) {
+    if (storageObj.type && storageObj.type !== 'svet') {
+        const {
+            gw,
+            gh
+        } = storageObj.glass;
+        const model = RamaOutputModel;
+
+        let htmlout = ``;
+        model(storageObj.glass).map(item => {
+            htmlout += item.div
+        })
+        return $out.innerHTML = htmlout
+    };
+    if (storageObj.type && storageObj.type === 'svet') {
+        const {
+            skf,
+            simple,
+            simple_whs
+        } = storageObj.MS;
+        const model = MSoutputModel;
+
+        let htmlout = '';
+        model(skf, simple, simple_whs).map(item => {
+            htmlout += item.div
+        });
+
+        return $out.innerHTML = htmlout
     }
 }
 
+const MSoutputModel = (skf = {}, simple = {}, simple_whs = {}) => [{
+        type: 'skf',
+        div: `<div><span>SKF:</span>${spanResult(skf.w, skf.h)}</div>`
+    },
+    {
+        type: 'simple',
+        div: `<div><span>Простая:</span>${spanResult(simple.w, simple.h)}</div>`
+    },
+    {
+        type: 'simple_whs',
+        div: `<div><span>WHS:</span>${spanResult(simple_whs.w, simple_whs.h)}</div>`
+    }
+];
 
-$main.addEventListener('click', function(event) {
-    const target = event.target;
-    console.table(Object.fromEntries(DataStorage))
-    Send2HTML()
-}, true);
+const RamaOutputModel = (sizes) => [{
+    type: 'glass',
+    div: `<div><span>Стеклопакет:</span>${spanResult(sizes.gw, sizes.gh)}</div>`
+}]
