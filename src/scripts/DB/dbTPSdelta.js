@@ -221,6 +221,105 @@ const RamaStorage = {
         },
     }
 };
+const NetStorage = {
+    ProLine: {
+        skf: {
+            dw: 19,
+            dh: 17
+        },
+        simple: {
+            dw: 88,
+            dh: 109
+        }
+    },
+    SoftLine: {
+        skf: {
+            dw: 25,
+            dh: 23
+        },
+        simple: {
+            dw: 94,
+            dh: 115
+        }
+    },
+    SoftLine82: {
+        skf: {
+            dw: 17,
+            dh: 15
+        },
+        simple: {
+            dw: 86,
+            dh: 107
+        }
+    },
+    EuroLine: {
+        skf: {
+            dw: 42,
+            dh: 40
+        },
+        simple: {
+            dw: 111,
+            dh: 132
+        }
+    },
+    WHS: {
+        skf: {
+            dw: 0,
+            dh: 0
+        },
+        simple: {
+            dw: 114,
+            dh: 114
+        }
+    },
+    WHS72: {
+        skf: {
+            dw: 23,
+            dh: 21
+        },
+        simple: {
+            dw: 108,
+            dh: 98
+        }
+    },
+}
 const SS = (w = 0, h = 0) => SvetStorage.calc(w, h);
+const MS_STV = (SizeObj) => {
+    const {
+        system,
+        type
+    } = SizeObj;
+    const {
+        gw,
+        gh
+    } = SizeObj.glass;
+
+    function skfg() {
+        const {
+            dw,
+            dh
+        } = NetStorage[system].skf;
+        return {
+            w: gw + dw,
+            h: gh + dh
+        }
+    };
+
+    function simpleg() {
+        const {
+            dw,
+            dh
+        } = NetStorage[system].simple;
+        return {
+            w: gw + dw,
+            h: gh + dh
+        }
+    };
+    return {
+        skf: skfg(),
+        simple: simpleg()
+    }
+
+}
 const StvST = RamaStorage.stv;
 const FixST = RamaStorage.fix;

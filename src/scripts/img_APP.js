@@ -88,14 +88,14 @@ $main.addEventListener('click', function(e) {
 
 
 //!INPUT LISTENER
-$size.addEventListener('input', function(e) {
-    e.preventDefault();
-    let t = e.target;
-    if (!t.matches('.tps_size input')) return console.log('target error!');
-    if (t.matches('#tps_w')) $StatusCheck.width = t.value;
-    if (t.matches('#tps_h')) $StatusCheck.height = t.value;
-
-}, true);
+// $size.addEventListener('input', function(e) {
+//     e.preventDefault();
+//     let t = e.target;
+//     if (!t.matches('.tps_size input')) return console.log('target error!');
+//     if (t.matches('#tps_w')) $StatusCheck.width = t.value;
+//     if (t.matches('#tps_h')) $StatusCheck.height = t.value;
+// 
+// });
 $tgl_btn.addEventListener('click', function(event) {
     let t = event.target;
     if (t.matches('[data-tgl-status=info]')) return

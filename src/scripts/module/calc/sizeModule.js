@@ -6,7 +6,9 @@ class SizeItem {
 
 };
 
-const DataStorage = new Map();
+const DataStorage = DS = new Map();
+const Map2Obj = (obj) => Object.fromEntries(obj);
+const DSO = Object.fromEntries;
 
 
 class StorageModule {
@@ -33,11 +35,10 @@ class DeltaCalcModule extends StorageModule {
     }
 
     init() {
-        const newsize = new SizeItem();
         const {
             w,
             h
-        } = newsize;
+        } = new SizeItem();
 
 
         this.storage.set('w', w)
@@ -52,11 +53,14 @@ class DeltaCalcModule extends StorageModule {
             type,
             system
         } = getState();
-
-        if (type === 'svet') return
+        const {
+            w,
+            h
+        } = new SizeItem();
         this.storage.set('type', type);
         this.storage.set('system', system);
 
+        if (type === 'svet') return this.Obj
 
         const $sides = document.querySelectorAll('.img_side')
         for (let $el of $sides) {
@@ -79,15 +83,25 @@ class DeltaCalcModule extends StorageModule {
         });
 
         const glass = {
-            gw: this.item('w') - dw,
-            gh: this.item('h') - dh
+            gw: Math.floor(w - dw),
+            gh: Math.floor(h - dh)
         }
 
         this.storage.set('glass', glass);
         return this.Obj
     };
+    updateStvMs() {
+        const stv_ms = MS_STV(this.Obj);
+        this.storage.set('stv_ms', stv_ms);
+        return this.Obj
+    }
+
     updateMS() {
-        const { w, h } = new SizeItem()
+        getState();
+        const {
+            w,
+            h
+        } = new SizeItem();
         const MS = SS(w, h);
         // let MS = SS(this.storage.get('w'), this.storage.get('h'));
         this.storage.set('MS', MS);
@@ -98,10 +112,10 @@ class DeltaCalcModule extends StorageModule {
 class ListenerModule extends DeltaCalcModule {
     constructor() {
         super();
-        this.addEvLists()
+        this.add()
     }
 
-    addEvLists() {
+    add() {
         const $elements = document.querySelectorAll('[data-handler]');
         for (let el of $elements) {
             const action = el.dataset.handler;
@@ -129,16 +143,21 @@ class ListenerModule extends DeltaCalcModule {
 
     };
 
-    updSizes(e) {
-        e.preventDefault();
+    updSizes() {
+        getState();
         const { w, h } = new SizeItem();
         this.storage.set('w', w)
             .set('h', h);
-        return Send2HTML(this.Obj)
+        $StatusCheck.width = w;
+        $StatusCheck.height = h;
+        // document.getElementById('ta').innerHTML = `W:${w} x H:${h}`;
+        Send2HTML(this.Obj)
+            // return Send2HTML(this.Obj)
     };
 
     updSides() {
         this.updateGlass();
+        this.updateStvMs();
         return Send2HTML(this.Obj)
     };
 
@@ -150,25 +169,27 @@ class ListenerModule extends DeltaCalcModule {
 };
 
 new ListenerModule();
-// const SM = new StorageModule();
-// const LM = new ListenerModule();
-// const DCM = new DeltaCalcModule();
-function Send2HTML(storageObj) {
+
+function Send2HTML(storageObj = DSO(DataStorage)) {
     let htmlout = ``;
     if (storageObj.type && storageObj.type !== 'svet') {
+        $out.innerHTML = '';
         const {
-            gw,
-            gh
-        } = storageObj.glass;
+            system,
+            type
+        } = storageObj;
         const model = RamaOutputModel;
 
-        model(storageObj.glass).map(item => {
-            htmlout += item.div
+        model(storageObj).map(item => {
+            const fixIgnore = ['skf', 'simple']
+            if (type === 'fix' && fixIgnore.includes(item.type)) item.div = '';
+            if (system === 'WHS' && item.type === 'skf') item.div = '';
+            // htmlout += item.div
+            $out.insertAdjacentHTML("beforeend", item.div)
         });
-
-        // return $out.innerHTML = htmlout
     };
     if (storageObj.type && storageObj.type === 'svet') {
+        $out.innerHTML = '';
         const {
             skf,
             simple,
@@ -177,14 +198,14 @@ function Send2HTML(storageObj) {
         const model = MSoutputModel;
 
         // let htmlout = '';
-        model(skf, simple, simple_whs).map(item => {
-            htmlout += item.div
+        model(skf, simple, simple_whs).forEach(item => {
+            // htmlout += item.div
+            $out.insertAdjacentHTML("beforeend", item.div)
         });
 
     }
 
-    $out.innerHTML = htmlout
-    return
+    // return $out.insertAdjacentHTML("beforeend", htmlout)
 }
 
 const MSoutputModel = (skf = {}, simple = {}, simple_whs = {}) => [{
@@ -203,5 +224,14 @@ const MSoutputModel = (skf = {}, simple = {}, simple_whs = {}) => [{
 
 const RamaOutputModel = (sizes) => [{
     type: 'glass',
-    div: `<div><span>Стеклопакет:</span>${spanResult(sizes.gw, sizes.gh)}</div>`
-}]
+    div: `<div><span>Стеклопакет:</span>${spanResult(sizes.glass.gw, sizes.glass.gh)}</div>`
+}, {
+    type: 'shtap',
+    div: `<div><span>Штапик:</span>${spanResult(sizes.glass.gw+10, sizes.glass.gh+10)}</div>`
+}, {
+    type: 'simple',
+    div: `<div><span>М/С:</span>${spanResult(sizes.stv_ms.simple.w, sizes.stv_ms.simple.h)}</div>`
+}, {
+    type: 'skf',
+    div: `<div><span>SKF:</span>${spanResult(sizes.stv_ms.skf.w, sizes.stv_ms.skf.h)}</div>`
+}, ]
