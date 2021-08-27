@@ -17,18 +17,17 @@ const Scripts = [
 function restoreValues() {
     const elements = document.querySelectorAll('[data-stdb]');
     for (let el of elements) {
-        let elem_key = el.dataset.stdb;
+        let elem_key = el.dataset.stdb || null;
         if (!elem_key) console.log('no key!');
         if (localStorage.getItem(elem_key)) {
             if (el.type === 'number') el.value = localStorage.getItem(elem_key)
             el.innerText = localStorage.getItem(elem_key)
         }
     }
-    let SavedState = localStorage.getItem('bgState');
-
-    const btns = document.querySelectorAll('.ts');
-    for (let button of btns) {
-        if (button.dataset.type_sel === SavedState) button.click()
+    let SavedState = localStorage.getItem('bgState') || null;
+    if (SavedState) {
+        const btnClick = () => document.querySelector(`[data-type_sel=${SavedState}]`).click();
+        setTimeout(btnClick, 300)
     }
 
     return this

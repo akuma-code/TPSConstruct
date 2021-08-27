@@ -15,11 +15,6 @@
 
 <body>
     <div class="cont_bg">
-        <div class="control_btn_cont" id="ctrl_panel">
-            <button data-action="restore">Restore Data</button>
-            <button data-action="updateLS">Update LocalStorage</button>
-            <button data-action="clear">Clear LocalStorage</button>
-        </div>
         <div class="tps_main">
             <div class="tps_head">
                 ТехПомощь Style constructor
@@ -50,8 +45,8 @@
             </div>
 
             <div class="tps_size" data-handler-type='click' data-handler='updSides'>
-                <input data-handler-type='input' data-handler='updSizes' type="number" id="tps_w" placeholder="ширина" min="0" data-stdb="width">
-                <input data-handler-type='input' data-handler='updSizes' type="number" id="tps_h" placeholder="высота" min="0" data-stdb="height">
+                <input data-handler-type='input' data-handler='updSizes' type="number" id="tps_w" placeholder="ширина" min="0" data-stdb="width" required>
+                <input data-handler-type='input' data-handler='updSizes' type="number" id="tps_h" placeholder="высота" min="0" data-stdb="height" required>
             </div>
             <div class="tps_output" output='out'>
 
@@ -65,31 +60,26 @@
             <div class="tps_img">
                 <div class="img_cont" data-bg-state='stv'>
                     <div class="img_side" data-side="top">
-                        <!-- <input type="button" value="top" output='top' data-stdb="top">ВЕРХ -->
                         <span output='top' data-stdb='top'>верх</span>
                         <ul class="drop_content" data-side="top" data-handler-type='click' data-handler='updSides'>
-                            <!-- <li>укажите расположение ст-та</li> -->
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="right">
                         <span output='right' data-stdb="right">право</span>
                         <ul class="drop_content" data-side="right" data-handler-type='click' data-handler='updSides'>
-                            <!-- <li>укажите расположение ст-та</li> -->
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="bot">
                         <span output='bot' data-stdb="bot">низ</span>
                         <ul class="drop_content" data-side="bot" data-handler-type='click' data-handler='updSides'>
-                            <!-- <li>укажите расположение ст-та</li> -->
                         </ul>
                     </div>
 
                     <div class="img_side" data-side="left">
                         <span output='left' data-stdb="left">лево</span>
                         <ul class="drop_content" data-side="left" data-handler-type='click' data-handler='updSides'>
-                            <!-- <li>укажите расположение ст-та</li> -->
                         </ul>
                     </div>
                 </div>
@@ -105,6 +95,11 @@
                     <div data-handler-type='click' data-handler='updMSCalc' class="ts tgl_big_item" data-tgl-status="svet" data-type_sel='svet'></div>
                 </div>
             </div>
+        </div>
+        <div class="control_btn_cont" id="ctrl_panel">
+            <button data-action="restore">Restore Data</button>
+            <button data-action="updateLS">Update LocalStorage</button>
+            <button data-action="clear">Clear LocalStorage</button>
         </div>
         <div class="target_output disp_none">
             <button onclick="toggle_target('.target_list')">Show Status</button>

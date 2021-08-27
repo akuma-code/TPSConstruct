@@ -70,4 +70,7 @@ function debounce(func, delay) {
 function spanResult(w, h) {
     return `<span><b>${w}</b> x <b>${h}</b> мм</span>`
 }
-let log500 = debounce(console.log, 300);
+
+function sqResult(w, h) {
+    return `<span><b>${Math.round(w/100*h/100)/100}</b> кв.м</span>`
+}

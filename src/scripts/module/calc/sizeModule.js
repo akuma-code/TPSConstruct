@@ -24,8 +24,6 @@ class StorageModule {
     item(key) {
         return this.storage.get(key)
     }
-
-
 };
 
 class DeltaCalcModule extends StorageModule {
@@ -53,15 +51,13 @@ class DeltaCalcModule extends StorageModule {
             type,
             system
         } = getState();
+        if (type === 'svet') return this.Obj
         const {
             w,
             h
         } = new SizeItem();
         this.storage.set('type', type);
         this.storage.set('system', system);
-
-        if (type === 'svet') return this.Obj
-
         const $sides = document.querySelectorAll('.img_side')
         for (let $el of $sides) {
             let side = $el.dataset.side;
@@ -124,7 +120,19 @@ class ListenerModule extends DeltaCalcModule {
                 el.addEventListener(actionType, this[action].bind(this), true)
             }
         }
+        const inputs = document.querySelectorAll('input[data-handler]');
+        for (let input of inputs) {
+            input.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                input.value = '';
+            }, true);
+            /**Костыль для того, шоб размеры обновлялись в реальном времени, по-другому чет они этого делать не хотят... */
+            input.addEventListener('input', function() {
+                const btnClick = () => document.querySelector(`[data-type_sel=${getState().type}]`).click();
+                setTimeout(btnClick, 0)
+            })
 
+        }
 
     };
 
@@ -150,9 +158,7 @@ class ListenerModule extends DeltaCalcModule {
             .set('h', h);
         $StatusCheck.width = w;
         $StatusCheck.height = h;
-        // document.getElementById('ta').innerHTML = `W:${w} x H:${h}`;
         Send2HTML(this.Obj)
-            // return Send2HTML(this.Obj)
     };
 
     updSides() {
@@ -171,54 +177,41 @@ class ListenerModule extends DeltaCalcModule {
 new ListenerModule();
 
 function Send2HTML(storageObj = DSO(DataStorage)) {
-    let htmlout = ``;
+    $out.innerHTML = '';
     if (storageObj.type && storageObj.type !== 'svet') {
-        $out.innerHTML = '';
         const {
             system,
             type
         } = storageObj;
         const model = RamaOutputModel;
 
-        model(storageObj).map(item => {
+        model(storageObj).forEach(item => {
             const fixIgnore = ['skf', 'simple']
             if (type === 'fix' && fixIgnore.includes(item.type)) item.div = '';
             if (system === 'WHS' && item.type === 'skf') item.div = '';
-            // htmlout += item.div
             $out.insertAdjacentHTML("beforeend", item.div)
         });
     };
     if (storageObj.type && storageObj.type === 'svet') {
-        $out.innerHTML = '';
-        const {
-            skf,
-            simple,
-            simple_whs
-        } = storageObj.MS;
         const model = MSoutputModel;
-
-        // let htmlout = '';
-        model(skf, simple, simple_whs).forEach(item => {
-            // htmlout += item.div
+        model(storageObj.MS).forEach(item => {
             $out.insertAdjacentHTML("beforeend", item.div)
         });
 
     }
-
-    // return $out.insertAdjacentHTML("beforeend", htmlout)
 }
 
-const MSoutputModel = (skf = {}, simple = {}, simple_whs = {}) => [{
+const MSoutputModel = (MS) => [{
         type: 'skf',
-        div: `<div><span>SKF:</span>${spanResult(skf.w, skf.h)}</div>`
+        div: `<div><span>SKF:</span>${spanResult(MS.skf.w, MS.skf.h)}</div>`
     },
     {
         type: 'simple',
-        div: `<div><span>Простая:</span>${spanResult(simple.w, simple.h)}</div>`
+        div: `<div><span>Простая:</span>${spanResult(MS.simple.w, MS.simple.h)}</div>`
     },
     {
         type: 'simple_whs',
-        div: `<div><span>WHS:</span>${spanResult(simple_whs.w, simple_whs.h)}</div>`
+        div: `<div style='margin-top: 20px'><span>На WHS:</span>${spanResult(MS.simple_whs.w, MS.simple_whs.h)}</div>`
     }
 ];
 
@@ -226,11 +219,14 @@ const RamaOutputModel = (sizes) => [{
     type: 'glass',
     div: `<div><span>Стеклопакет:</span>${spanResult(sizes.glass.gw, sizes.glass.gh)}</div>`
 }, {
+    type: 'square',
+    div: `<div><span>Площадь ст/п:</span>${sqResult(sizes.glass.gw, sizes.glass.gh)}</div>`
+}, {
     type: 'shtap',
     div: `<div><span>Штапик:</span>${spanResult(sizes.glass.gw+10, sizes.glass.gh+10)}</div>`
 }, {
     type: 'simple',
-    div: `<div><span>М/С:</span>${spanResult(sizes.stv_ms.simple.w, sizes.stv_ms.simple.h)}</div>`
+    div: `<div style='margin-top: 20px'><span>М/С:</span>${spanResult(sizes.stv_ms.simple.w, sizes.stv_ms.simple.h)}</div>`
 }, {
     type: 'skf',
     div: `<div><span>SKF:</span>${spanResult(sizes.stv_ms.skf.w, sizes.stv_ms.skf.h)}</div>`

@@ -231,5 +231,6 @@ div.disp_none {
     position: relative;
     display: block;
     margin-left: var(--pos-tps-left);
+    top: 78%;
     z-index: 10;
 }

@@ -289,6 +289,7 @@ const MS_STV = (SizeObj) => {
         system,
         type
     } = SizeObj;
+    if (type === 'svet') return
     const {
         gw,
         gh
