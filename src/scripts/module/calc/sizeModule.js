@@ -2,19 +2,32 @@ class SizeItem {
     constructor() {
         this.w = document.querySelector('#tps_w').value || 0;
         this.h = document.querySelector('#tps_h').value || 0;
+        // console.count(JSON.stringify(DSO(s2.data)));
     }
 
 };
 
-const DataStorage = DS = new Map();
+const DataStorage = new Map();
 const Map2Obj = (obj) => Object.fromEntries(obj);
 const DSO = Object.fromEntries;
 
+class Storage2 {
+    constructor() {
+        this.data = DataStorage;
+        this.obj;
+        console.log(DSO(this.data))
+    }
+
+    get obj() {
+        return Object.fromEntries(this.data)
+    }
+};
+
+const s2 = new Storage2();
 
 class StorageModule {
     constructor() {
         this.storage = DataStorage;
-        // this.init()
     };
 
     get Obj() {
@@ -51,7 +64,7 @@ class DeltaCalcModule extends StorageModule {
             type,
             system
         } = getState();
-        if (type === 'svet') return this.Obj
+        if (type === 'svet') return
         const {
             w,
             h
@@ -126,7 +139,7 @@ class ListenerModule extends DeltaCalcModule {
                 e.preventDefault();
                 input.value = '';
             }, true);
-            /**Костыль для того, шоб размеры обновлялись в реальном времени, по-другому чет они этого делать не хотят... */
+            //! Костыль для того, шоб размеры обновлялись в реальном времени, по-другому чет они этого делать не хотят... */
             input.addEventListener('input', function() {
                 const btnClick = () => document.querySelector(`[data-type_sel=${getState().type}]`).click();
                 setTimeout(btnClick, 0)
@@ -188,7 +201,7 @@ function Send2HTML(storageObj = DSO(DataStorage)) {
         model(storageObj).forEach(item => {
             const fixIgnore = ['skf', 'simple']
             if (type === 'fix' && fixIgnore.includes(item.type)) item.div = '';
-            if (system === 'WHS' && item.type === 'skf') item.div = '';
+            if (system === 'WHS' && item.type === 'skf') item.div = '<div  style="margin-top: 20px; font-weight: 100; color: #fff"><span>#SKF на WHS не ставится!</span></div>';
             $out.insertAdjacentHTML("beforeend", item.div)
         });
     };
@@ -203,15 +216,15 @@ function Send2HTML(storageObj = DSO(DataStorage)) {
 
 const MSoutputModel = (MS) => [{
         type: 'skf',
-        div: `<div><span>SKF:</span>${spanResult(MS.skf.w, MS.skf.h)}</div>`
+        div: `<div><span>#SKF:</span>${spanResult(MS.skf.w, MS.skf.h)}</div>`
     },
     {
         type: 'simple',
-        div: `<div><span>Простая:</span>${spanResult(MS.simple.w, MS.simple.h)}</div>`
+        div: `<div><span>#Простая:</span>${spanResult(MS.simple.w, MS.simple.h)}</div>`
     },
     {
         type: 'simple_whs',
-        div: `<div style='margin-top: 20px'><span>На WHS:</span>${spanResult(MS.simple_whs.w, MS.simple_whs.h)}</div>`
+        div: `<div style='margin-top: 20px'><span># на WHS:</span>${spanResult(MS.simple_whs.w, MS.simple_whs.h)}</div>`
     }
 ];
 
@@ -225,9 +238,9 @@ const RamaOutputModel = (sizes) => [{
     type: 'shtap',
     div: `<div><span>Штапик:</span>${spanResult(sizes.glass.gw+10, sizes.glass.gh+10)}</div>`
 }, {
-    type: 'simple',
-    div: `<div style='margin-top: 20px'><span>М/С:</span>${spanResult(sizes.stv_ms.simple.w, sizes.stv_ms.simple.h)}</div>`
-}, {
     type: 'skf',
-    div: `<div><span>SKF:</span>${spanResult(sizes.stv_ms.skf.w, sizes.stv_ms.skf.h)}</div>`
-}, ]
+    div: `<div style='margin-top: 20px'><span>#SKF:</span>${spanResult(sizes.stv_ms.skf.w, sizes.stv_ms.skf.h)}</div>`
+}, {
+    type: 'simple',
+    div: `<div><span>#М/С:</span>${spanResult(sizes.stv_ms.simple.w, sizes.stv_ms.simple.h)}</div>`
+}, ];
