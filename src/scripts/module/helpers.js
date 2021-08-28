@@ -69,8 +69,21 @@ function debounce(func, delay) {
 
 function spanResult(w, h) {
     return `<span><b>${w}</b> x <b>${h}</b> мм</span>`
-}
+};
+
+const square = (w, h) => Math.round(w / 100 * h / 100) / 100;
 
 function sqResult(w, h) {
-    return `<span><b>${Math.round(w/100*h/100)/100}</b> кв.м</span>`
-}
+    return `<span><b>${square(w,h)}</b> кв.м</span>`
+};
+
+function destructor(obj) {
+    let resultObj = {};
+    resultObj.glass = {};
+    const str = JSON.stringify(Object.fromEntries(obj));
+    JSON.parse(str, function(key, value) {
+        if (key === "gw" || key === 'gh') resultObj.glass[key] = value;
+
+    });
+    return console.table(resultObj)
+};

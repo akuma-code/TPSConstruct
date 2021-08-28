@@ -6,7 +6,6 @@ class SizeItem {
     }
 
 };
-
 const DataStorage = new Map();
 const Map2Obj = (obj) => Object.fromEntries(obj);
 const DSO = Object.fromEntries;
@@ -14,12 +13,18 @@ const DSO = Object.fromEntries;
 class Storage2 {
     constructor() {
         this.data = DataStorage;
-        this.obj;
-        console.log(DSO(this.data))
     }
 
     get obj() {
         return Object.fromEntries(this.data)
+    };
+
+    glass(obj = this.data) {
+        const str = JSON.stringify(Object.fromEntries(obj));
+        JSON.parse(str, function(key, value) {
+
+            if (key === "gw" || key === 'gh') console.log(`${key}: ${value}`);
+        });
     }
 };
 
