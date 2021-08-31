@@ -7,7 +7,7 @@
     left: var(--pos-tps-left);
     top: var(--pos-tps-top);
     grid-template-columns: repeat(3, 1fr) 100px 100px;
-    grid-template-rows: 3rem 2rem 3rem 1rem 24px 32px 48px auto 32px auto 32px;
+    grid-template-rows: 3rem 2rem 3rem 1rem 24px 32px 48px 64px 64px 168px 32px;
     grid-template-areas: "head head head head head" "sys sys dpt out out" "det det det out out" "det det det out out" "size size size out out" "size size size out out" "tgl tgl tgl tgl tgl" ". img img img ." "leftS img img img rightS " ". img img img ." ". botS botS botS .";
     grid-gap: 5px 10px;
     text-align: center;
@@ -60,16 +60,22 @@
 
 .drop_content li:hover:not(.selected) {
     background-color: #e79418;
+    color: #3b3b3b;
+    font-weight: 800;
     cursor: pointer;
     z-index: 101;
     /* margin: 3px 0; */
 }
 
+
+/** Тут переключатель списков выбора*/
+
 .selected {
-    background-color: rgb(146, 146, 146);
+    background-color: rgba(146, 146, 146, 0.459);
     color: black;
     font-weight: bolder;
-    font-size: 1.2rem;
+    /* font-size: .8rem; */
+    display: none;
 }
 
 .tps_dpt {

@@ -22,12 +22,12 @@ const Sidelist = {
         right: ['рама', 'импост', 'штульп', 'импост в створке'],
     },
 
-    setup(state = '') {
+    setup(tglStatus = '') {
 
         for (let side of img_sides) {
             let list = '';
             let $selector = document.querySelector(`ul.drop_content[data-side=${side}]`);
-            this[state][side].forEach(element => list += `<li data-handler-type='click' data-handler='updSides'>${element}</li>`);
+            this[tglStatus][side].forEach(element => list += `<li data-handler-type='click' data-handler='updSides'>${element}</li>`);
             $selector.innerHTML = '';
             $selector.insertAdjacentHTML('afterbegin', list)
         }
@@ -86,7 +86,6 @@ $main.addEventListener('click', function(e) {
     }
 }, true);
 
-
 $tgl_btn.addEventListener('click', function(event) {
     let t = event.target;
     if (t.matches('[data-tgl-status=info]')) return
@@ -99,9 +98,7 @@ $tgl_btn.addEventListener('click', function(event) {
 
     };
 
-}, true);
-
-
+}, true)
 window.addEventListener('beforeunload', () => updateDB($StatusCheck));
 
 function setDepth(system) {
@@ -110,7 +107,15 @@ function setDepth(system) {
     return list
 }
 
-
+// function setStatusInfo(StatusObject = $StatusCheck) {
+//     let result = '';
+//     const sides = ['top', 'bot', 'left', 'right'];
+//     for (let key in StatusObject) {
+//         (sides.includes(key)) ? result += `<li>${key}: ${StatusObject[key]}(${current_delta[key]})</li>`:
+//             result += `<li>${key}: ${StatusObject[key]}</li>`
+//     }
+//     return result
+// }
 
 function tglActive(element) {
     element.classList.toggle('active')

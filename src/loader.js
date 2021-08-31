@@ -1,17 +1,20 @@
 const Scripts = [
     // 'src/scripts/DB/SizeDB.js',
     // 'src/scripts/DB/zDB.js',
-    // 'src/scripts/module/calc/handlersModule.js',
     // 'src/scripts/tps_calc1.js',
-    // 'src/scripts/testclass.js',
     // 'src/scripts/tps_calc.js',
-    // 'src/scripts/tgl_btn.js',
     'src/scripts/module/helpers.js',
+    'src/scripts/module/SaveModule.js',
     'src/scripts/DB/dbTPSdelta.js',
     'src/scripts/module/calc/sizeModule.js',
+    'src/scripts/module/calc/handlersModule.js',
+    'src/scripts/tgl_btn.js',
     'src/scripts/TPSconstruct.js',
+    // 'src/scripts/testclass.js',
     'src/scripts/img_APP.js',
 ];
+
+const DataStorage = new Map();
 
 
 function restoreValues() {
@@ -27,18 +30,18 @@ function restoreValues() {
     let SavedState = localStorage.getItem('bgState') || null;
     if (SavedState) {
         const btnClick = () => document.querySelector(`[data-type_sel=${SavedState}]`).click();
-        setTimeout(btnClick, 100)
+        setTimeout(btnClick, 300)
     }
 
     return this
 }
 
 function load(src) {
-    let $scr = document.createElement('script');
-    $scr.src = src;
     setTimeout(() => {
+        let $scr = document.createElement('script');
+        $scr.src = src;
         document.head.append($scr);
-    }, 10)
+    }, 100)
 }
 
 function startAPP(scripts, callback) {

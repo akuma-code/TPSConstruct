@@ -160,7 +160,7 @@ span:is([output=right], [output=left]) {
 
 .tps_output {
     grid-area: out;
-    background-color: #a396fd;
+    background-color: #a496fd70;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -185,14 +185,14 @@ span:is([output=right], [output=left]) {
 }
 
 .tps_size {
-    background-color: #869ff1;
+    background-color: transparent;
     display: flex;
     grid-area: size;
     justify-content: space-around;
     align-items: center;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;
 }
 
 .tps_size input {

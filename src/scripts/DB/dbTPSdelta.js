@@ -141,6 +141,7 @@ const RamaStorage = {
             di: 74.5,
             d_shtulp: 64,
             di_stv: 26.5,
+            d_porog: 0,
         },
 
         SoftLine: {
@@ -150,6 +151,7 @@ const RamaStorage = {
             di: 77.5,
             d_shtulp: 67,
             di_stv: 26.5,
+            d_porog: 0,
         },
 
         SoftLine82: {
@@ -159,6 +161,7 @@ const RamaStorage = {
             di: 78,
             d_shtulp: 68,
             di_stv: 27,
+            d_porog: 0,
         },
 
         WHS: {
@@ -168,6 +171,7 @@ const RamaStorage = {
             di: 71.5,
             d_shtulp: null,
             di_stv: 23.5,
+            d_porog: 0,
         },
 
         WHS72: {
@@ -177,6 +181,7 @@ const RamaStorage = {
             di: 74.5,
             d_shtulp: null,
             di_stv: 24.5,
+            d_porog: 0,
         },
 
         EuroLine: {
@@ -186,6 +191,7 @@ const RamaStorage = {
             di: 84.5,
             d_shtulp: 72.5,
             di_stv: 28,
+            d_porog: 0,
         },
     },
 

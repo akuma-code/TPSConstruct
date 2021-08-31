@@ -6,7 +6,6 @@ class SizeItem {
     }
 
 };
-const DataStorage = new Map();
 const Map2Obj = (obj) => Object.fromEntries(obj);
 const DSO = Object.fromEntries;
 
@@ -21,8 +20,7 @@ class Storage2 {
 
     glass(obj = this.data) {
         const str = JSON.stringify(Object.fromEntries(obj));
-        JSON.parse(str, function(key, value) {
-
+        JSON.parse(str, (key, value) => {
             if (key === "gw" || key === 'gh') console.log(`${key}: ${value}`);
         });
     }
@@ -206,7 +204,9 @@ function Send2HTML(storageObj = DSO(DataStorage)) {
         model(storageObj).forEach(item => {
             const fixIgnore = ['skf', 'simple']
             if (type === 'fix' && fixIgnore.includes(item.type)) item.div = '';
-            if (system === 'WHS' && item.type === 'skf') item.div = '<div  style="margin-top: 20px; font-weight: 100; color: #fff"><span>#SKF на WHS не ставится!</span></div>';
+            if (type === 'stv' && system === 'WHS' && item.type === 'skf') {
+                item.div = '<div  style="margin-top: 20px; font-weight: 100; color: #fff"><span>#SKF на WHS не ставится!</span></div>'
+            };
             $out.insertAdjacentHTML("beforeend", item.div)
         });
     };

@@ -37,7 +37,7 @@
             </div>
             <div class="tps_det">
                 <span>
-                    <input type="checkbox" name="stv232" id="stv232" data-check='stv232' disabled>
+                    <input type="checkbox" name="stv232" id="stv232" data-check='stv232'>
                     <label for="stv232">Нестандартная створка .232</label>
                 </span>
 
@@ -45,8 +45,10 @@
             </div>
 
             <div class="tps_size" data-handler-type='click' data-handler='updSides'>
-                <input data-handler-type='input' data-handler='updSizes' type="number" id="tps_w" placeholder="ширина" min="0" data-stdb="width" required>
-                <input data-handler-type='input' data-handler='updSizes' type="number" id="tps_h" placeholder="высота" min="0" data-stdb="height" required>
+                <label for="tps_w">Ширина, мм</label>
+                <input data-handler-type='input' data-handler='updSizes' type="number" id="tps_w" placeholder="ширина" min="0" data-stdb="width" required name="tps_w">
+                <label for="tps_h">Высота, мм</label>
+                <input data-handler-type='input' data-handler='updSizes' type="number" id="tps_h" placeholder="высота" min="0" data-stdb="height" required name="tps_h">
             </div>
             <div class="tps_output" output='out'>
 
