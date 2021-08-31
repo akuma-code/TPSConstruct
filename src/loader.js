@@ -28,6 +28,7 @@ function restoreValues() {
         }
     }
     let SavedState = localStorage.getItem('bgState') || null;
+    if (!SavedState) return;
     if (SavedState) {
         const btnClick = () => document.querySelector(`[data-type_sel=${SavedState}]`).click();
         setTimeout(btnClick, 100)

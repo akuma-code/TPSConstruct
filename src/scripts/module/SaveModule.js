@@ -6,7 +6,7 @@ class SaveModule {
     }
 
     save() {
-        ++this.counter
+        const name = `Calced item #${++this.counter}`;
         const saveObj = Object.fromEntries(DataStorage);
         const {
             MS,
@@ -33,20 +33,23 @@ class SaveModule {
         this.data.MS = MS;
 
         this.savedItems.push({
-            calc: this.counter,
-            glass: this.data.glass || null,
-            state: this.data.state,
-            size: this.data.size,
-            ms_stv: this.data.stv_ms || null,
-            ms_svet: this.data.MS || null,
+            [name]: {
+                // calc: this.counter,
+                glass: this.data.glass || null,
+                state: this.data.state,
+                size: this.data.size,
+                ms_stv: this.data.stv_ms || null,
+                ms_svet: this.data.MS || null,
+            }
         })
+        console.clear();
         return this.info
     }
 
     get info() {
-        this.savedItems.forEach(item => console.log(item))
+        this.savedItems.forEach(item => console.table(item))
         return
     }
 };
 
-const sm = new SaveModule();
+// const sm = new SaveModule();

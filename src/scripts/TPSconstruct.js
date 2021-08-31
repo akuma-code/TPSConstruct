@@ -6,8 +6,8 @@ class TPSapp {
      */
     constructor(elem) {
         // this._elem = elem;
+        this.sm = new SaveModule;
         document.getElementById(elem).onclick = this.onClick.bind(this);
-        this.sm = new SaveModule();
     }
 
     /**
@@ -33,7 +33,7 @@ class TPSapp {
 
     updateLS() {
         return updateDB($StatusCheck)
-    }
+    };
 
     saveCalc() {
         this.sm.save()
