@@ -6,7 +6,8 @@ class TPSapp {
      */
     constructor(elem) {
         // this._elem = elem;
-        document.getElementById(elem).onclick = this.onClick.bind(this)
+        document.getElementById(elem).onclick = this.onClick.bind(this);
+        this.sm = new SaveModule();
     }
 
     /**
@@ -32,6 +33,10 @@ class TPSapp {
 
     updateLS() {
         return updateDB($StatusCheck)
+    }
+
+    saveCalc() {
+        this.sm.save()
     }
 
 }

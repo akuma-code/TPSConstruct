@@ -1,11 +1,16 @@
 class SaveModule {
     constructor() {
-        this.data = {}
+        this.data = {};
+        this.savedItems = [];
+        this.counter = 0;
     }
 
-    save(dataMap) {
-        const saveObj = Object.fromEntries(dataMap);
+    save() {
+        ++this.counter
+        const saveObj = Object.fromEntries(DataStorage);
         const {
+            MS,
+            stv_ms,
             glass,
             w,
             h,
@@ -21,14 +26,26 @@ class SaveModule {
         };
         this.data.state = {
             system,
-            type
+            type,
+            background: document.documentElement.style.getPropertyValue('--bg-image'),
         };
-        this.data.img = document.documentElement.style.getPropertyValue('--bg-image');
-        return console.table(this.data)
+        this.data.stv_ms = stv_ms;
+        this.data.MS = MS;
+
+        this.savedItems.push({
+            calc: this.counter,
+            glass: this.data.glass || null,
+            state: this.data.state,
+            size: this.data.size,
+            ms_stv: this.data.stv_ms || null,
+            ms_svet: this.data.MS || null,
+        })
+        return this.info
     }
 
     get info() {
-        return console.table(this.data)
+        this.savedItems.forEach(item => console.log(item))
+        return
     }
 };
 
