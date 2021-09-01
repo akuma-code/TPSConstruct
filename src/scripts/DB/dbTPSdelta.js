@@ -144,6 +144,16 @@ const RamaStorage = {
             d_porog: 0,
         },
 
+        ProLine232: {
+            rama: 64,
+            impost: 42.5,
+            dr: 99,
+            di: 77.5,
+            d_shtulp: 67,
+            di_stv: 26.5,
+            d_porog: 0,
+        },
+
         SoftLine: {
             rama: 67,
             impost: 42.5,
@@ -151,7 +161,17 @@ const RamaStorage = {
             di: 77.5,
             d_shtulp: 67,
             di_stv: 26.5,
-            d_porog: 0,
+            d_porog: 76,
+        },
+
+        SoftLine232: {
+            rama: 67,
+            impost: 42.5,
+            dr: 102,
+            di: 77.5,
+            d_shtulp: 67,
+            di_stv: 26.5,
+            d_porog: 76,
         },
 
         SoftLine82: {
@@ -200,6 +220,10 @@ const RamaStorage = {
             dr: 48,
             di: 26.5
         },
+        ProLine232: {
+            dr: 48,
+            di: 26.5
+        },
 
         SoftLine: {
             dr: 51,
@@ -229,6 +253,16 @@ const RamaStorage = {
 };
 const NetStorage = {
     ProLine: {
+        skf: {
+            dw: 19,
+            dh: 17
+        },
+        simple: {
+            dw: 88,
+            dh: 109
+        }
+    },
+    ProLine232: {
         skf: {
             dw: 19,
             dh: 17
@@ -328,5 +362,3 @@ const MS_STV = ( /** @type {{ glass: object; system?: string; type?: string; }} 
     }
 
 }
-const StvST = RamaStorage.stv;
-const FixST = RamaStorage.fix;

@@ -31,17 +31,17 @@ class SaveModule {
         };
         this.data.stv_ms = stv_ms;
         this.data.MS = MS;
-
-        this.savedItems.push({
+        const savedItem = {
             [name]: {
-                // calc: this.counter,
                 glass: this.data.glass || null,
                 state: this.data.state,
                 size: this.data.size,
                 ms_stv: this.data.stv_ms || null,
                 ms_svet: this.data.MS || null,
             }
-        })
+        };
+
+        this.savedItems.push(savedItem)
         console.clear();
         return this.info
     }

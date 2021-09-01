@@ -30,20 +30,24 @@ function restoreValues() {
     let SavedState = localStorage.getItem('bgState') || null;
     if (!SavedState) return;
     if (SavedState) {
-        const btnClick = () => document.querySelector(`[data-type_sel=${SavedState}]`).click();
-        setTimeout(btnClick, 100)
+        setTimeout(() => document.querySelector(`[data-type_sel=${SavedState}]`).click(), 100)
     }
 
     return this
 }
 
 function load(src) {
-    setTimeout(() => {
-        let $scr = document.createElement('script');
-        $scr.src = src;
-        document.head.append($scr);
-    }, 10)
+    let $scr = document.createElement('script');
+    $scr.src = src;
+    document.head.append($scr);
 }
+// function load(src) {
+//     let $scr = document.createElement('script');
+//     setTimeout(() => {
+//         $scr.src = src;
+//         document.head.append($scr);
+//     }, 10)
+// }
 
 async function startAPP(scripts) {
     scripts.forEach(item => load(item));
@@ -81,6 +85,7 @@ const $outputelem = {
 };
 const currentDepth = {
     ProLine: ['24mm', '28mm', '36mm', '40mm'],
+    ProLine232: ['24mm', '28mm', '36mm', '40mm'],
     SoftLine: ['24mm', '28mm', '36mm', '40mm'],
     EuroLine: ['24mm', '32mm'],
     SoftLine82: ['40mm', '52mm'],

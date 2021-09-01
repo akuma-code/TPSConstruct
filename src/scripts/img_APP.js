@@ -35,9 +35,7 @@ const Sidelist = {
 };
 
 const Detailslist = {
-    stv: `<span>
-                <input type="checkbox" name="stv232" id="stv232" disabled>
-                <label for="stv232">Нестандартная створка .232</label>
+    stv: `<span>                
                 </span>`,
     fix: '<span>Фикса, просто фикса...</span>',
     svet: '<span>Только для определения размеров москитных сеток!</span>',
@@ -67,7 +65,6 @@ $main.addEventListener('click', function(e) {
         document.querySelector('[data-side=depth]').innerHTML = setDepth(target.textContent);
 
         $StatusCheck.system = target.textContent
-        is232(target.textContent);
     }
 
     if (target.matches('[data-side=depth] *')) {
@@ -107,26 +104,9 @@ function setDepth(system) {
     return list
 }
 
-// function setStatusInfo(StatusObject = $StatusCheck) {
-//     let result = '';
-//     const sides = ['top', 'bot', 'left', 'right'];
-//     for (let key in StatusObject) {
-//         (sides.includes(key)) ? result += `<li>${key}: ${StatusObject[key]}(${current_delta[key]})</li>`:
-//             result += `<li>${key}: ${StatusObject[key]}</li>`
-//     }
-//     return result
-// }
 
 function tglActive(element) {
     element.classList.toggle('active')
-}
-
-function is232(system) {
-    let elem = document.getElementById('stv232');
-    if (!elem) return
-    elem.disabled = (system == 'ProLine' || system == 'SoftLine') ? false : true;
-    if (elem.disabled) elem.checked = false;
-    return
 }
 
 function updateDB(storage = {}) {

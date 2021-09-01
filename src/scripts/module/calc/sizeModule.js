@@ -62,12 +62,14 @@ class DeltaCalcModule extends StorageModule {
 
     updateGlass() {
 
+
         const sideBox = [];
-        const {
+        let {
             type,
             system
         } = getState();
-        if (type === 'svet') return
+        if (type === 'svet') return;
+
         const {
             w,
             h
