@@ -71,6 +71,7 @@ const $img_conteiner = document.querySelector('.tps_img'),
     $stv232 = document.querySelector('#stv232'),
     $ms_simple = document.querySelector('#ms_simple'),
     $ms_skf = document.querySelector('#ms_skf'),
+    $weight = document.querySelector('#gweight'),
     $out_glass = document.querySelector('#out_glass');
 
 const $outputelem = {

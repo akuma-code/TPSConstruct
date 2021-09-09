@@ -108,17 +108,21 @@ class DeltaCalcModule extends StorageModule {
         return this.Obj
     };
 
-    updateWeight() {
+    updateWeight(gls) {
         const {
             type
         } = getState();
-        if (type === 'svet') return
-        const $Welem = document.querySelector('#gweight').value;
-        const glasses = Array.from($Welem).join(',').split(',');
+        // if (type === 'svet') return
+        const $Welem = document.querySelector('#gweight');
+        // const glasses = Array.from($Welem.value || 0).join(',').split(',');
+        const glasses = Array.from(gls || 0).join(',').split(',');
         const sumOfGlasses = glasses.reduce((sum, current) => sum + parseInt(current), 0);
 
         // console.log(sumOfGlasses);
-        const weight = getWeight(this.Obj.glass, sumOfGlasses);
+        const weight = getWeight(this.storage.get('glass'), sumOfGlasses);
+
+        // const pseudo = getWeight(new SizeItem(), sumOfGlasses);
+        // this.storage.set('svetW', pseudo)
         this.storage.set('weight', weight)
         return weight
     };
@@ -129,7 +133,11 @@ class DeltaCalcModule extends StorageModule {
             w,
             h
         } = new SizeItem();
-        const MS = SS(w, h);
+        const glasses = Array.from($weight.value || 0).join(',').split(',');
+        const sumOfGlasses = glasses.reduce((sum, current) => sum + parseInt(current), 0);
+        let MS = SS(w, h);
+        MS.weight = getWeight({ gw: w, gh: h }, sumOfGlasses);
+
         // let MS = SS(this.storage.get('w'), this.storage.get('h'));
         this.storage.set('MS', MS);
         return this.Obj
@@ -195,18 +203,22 @@ class ListenerModule extends DeltaCalcModule {
     updSides() {
         this.updateGlass();
         this.updateStvMs();
+        this.updateWeight($weight.value);
         return Send2HTML(this.Obj)
     };
 
     updMSCalc() {
         this.storage.set('type', 'svet');
-        this.updateMS()
+        this.updateWeight($weight.value)
+        this.updateMS();
         return Send2HTML(this.Obj)
     };
 
     updWeight() {
-        this.updateWeight();
-        return Send2HTML(this.Obj)
+        const gls = $weight.value
+        this.updateWeight(gls || 0);
+        Send2HTML()
+        return
     }
 };
 
@@ -250,6 +262,10 @@ const MSoutputModel = (MS) => [{
     {
         type: 'simple_whs',
         div: `<div style='margin-top: 20px'><span># на WHS:</span>${spanResult(MS.simple_whs.w, MS.simple_whs.h)}</div>`
+    },
+    {
+        type: 'weight',
+        div: `<div><span>Вес ст/п:</span>${spanWeight(MS.weight)}</div>`
     },
 ];
 

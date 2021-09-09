@@ -126,6 +126,7 @@ const SvetStorage = {
             w: +w + this.simple_whs.dw,
             h: +h + this.simple_whs.dh
         };
+
         return result
     },
 
