@@ -35,8 +35,7 @@ const Sidelist = {
 };
 
 const Detailslist = {
-    stv: `<span>                
-                </span>`,
+    stv: `<span></span>`,
     fix: '<span>Фикса, просто фикса...</span>',
     svet: '<span>Только для определения размеров москитных сеток!</span>',
     toHTML(current_state) {
@@ -51,9 +50,9 @@ $main.addEventListener('click', function(e) {
     let target = e.target;
     //! выделение строки списка
     if (target.matches('li')) {
-        let current_side = target.closest('ul').dataset.side;
-        document.querySelector(`${$outputelem[current_side]}`).innerText = target.textContent
-        $StatusCheck[current_side] = target.textContent;
+        let selector = target.closest('ul').dataset.side;
+        document.querySelector(`${$outputelem[selector]}`).innerText = target.textContent
+        $StatusCheck[selector] = target.textContent;
         for (let elem of target.closest('ul').children) {
             elem.classList.remove('selected')
         }
@@ -89,7 +88,7 @@ $tgl_btn.addEventListener('click', function(event) {
     if (t.matches('[data-tgl-status]')) {
         const state = t.dataset.tglStatus;
         Sidelist.setup(state);
-        Detailslist.toHTML(state);
+        // Detailslist.toHTML(state);
         selectBGimg(state);
         checkSideState(t);
 

@@ -71,6 +71,10 @@ function spanResult(w, h) {
     return `<span><b>${w}</b> x <b>${h}</b> мм</span>`
 };
 
+function spanWeight(weight) {
+    return `<span><b>${weight}</b> кг</span>`
+};
+
 const square = (w, h) => Math.round(w / 100 * h / 100) / 100;
 
 function sqResult(w, h) {
@@ -87,3 +91,19 @@ function destructor(obj) {
     });
     return console.table(resultObj)
 };
+
+function getWeight(glass = {}, ...args) {
+    const {
+        gw,
+        gh
+    } = glass;
+    let gage = 0;
+    for (let gl of args) {
+        gage += gl
+    };
+    const glSquare = (w, h) => Math.round(w / 100 * h / 100) / 100;
+    const mass = glSquare(gw, gh) * gage * 2.5;
+    const result = Math.floor(mass * 10) / 10
+
+    return result
+}

@@ -61,8 +61,6 @@ class DeltaCalcModule extends StorageModule {
     }
 
     updateGlass() {
-
-
         const sideBox = [];
         let {
             type,
@@ -108,7 +106,22 @@ class DeltaCalcModule extends StorageModule {
         const stv_ms = MS_STV(this.Obj);
         this.storage.set('stv_ms', stv_ms);
         return this.Obj
-    }
+    };
+
+    updateWeight() {
+        const {
+            type
+        } = getState();
+        if (type === 'svet') return
+        const $Welem = document.querySelector('#gweight').value;
+        const glasses = Array.from($Welem).join(',').split(',');
+        const sumOfGlasses = glasses.reduce((sum, current) => sum + parseInt(current), 0);
+
+        // console.log(sumOfGlasses);
+        const weight = getWeight(this.Obj.glass, sumOfGlasses);
+        this.storage.set('weight', weight)
+        return weight
+    };
 
     updateMS() {
         getState();
@@ -117,6 +130,7 @@ class DeltaCalcModule extends StorageModule {
             h
         } = new SizeItem();
         const MS = SS(w, h);
+        // let MS = SS(this.storage.get('w'), this.storage.get('h'));
         this.storage.set('MS', MS);
         return this.Obj
     }
@@ -188,6 +202,11 @@ class ListenerModule extends DeltaCalcModule {
         this.storage.set('type', 'svet');
         this.updateMS()
         return Send2HTML(this.Obj)
+    };
+
+    updWeight() {
+        this.updateWeight();
+        return Send2HTML(this.Obj)
     }
 };
 
@@ -231,7 +250,7 @@ const MSoutputModel = (MS) => [{
     {
         type: 'simple_whs',
         div: `<div style='margin-top: 20px'><span># на WHS:</span>${spanResult(MS.simple_whs.w, MS.simple_whs.h)}</div>`
-    }
+    },
 ];
 
 const RamaOutputModel = (sizes) => [{
@@ -240,6 +259,9 @@ const RamaOutputModel = (sizes) => [{
 }, {
     type: 'square',
     div: `<div><span>Площадь ст/п:</span>${sqResult(sizes.glass.gw, sizes.glass.gh)}</div>`
+}, {
+    type: 'weight',
+    div: `<div><span>Вес ст/п:</span>${spanWeight(sizes.weight)}</div>`
 }, {
     type: 'shtap',
     div: `<div><span>Штапик:</span>${spanResult(sizes.glass.gw+10, sizes.glass.gh+10)}</div>`

@@ -32,22 +32,28 @@ class SaveModule {
         this.data.stv_ms = stv_ms;
         this.data.MS = MS;
         const savedItem = {
-            [name]: {
-                glass: this.data.glass || null,
-                state: this.data.state,
-                size: this.data.size,
-                ms_stv: this.data.stv_ms || null,
-                ms_svet: this.data.MS || null,
-            }
+
+            glass: this.data.glass || null,
+            state: this.data.state,
+            size: this.data.size,
+            ms_stv: this.data.stv_ms || null,
+            ms_svet: this.data.MS || null,
+
         };
 
-        this.savedItems.push(savedItem)
+        this.savedItems.push(savedItem);
+        const toLS = JSON.stringify(this.savedItems);
+        localStorage.setItem('Saved', toLS);
         console.clear();
         return this.info
-    }
+    };
 
     get info() {
-        this.savedItems.forEach(item => console.table(item))
+        this.savedItems.forEach(item => console.log(
+            item
+        ))
         return
     }
 };
+
+const ssm = new SaveModule();
