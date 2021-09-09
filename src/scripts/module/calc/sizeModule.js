@@ -97,8 +97,8 @@ class DeltaCalcModule extends StorageModule {
         });
 
         const glass = {
-            gw: Math.floor(w - dw),
-            gh: Math.floor(h - dh)
+            gw: w - Math.floor(dw),
+            gh: h - Math.floor(dh)
         }
 
         this.storage.set('glass', glass);
@@ -117,7 +117,6 @@ class DeltaCalcModule extends StorageModule {
             h
         } = new SizeItem();
         const MS = SS(w, h);
-        // let MS = SS(this.storage.get('w'), this.storage.get('h'));
         this.storage.set('MS', MS);
         return this.Obj
     }
