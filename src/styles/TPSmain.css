@@ -18,9 +18,14 @@
 }
 
 div.tps_head>a {
+    transition: color .2s ease-in;
     text-align: left;
     font-size: 1.3rem;
     padding-left: 10px;
+}
+
+div.tps_head>a:hover {
+    color: rgb(204, 235, 65);
 }
 
 .tps_sys {
