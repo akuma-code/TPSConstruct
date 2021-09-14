@@ -186,6 +186,7 @@
     margin: 4px 2px;
     padding: 0;
     width: min-content;
+    text-align: center;
 }
 
 [data-tgl-status=info]::before {
