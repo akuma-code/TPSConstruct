@@ -109,20 +109,15 @@ class DeltaCalcModule extends StorageModule {
     };
 
     updateWeight(gls) {
+        if (!gls) return 0;
         const {
             type
         } = getState();
-        // if (type === 'svet') return
         const $Welem = document.querySelector('#gweight');
-        // const glasses = Array.from($Welem.value || 0).join(',').split(',');
-        const glasses = Array.from(gls || 0).join(',').split(',');
+        const glasses = Array.from(gls).join(',').split(',');
         const sumOfGlasses = glasses.reduce((sum, current) => sum + parseInt(current), 0);
-
         // console.log(sumOfGlasses);
-        const weight = getWeight(this.storage.get('glass'), sumOfGlasses);
-
-        // const pseudo = getWeight(new SizeItem(), sumOfGlasses);
-        // this.storage.set('svetW', pseudo)
+        const weight = this.storage.get('glass') && getWeight(this.storage.get('glass'), sumOfGlasses);
         this.storage.set('weight', weight)
         return weight
     };
@@ -216,7 +211,7 @@ class ListenerModule extends DeltaCalcModule {
 
     updWeight() {
         const gls = $weight.value
-        this.updateWeight(gls || 0);
+        this.updateWeight(gls || null);
         Send2HTML()
         return
     }
@@ -265,7 +260,7 @@ const MSoutputModel = (MS) => [{
     },
     {
         type: 'weight',
-        div: `<div><span>Вес ст/п:</span>${spanWeight(MS.weight)}</div>`
+        div: `<div style='margin-top: 20px; color: #fff'><span>Вес ст/п:</span>${spanWeight(MS.weight || 0)}</div>`
     },
 ];
 
@@ -277,7 +272,7 @@ const RamaOutputModel = (sizes) => [{
     div: `<div><span>Площадь ст/п:</span>${sqResult(sizes.glass.gw, sizes.glass.gh)}</div>`
 }, {
     type: 'weight',
-    div: `<div><span>Вес ст/п:</span>${spanWeight(sizes.weight)}</div>`
+    div: `<div style='color: #fff'><span>Вес ст/п:</span>${spanWeight(sizes.weight || 0)}</div>`
 }, {
     type: 'shtap',
     div: `<div><span>Штапик:</span>${spanResult(sizes.glass.gw+10, sizes.glass.gh+10)}</div>`
