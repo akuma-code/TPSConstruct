@@ -3,18 +3,20 @@
     position: absolute;
     width: 450px;
     height: 600px;
-    background-color: darkkhaki;
+    background-color: #2e37669f;
     left: var(--pos-tps-left);
     top: var(--pos-tps-top);
     grid-template-columns: repeat(3, 1fr) 100px 100px;
     grid-template-rows: 3rem 2rem 3rem 1rem 24px 32px 48px 64px 64px 168px 32px;
     grid-template-areas: "head head head head head" "sys sys dpt out out" "det det det out out" "det det det out out" "size size size out out" "size size size out out" "tgl tgl tgl tgl tgl" ". img img img ." "leftS img img img rightS " ". img img img ." ". botS botS botS .";
     grid-gap: 5px 10px;
+    border-radius: 15px;
+    border: 1px solid #000;
 }
 
 .tps_head {
     grid-area: head;
-    background-color: brown;
+    /* background-color: brown; */
 }
 
 div.tps_head>a {
@@ -38,6 +40,7 @@ div.tps_head>a:hover {
     cursor: pointer;
     font-size: larger;
     font-weight: bolder;
+    margin-left: 5px;
 }
 
 .tps_sys_content {
@@ -102,13 +105,14 @@ div.tps_head>a:hover {
 
 .tps_det {
     grid-area: det;
-    background-color: #d8101069;
     display: flex;
+    /* background-color: #d8101069; */
     flex-direction: column;
-    align-content: center;
-    align-items: center;
+    align-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
     place-content: center;
+    justify-content: flex-end;
 }
 
 .tps_tgl {

@@ -48,6 +48,15 @@ class SaveModule {
         return this.info
     };
 
+    destruct(index = -1) {
+        if (index === -1) return console.log(`saveitem not found!`)
+        const item = this.savedItems[index];
+        const { glass, state, size, ms_stv, ms_svet } = item;
+        return { glass, state, size, ms_stv, ms_svet }
+
+
+    }
+
     get info() {
         this.savedItems.forEach(item => console.log(
             item

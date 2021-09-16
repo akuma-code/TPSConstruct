@@ -37,13 +37,11 @@
     text-align: center;
     padding: 0;
     margin: 0;
-    background: darkgray;
-    transition: all .4s;
+    /* background: darkgray; */
+    transition: all .2s;
 }
 
-:is(span, input)[output]:hover {
-    background: none
-}
+:is(span, input)[output]:hover {}
 
 :is(span, input)[output]:active {
     color: beige;
@@ -62,6 +60,7 @@ span:is([output=right], [output=left]) {
 .drop_content li {
     border-top: 2px solid rgb(110, 110, 110);
     border-bottom: 2px solid #000000;
+    text-align: center;
 }
 
 .tps_sys_content li {
