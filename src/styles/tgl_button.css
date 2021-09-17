@@ -90,7 +90,6 @@
 .tgl_big_box {
     display: flex;
     position: relative;
-    /* background-color: #7589a7; */
     height: 100%;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -99,6 +98,8 @@
     align-content: space-around;
     padding-top: 2px;
     padding-bottom: 2px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .tgl_big_item:not([data-tgl-status=info]) {

@@ -166,6 +166,9 @@ span:is([output=right], [output=left]) {
     align-items: stretch;
     gap: 3px;
     padding: 7px 5px 0px 5px;
+    margin-right: 5px;
+    border: 1px solid #692222;
+    border-radius: 5px;
 }
 
 .tps_output span {
@@ -183,10 +186,21 @@ span:is([output=right], [output=left]) {
     font-weight: bolder;
 }
 
-.tps_size {
+.tps_size_h {
     background-color: transparent;
     display: flex;
-    grid-area: size;
+    grid-area: sizeh;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: stretch;
+    flex-direction: column;
+}
+
+.tps_size_w {
+    background-color: transparent;
+    display: flex;
+    grid-area: sizew;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
@@ -194,7 +208,18 @@ span:is([output=right], [output=left]) {
     align-content: space-around;
 }
 
-.tps_size input {
+input[name='tps_w'] {
+    appearance: none;
+    width: 95px;
+    height: 30px;
+    text-align: center;
+    font-size: 1rem;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+input[name='tps_h'] {
     appearance: none;
     width: 95px;
     height: 30px;
@@ -230,6 +255,6 @@ div.disp_none {
     position: relative;
     display: block;
     margin-left: var(--pos-tps-left);
-    top: 78%;
+    top: 88%;
     z-index: 10;
 }
