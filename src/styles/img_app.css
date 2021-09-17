@@ -186,10 +186,13 @@ span:is([output=right], [output=left]) {
     font-weight: bolder;
 }
 
+
+/*!H */
+
 .tps_size_h {
+    grid-area: sizeh;
     background-color: transparent;
     display: flex;
-    grid-area: sizeh;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
@@ -197,15 +200,18 @@ span:is([output=right], [output=left]) {
     flex-direction: column;
 }
 
+
+/* !W */
+
 .tps_size_w {
+    grid-area: sizew;
     background-color: transparent;
     display: flex;
-    grid-area: sizew;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-content: stretch;
     flex-direction: column;
-    align-content: space-around;
 }
 
 input[name='tps_w'] {
