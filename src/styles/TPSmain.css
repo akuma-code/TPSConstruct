@@ -2,13 +2,13 @@
     display: grid;
     position: absolute;
     width: 500px;
-    height: 660px;
+    height: 620px;
     background-color: #2e37669f;
     left: var(--pos-tps-left);
     top: var(--pos-tps-top);
-    grid-template-columns: repeat(4, 1fr) 100px;
+    grid-template-columns: 80px 1fr 1fr 100px 100px;
     grid-template-rows: 3rem 2rem 3rem 1rem 24px 32px 48px 64px 64px 130px 64px;
-    grid-template-areas: "head head head head head" "sys sys dpt out out" "det det det out out" "det det det out out" "size size size out out" "size size size out out" "tgl tgl tgl tgl tgl" "weight weight img img ." "leftS . img img rightS " "sizeh sizeh img img ." ". . sizew  sizew sizew ";
+    grid-template-areas: "head head head head head" "sys sys dpt out out" "btn1 btn1 btn1 out out" "btn2 btn2 btn2 out out" "btn3 btn3 btn3 out out" "btn4 btn4 btn4 out out" "tgl tgl tgl tgl tgl" ". . img img ." ". sizeh img img . " ". . img img we" ". . sizew  sizew . ";
     grid-gap: 5px 10px;
     border-radius: 15px;
     border: 1px solid #000;
@@ -105,22 +105,16 @@ div.tps_head>a:hover {
     border-radius: 5px;
 }
 
-input[name="gweight"] {
-    appearance: none;
-    width: 70px;
-    text-align: center;
-}
-
-.tps_det {
-    grid-area: weight;
+.tps_gweight {
+    grid-area: we;
     display: flex;
     flex-direction: column;
-    align-content: flex-start;
-    align-items: flex-start;
+    align-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
     place-content: flex-start;
-    justify-content: flex-end;
-    margin-left: 5px;
+    justify-content: center;
+    margin-right: 5px;
 }
 
 .tps_tgl {
@@ -139,7 +133,7 @@ input[name="gweight"] {
     display: flex;
     position: relative;
     left: 20px;
-    top: 75%;
+    top: 65%;
     width: 450px;
     height: max-content;
     background-color: darkseagreen;

@@ -236,6 +236,13 @@ input[name='tps_h'] {
     padding: 0;
 }
 
+input[name="gweight"] {
+    appearance: none;
+    width: 75px;
+    height: 25px;
+    text-align: center;
+}
+
 .tps_button {
     grid-area: btn;
     width: 100%;
@@ -261,6 +268,6 @@ div.disp_none {
     position: relative;
     display: block;
     margin-left: var(--pos-tps-left);
-    top: 88%;
+    top: 82%;
     z-index: 10;
 }
