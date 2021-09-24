@@ -71,15 +71,15 @@ $main.addEventListener('click', function(e) {
     }
 
     //! настройка отображения детализации
-    if (target.matches('.tgl_big_item')) {
-        if (target.matches('.tgl_big_item[data-tgl-status=info')) return
-        for (let elem of target.closest('.tgl_big_box').children) {
-            elem.classList.remove('active')
-        }
-        target.classList.add('active');
-        // !updateOutput();
-
-    }
+    //     if (target.matches('.tgl_big_item')) {
+    //         if (target.matches('.tgl_big_item[data-tgl-status=info')) return
+    //         for (let elem of target.closest('.tgl_big_box').children) {
+    //             elem.classList.remove('active')
+    //         }
+    //         target.classList.add('active');
+    //         // !updateOutput();
+    // 
+    //     }
 }, true);
 
 $tgl_btn.addEventListener('click', function(event) {
@@ -91,6 +91,7 @@ $tgl_btn.addEventListener('click', function(event) {
         // Detailslist.toHTML(state);
         selectBGimg(state);
         checkSideState(t);
+
 
     };
 

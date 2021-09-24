@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <!-- <script src='src/loader.js'></script> -->
+    <title>TPS Construct</title>
     <link rel='stylesheet' href='src/style.css'>
     <meta charset='UTF-8'>
     <script>
@@ -17,7 +17,7 @@
     <div class="cont_bg">
         <div class="tps_main">
             <div class="tps_head">
-                <a href="/zcalc/zindex.html" target="_blank">Открыть калькулятор жалюзёв!</a>
+                <h2>ТехПомощь Стайл Калькулятор</h2>
             </div>
             <div class="tps_sys" data-selector='system'>
                 <span output='system' data-stdb="system">system</span>
@@ -35,8 +35,13 @@
                 <span output="depth" data-stdb="depth">depth</span>
                 <ul class="drop_content" data-side="depth"></ul>
             </div>
+            <div class="btn1"><button><a href="/zcalc/zindex.html" target="_blank">Открыть калькулятор
+                        жалюзёв!</a></button></div>
+            <div class="btn2"><button disabled>Button</button></div>
+            <div class="btn3"><button disabled>Button</button></div>
+            <div class="btn4"><button disabled>Button</button></div>
             <div class="tps_gweight">
-                <label for="gweight">Стекла в ст\п</label>
+                <label for="gweight">Стеклопакет</label>
                 <input type="text" name="gweight" id="gweight" data-handler="updWeight" data-handler-type="input" placeholder="толщина" tabindex="3"></input>
             </div>
 
@@ -82,11 +87,15 @@
             <div class="tps_tgl">
 
                 <div class="tgl_big_box" data-tgl-status="stv" data-html-type=''>
-                    <div class="tgl_big_item" data-tgl-status="info">СТ\ПАКЕТ ПО:</div>
-                    <div data-handler-type='click' data-handler='updSides' class="ts tgl_big_item" data-tgl-status="stv" data-type_sel='stv'></div>
-                    <div data-handler-type='click' data-handler='updSides' class="ts tgl_big_item" data-tgl-status="fix" data-type_sel='fix'></div>
-                    <div class="tgl_big_item" data-tgl-status="info">или размеры </div>
-                    <div data-handler-type='click' data-handler='updMSCalc' class="ts tgl_big_item" data-tgl-status="svet" data-type_sel='svet'></div>
+                    <div class="btn_rama">
+                        <span>Размеры по раме:</span>
+                        <div data-handler-type='click' data-handler='updSides' class="ts tgl_big_item" data-tgl-status="stv" data-type_sel='stv'></div>
+                        <div data-handler-type='click' data-handler='updSides' class="ts tgl_big_item" data-tgl-status="fix" data-type_sel='fix'></div>
+                    </div>
+                    <div class="btn_svet">
+                        <kbd>Размеры по свету</kbd>
+                        <div data-handler-type='click' data-handler='updMSCalc' class="ts tgl_big_item" data-tgl-status="svet" data-type_sel='svet'></div>
+                    </div>
                 </div>
             </div>
         </div>

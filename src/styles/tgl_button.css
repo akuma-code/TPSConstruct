@@ -90,7 +90,7 @@
 .tgl_big_box {
     display: flex;
     position: relative;
-    height: 100%;
+    height: 60px;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
@@ -102,18 +102,18 @@
     margin-left: 5px;
 }
 
-.tgl_big_item:not([data-tgl-status=info]) {
+.tgl_big_item {
     display: flex;
     border: 2px ridge brown;
     font-size: 1rem;
-    height: 95%;
+    height: 32px;
+    width: 108px;
     place-items: center;
     text-align: center;
     font-weight: 700;
     transition: all .3s ease-in;
     cursor: pointer;
     border-radius: 5px;
-    width: 22%;
     position: relative;
     overflow: hidden;
     z-index: 5;
@@ -126,14 +126,12 @@
     background-size: 120% 100%;
 } */
 
-.tgl_big_item>span:active {
-    color: beige;
-}
-
-.tgl_big_item>span {
-    margin: 6px;
+:is(.btn_rama, .btn_svet)>span {
+    display: block;
+    width: 100%;
+    height: 30px;
     transition: all .3s;
-    color: black;
+    text-align: center;
 }
 
 .active {
@@ -146,7 +144,7 @@
     z-index: 400;
 }
 
-.tgl_big_item[data-tgl-status='stv']:after {
+.btn_rama .tgl_big_item[data-tgl-status='stv']:after {
     content: 'Створке';
     margin: 2px auto;
     z-index: 190;
@@ -202,4 +200,36 @@
 
 .tgl_big_item:hover::before {
     width: 100%;
+}
+
+.btn_svet {
+    position: relative;
+    display: flex;
+    width: 150px;
+    height: 71px;
+    background-color: bisque;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.479);
+    z-index: 1;
+}
+
+.btn_rama {
+    position: relative;
+    display: flex;
+    width: 225px;
+    height: 64px;
+    background-color: bisque;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #000;
+    z-index: 1;
 }

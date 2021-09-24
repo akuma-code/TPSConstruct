@@ -7,8 +7,8 @@
     left: var(--pos-tps-left);
     top: var(--pos-tps-top);
     grid-template-columns: 80px 1fr 1fr 100px 100px;
-    grid-template-rows: 3rem 2rem 3rem 1rem 24px 32px 48px 64px 64px 130px 64px;
-    grid-template-areas: "head head head head head" "sys sys dpt out out" "btn1 btn1 btn1 out out" "btn2 btn2 btn2 out out" "btn3 btn3 btn3 out out" "btn4 btn4 btn4 out out" "tgl tgl tgl tgl tgl" ". . img img ." ". sizeh img img . " ". . img img we" ". . sizew  sizew . ";
+    grid-template-rows: 3rem 2rem 30px 25px 25px 25px 64px 64px 64px 130px 64px;
+    grid-template-areas: "head head head head head""sys sys dpt out out""btn1 btn1 btn1 out out""btn2 btn2 btn2 out out""btn3 btn3 btn3 out out""btn4 btn4 btn4 out out""tgl tgl tgl tgl tgl"". we img img ."". sizeh img img . "". . img img ."". . sizew  sizew . ";
     grid-gap: 5px 10px;
     border-radius: 15px;
     border: 1px solid #000;
@@ -17,6 +17,12 @@
 .tps_head {
     grid-area: head;
     /* background-color: brown; */
+}
+
+.tps_head>h2 {
+    text-align: center;
+    color: #add8e6;
+    margin-top: 5px;
 }
 
 div.tps_head>a {
@@ -42,6 +48,22 @@ div.tps_head>a:hover {
     font-weight: bolder;
     margin-left: 5px;
     border-radius: 3px;
+}
+
+.btn1 {
+    grid-area: btn1;
+}
+
+.btn2 {
+    grid-area: btn2;
+}
+
+.btn3 {
+    grid-area: btn3;
+}
+
+.btn4 {
+    grid-area: btn4;
 }
 
 .tps_sys_content {

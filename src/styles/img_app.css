@@ -207,7 +207,7 @@ span:is([output=right], [output=left]) {
     grid-area: sizew;
     background-color: transparent;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: nowrap;
     align-content: stretch;
