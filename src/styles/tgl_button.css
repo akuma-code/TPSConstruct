@@ -93,7 +93,7 @@
     height: 60px;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     align-content: space-around;
     padding-top: 2px;
@@ -118,6 +118,11 @@
     overflow: hidden;
     z-index: 5;
     border-collapse: collapse;
+}
+
+.btn_svet>.tgl_big_item {
+    height: 32px;
+    width: 100%;
 }
 
 
@@ -145,19 +150,19 @@
 }
 
 .btn_rama .tgl_big_item[data-tgl-status='stv']:after {
-    content: 'Створке';
+    content: 'Со створкой';
     margin: 2px auto;
     z-index: 190;
 }
 
-.tgl_big_item[data-tgl-status='fix']:after {
-    content: 'Фиксе';
+.btn_rama .tgl_big_item[data-tgl-status='fix']:after {
+    content: 'Фикса';
     margin: 2px auto;
     z-index: 100;
 }
 
 .tgl_big_item[data-tgl-status='svet']:after {
-    content: 'По свету';
+    content: 'Световой проем';
     margin: 2px auto;
     z-index: 100;
 }
@@ -206,7 +211,7 @@
     position: relative;
     display: flex;
     width: 150px;
-    height: 71px;
+    height: 64px;
     background-color: bisque;
     flex-direction: row;
     flex-wrap: wrap;
@@ -214,7 +219,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.479);
+    border: 1px solid rgb(0, 0, 0);
     z-index: 1;
 }
 
