@@ -70,27 +70,33 @@ $main.addEventListener('click', function(e) {
         $StatusCheck.depth = target.textContent
     }
 
-    //! настройка отображения детализации
-    //     if (target.matches('.tgl_big_item')) {
-    //         if (target.matches('.tgl_big_item[data-tgl-status=info')) return
-    //         for (let elem of target.closest('.tgl_big_box').children) {
-    //             elem.classList.remove('active')
-    //         }
-    //         target.classList.add('active');
-    //         // !updateOutput();
-    // 
-    //     }
+
 }, true);
 
-$tgl_btn.addEventListener('click', function(event) {
+$tgl_rama.addEventListener('click', function(event) {
     let t = event.target;
-    if (t.matches('[data-tgl-status=info]')) return
     if (t.matches('[data-tgl-status]')) {
         const state = t.dataset.tglStatus;
         Sidelist.setup(state);
-        // Detailslist.toHTML(state);
         selectBGimg(state);
         checkSideState(t);
+        $tgl_svet.classList.remove('active');
+        $tgl_rama.classList.add('active')
+
+
+    };
+
+}, true)
+$tgl_svet.addEventListener('click', function(event) {
+    let t = event.target;
+    const active_elems = document.getElementsByClassName('ts');
+    if (t.matches('[data-tgl-status]')) {
+        const state = t.dataset.tglStatus;
+        Sidelist.setup(state);
+        selectBGimg(state);
+        checkSideState(t);
+        $tgl_rama.classList.remove('active');
+        $tgl_svet.classList.add('active')
 
 
     };

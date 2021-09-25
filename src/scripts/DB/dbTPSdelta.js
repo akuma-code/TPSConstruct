@@ -325,7 +325,7 @@ const NetStorage = {
     },
 }
 const SS = (w = 0, h = 0) => SvetStorage.calc(w, h);
-const MS_STV = ( /** @type {{ glass: object; system?: string; type?: string; }} */ SizeObj) => {
+const MS_STV = (SizeObj = {}) => {
     const {
         system,
         type

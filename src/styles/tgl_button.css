@@ -1,92 +1,3 @@
-.tgl_box {
-    display: block;
-    position: relative;
-    width: 42px;
-    height: 22px;
-    background-color: darkred;
-    border: 1px solid black;
-    border-radius: 4px;
-    margin: 0 auto;
-    cursor: pointer;
-    transition: all .2s;
-}
-
-.tgl_thumb {
-    display: block;
-    position: absolute;
-    transition: all .2s;
-    background-color: rgb(30, 174, 210);
-    height: 20px;
-    width: 24px;
-    border: 1px inset #4b4b4b;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.tgl_box::before {
-    content: 'Фикса';
-    position: absolute;
-    right: 110%;
-    top: 10%;
-    cursor: default;
-    font-weight: bold;
-    border-bottom: 3px solid black;
-    cursor: default;
-    font-weight: bold;
-    background-blend-mode: hue;
-    border-radius: 5px;
-}
-
-.stv_bg.tgl_box::before {
-    opacity: .3;
-    cursor: pointer;
-    font-weight: normal;
-    border: none;
-}
-
-.fix_bg.tgl_box::before {
-    opacity: 1;
-}
-
-.tgl_box::after {
-    content: 'Створка';
-    position: absolute;
-    left: 110%;
-    top: 10%;
-    background-blend-mode: hue;
-    border-radius: 5px;
-    cursor: default;
-    font-weight: bold;
-    border-bottom: 3px solid black;
-}
-
-.stv_bg.tgl_box::after {
-    opacity: 1;
-}
-
-.fix_bg.tgl_box::after {
-    opacity: .3;
-    cursor: pointer;
-    font-weight: normal;
-    border: none;
-}
-
-.tgl_thumb[data-tgl-status='fix'] {
-    left: 0px;
-}
-
-.tgl_thumb[data-tgl-status='stv'] {
-    left: 16px;
-}
-
-.stv_bg {
-    background-color: darkred;
-}
-
-.fix_bg {
-    background-color: darkred;
-}
-
 .tgl_big_box {
     display: flex;
     position: relative;
@@ -139,13 +50,13 @@
     text-align: center;
 }
 
-.active {
-    background-color: #168ec5;
-    border: 4px ridge brown;
-    border-radius: 5px;
+:is(.btn_rama, .btn_svet).active {
+    background-color: #869ff1;
+    border: 4px inset rgba(165, 42, 42, 0.705);
+    border-radius: 10px;
     /* text-transform: uppercase; */
     font-size: 1rem;
-    color: #dfdfdf;
+    color: #000000;
     z-index: 400;
 }
 
@@ -237,4 +148,5 @@
     border-radius: 10px;
     border: 1px solid #000;
     z-index: 1;
+    margin-left: 5px;
 }
