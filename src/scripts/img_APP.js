@@ -75,29 +75,32 @@ $main.addEventListener('click', function(e) {
 
 $tgl_rama.addEventListener('click', function(event) {
     let t = event.target;
+    const el_active = Array.from(document.getElementsByClassName('ts'));
     if (t.matches('[data-tgl-status]')) {
         const state = t.dataset.tglStatus;
         Sidelist.setup(state);
         selectBGimg(state);
         checkSideState(t);
         $tgl_svet.classList.remove('active');
-        $tgl_rama.classList.add('active')
-
+        $tgl_rama.classList.add('active');
+        el_active.forEach(elem => elem.classList.remove('active'));
+        event.target.classList.add('active');
 
     };
 
 }, true)
 $tgl_svet.addEventListener('click', function(event) {
     let t = event.target;
-    const active_elems = document.getElementsByClassName('ts');
+    const el_active = Array.from(document.getElementsByClassName('ts'));
     if (t.matches('[data-tgl-status]')) {
         const state = t.dataset.tglStatus;
         Sidelist.setup(state);
         selectBGimg(state);
         checkSideState(t);
         $tgl_rama.classList.remove('active');
-        $tgl_svet.classList.add('active')
-
+        $tgl_svet.classList.add('active');
+        el_active.forEach(elem => elem.classList.remove('active'));
+        event.target.classList.add('active');
 
     };
 
