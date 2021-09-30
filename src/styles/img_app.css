@@ -66,6 +66,7 @@ span:is([output=right], [output=left]) {
 .tps_sys_content li {
     border-top: 2px solid rgb(110, 110, 110);
     border-bottom: 2px solid #000000;
+    z-index: 999;
 }
 
 .img_side[data-side="top"] {

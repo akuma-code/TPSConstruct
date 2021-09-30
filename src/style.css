@@ -11,7 +11,10 @@
     --gr-sel-l: leftS;
     --index-up: 100;
     --index-down: 5;
-    --bg-image: url('../assets/rama/stv.svg')
+    --bg-image: url('../assets/rama/stv.svg');
+    --arr1: url('../assets/arrows/Стрелка_1.svg');
+    --arr2: url('../assets/arrows/Стрелка_2.svg');
+    --arr3: url('../assets/arrows/Стрелка_3.svg');
 }
 
 .cont_bg {

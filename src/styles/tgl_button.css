@@ -40,7 +40,7 @@
     align-content: space-around;
     align-items: center;
     border-radius: 10px;
-    border: 2px ridge rgb(0, 0, 0);
+    border: 2px ridge #168ec5;
     z-index: 1;
     transition: all .2s ease-out;
     justify-content: center;
@@ -64,6 +64,19 @@
     transition: all .2s ease-out;
 }
 
+.btn_rama::after {
+    content: url(../assets/arrows/Стрелка_1.svg);
+    position: absolute;
+    display: block;
+    width: 50px;
+    left: 228px;
+    transition: all .2s ease-in-out;
+}
+
+.btn_rama:not(.active)::after {
+    transform: rotate(180deg);
+}
+
 .btn_svet>.tgl_big_item {
     height: 32px;
     width: 198px;
@@ -71,7 +84,7 @@
 
 .btn_rama>.tgl_big_item {
     height: 32px;
-    width: 108px;
+    width: 104px;
 }
 
 :is(.btn_rama, .btn_svet)>span {
@@ -88,24 +101,24 @@
 
 :is(.btn_rama, .btn_svet).active {
     background-color: #a0a0a0;
-    border: 4px ridge brown;
+    border: 3px ridge #168ec5;
     /* border-bottom: none; */
     border-radius: 10px;
     font-size: 1rem;
     color: #000000;
-    z-index: 400;
+    /* z-index: 100; */
 }
 
 .tgl_big_item:not(.active) {
     background-color: #a38f8f;
-    border: 1px solid rgba(0, 0, 0, 0.425);
-    border-bottom: 1px solid #000;
+    border: 2px ridge rgba(0, 0, 0, 0.425);
+    /* border-bottom: 1px solid #000; */
     z-index: 1;
 }
 
 .tgl_big_item.active {
     background-color: #168ec5;
-    border: 2px inset brown;
+    border: 3px ridge brown;
 }
 
 .btn_rama .tgl_big_item[data-tgl-status='stv']:after {
@@ -122,12 +135,6 @@
 
 .tgl_big_item[data-tgl-status='svet']:after {
     content: 'Световой проем';
-    margin: 2px auto;
-    z-index: 100;
-}
-
-.tgl_big_item[data-tgl-status='gls']:after {
-    content: 'По стеклу';
     margin: 2px auto;
     z-index: 100;
 }
