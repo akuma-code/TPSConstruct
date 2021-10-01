@@ -3,7 +3,7 @@
     position: absolute;
     width: 500px;
     height: 620px;
-    background-color: #2e37669f;
+    background-color: #2e3766;
     left: var(--pos-tps-left);
     top: var(--pos-tps-top);
     grid-template-columns: 80px 1fr 1fr 100px 100px;
@@ -50,6 +50,19 @@ div.tps_head>a:hover {
     border-radius: 3px;
 }
 
+.tps_sys::after {
+    content: url(../assets/arrows/Стрелка_2.svg);
+    position: absolute;
+    width: 22px;
+    right: 3px;
+    top: 5px;
+    transition: all .2s ease-out;
+}
+
+.tps_sys:hover::after {
+    transform: rotate(-90deg);
+}
+
 .btn1 {
     grid-area: btn1;
 }
@@ -66,6 +79,10 @@ div.tps_head>a:hover {
     grid-area: btn4;
 }
 
+:is(.btn1, .btn2, .btn3, .btn4) {
+    margin-left: 5px;
+}
+
 .grid_btn_rama {
     grid-area: btnr;
 }
@@ -77,6 +94,12 @@ div.tps_head>a:hover {
 .tps_sys_content {
     display: none;
     /* padding-top: 0.8rem; */
+}
+
+.drop_content li {
+    border-top: 2px solid rgb(110, 110, 110);
+    border-bottom: 2px solid #000000;
+    text-align: center;
 }
 
 :is(.tps_sys, .tps_dpt)>.drop_content {

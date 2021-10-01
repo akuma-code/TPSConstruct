@@ -41,8 +41,6 @@
     transition: all .2s;
 }
 
-:is(span, input)[output]:hover {}
-
 :is(span, input)[output]:active {
     color: beige;
     font-size: 15px;
@@ -55,12 +53,6 @@ span:is([output=top], [output=bot], [output=left], [output=right]) {
 span:is([output=right], [output=left]) {
     top: 50%;
     transform: rotate(270deg);
-}
-
-.drop_content li {
-    border-top: 2px solid rgb(110, 110, 110);
-    border-bottom: 2px solid #000000;
-    text-align: center;
 }
 
 .tps_sys_content li {
@@ -153,11 +145,6 @@ span:is([output=right], [output=left]) {
     z-index: 1000;
 }
 
-.drop_content li:hover {
-    opacity: 1;
-    background-color: #869ff1;
-}
-
 .tps_output {
     grid-area: out;
     background-color: #a496fd70;
@@ -168,8 +155,8 @@ span:is([output=right], [output=left]) {
     gap: 3px;
     padding: 7px 5px 0px 5px;
     margin-right: 5px;
-    border: 1px solid #692222;
-    border-radius: 5px;
+    border: 2px ridge #692222;
+    border-radius: 8px;
 }
 
 .tps_output span {
@@ -213,6 +200,10 @@ span:is([output=right], [output=left]) {
     flex-wrap: nowrap;
     align-content: stretch;
     flex-direction: column;
+}
+
+:is(.tps_size_w, .tps_size_h, .tps_gweight) label {
+    color: beige;
 }
 
 input[name='tps_w'] {

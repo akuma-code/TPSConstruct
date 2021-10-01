@@ -40,4 +40,7 @@ class TPSapp {
     }
 
 }
-new TPSapp('ctrl_panel');
+
+new TPSapp('savebtn');
+new TPSapp('updatebtn');
+new TPSapp('clearbtn');

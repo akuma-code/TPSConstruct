@@ -19,7 +19,7 @@
 
 .cont_bg {
     position: relative;
-    background-color: darkgoldenrod;
+    background-color: transparent;
     width: 600px;
     height: 800px;
 }
